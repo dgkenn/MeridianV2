@@ -13,8 +13,8 @@ from pathlib import Path
 import duckdb
 from clinical_recommendations import get_clinical_recommendations, format_recommendations_html
 import smtplib
-from email.mime.text import MimeText
-from email.mime.multipart import MimeMultipart
+from email.mime.text import MIMEText as MimeText
+from email.mime.multipart import MIMEMultipart as MimeMultipart
 
 from flask import Flask, render_template_string, request, jsonify
 from flask_cors import CORS
