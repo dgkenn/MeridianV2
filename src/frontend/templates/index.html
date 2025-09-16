@@ -1,0 +1,1002 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Codex v2 - Evidence-Based Anesthesia Risk Assessment</title>
+    <style>
+        /* Reset and base styles */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .header h1 {
+            font-size: 2rem;
+            font-weight: 300;
+            margin-bottom: 0.5rem;
+        }
+
+        .header .subtitle {
+            opacity: 0.9;
+            font-size: 1rem;
+        }
+
+        /* Main container */
+        .container {
+            max-width: 1400px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: 1fr 400px;
+            gap: 2rem;
+            min-height: calc(100vh - 140px);
+        }
+
+        /* Main content area */
+        .main-content {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+
+        /* Sidebar */
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .sidebar-panel {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+
+        .sidebar-panel h3 {
+            color: #667eea;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        /* Sections */
+        .section {
+            display: none;
+        }
+
+        .section.active {
+            display: block;
+            animation: fadeIn 0.3s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Navigation tabs */
+        .nav-tabs {
+            display: flex;
+            margin-bottom: 2rem;
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 4px;
+        }
+
+        .nav-tab {
+            flex: 1;
+            padding: 12px 16px;
+            text-align: center;
+            background: transparent;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .nav-tab.active {
+            background: #667eea;
+            color: white;
+            box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+        }
+
+        .nav-tab:hover:not(.active) {
+            background: #e9ecef;
+        }
+
+        /* Form elements */
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #495057;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            resize: vertical;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        textarea.form-control {
+            min-height: 200px;
+            font-family: inherit;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-right: 8px;
+            margin-bottom: 8px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #5a6268;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid #667eea;
+            color: #667eea;
+        }
+
+        .btn-outline:hover {
+            background: #667eea;
+            color: white;
+        }
+
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none !important;
+        }
+
+        /* Cards and panels */
+        .card {
+            background: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            border: 1px solid #e9ecef;
+        }
+
+        .card-header {
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .card-title {
+            margin: 0;
+            color: #495057;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        /* Risk items */
+        .risk-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            margin: 0.5rem 0;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid #28a745;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .risk-item:hover {
+            background: #e9ecef;
+            transform: translateX(5px);
+        }
+
+        .risk-item.moderate {
+            border-left-color: #ffc107;
+        }
+
+        .risk-item.high {
+            border-left-color: #dc3545;
+        }
+
+        .risk-label {
+            font-weight: 600;
+        }
+
+        .risk-value {
+            font-size: 1.1rem;
+            font-weight: 700;
+        }
+
+        .risk-details {
+            background: #f1f3f4;
+            padding: 1rem;
+            margin: 0.5rem 0;
+            border-radius: 0 0 8px 8px;
+            border-left: 4px solid #28a745;
+            display: none;
+        }
+
+        .risk-details.show {
+            display: block;
+            animation: slideDown 0.3s ease;
+        }
+
+        @keyframes slideDown {
+            from { height: 0; opacity: 0; }
+            to { height: auto; opacity: 1; }
+        }
+
+        /* Factor tags */
+        .factor-tag {
+            display: inline-block;
+            background: #e8f4f8;
+            border: 1px solid #bee5eb;
+            padding: 4px 12px;
+            margin: 2px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+            color: #0c5460;
+        }
+
+        /* Medication items */
+        .med-item {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 0.5rem 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .med-item:hover {
+            background: #e9ecef;
+            border-color: #667eea;
+        }
+
+        .med-item.contraindicated {
+            background: #f8d7da;
+            border-color: #f5c6cb;
+            color: #721c24;
+        }
+
+        .med-item.high-priority {
+            border-left: 4px solid #dc3545;
+        }
+
+        .med-name {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .med-indication {
+            font-size: 0.9rem;
+            color: #6c757d;
+            margin-bottom: 0.5rem;
+        }
+
+        .med-dose {
+            font-size: 0.85rem;
+            font-family: 'Courier New', monospace;
+            background: #e9ecef;
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+
+        /* Loading states */
+        .loading {
+            text-align: center;
+            padding: 2rem;
+            color: #6c757d;
+        }
+
+        .spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid #f3f3f3;
+            border-radius: 50%;
+            border-top-color: #667eea;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Evidence links */
+        .evidence-link {
+            display: inline-block;
+            background: #007bff;
+            color: white;
+            padding: 2px 8px;
+            margin: 2px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-size: 11px;
+            font-weight: 500;
+        }
+
+        .evidence-link:hover {
+            background: #0056b3;
+            color: white;
+        }
+
+        /* Alerts */
+        .alert {
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 8px;
+            border: 1px solid transparent;
+        }
+
+        .alert-info {
+            color: #0c5460;
+            background-color: #d1ecf1;
+            border-color: #bee5eb;
+        }
+
+        .alert-warning {
+            color: #856404;
+            background-color: #fff3cd;
+            border-color: #ffeaa7;
+        }
+
+        .alert-danger {
+            color: #721c24;
+            background-color: #f8d7da;
+            border-color: #f5c6cb;
+        }
+
+        /* Responsive design */
+        @media (max-width: 1200px) {
+            .container {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .sidebar {
+                order: -1;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 1rem;
+                margin: 1rem auto;
+            }
+
+            .main-content, .sidebar-panel {
+                padding: 1rem;
+            }
+
+            .nav-tabs {
+                flex-direction: column;
+            }
+
+            .nav-tab {
+                margin-bottom: 4px;
+            }
+        }
+
+        /* Hide/show utilities */
+        .hidden {
+            display: none !important;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .text-muted {
+            color: #6c757d;
+        }
+
+        .small {
+            font-size: 0.875rem;
+        }
+
+        .mb-0 { margin-bottom: 0; }
+        .mb-1 { margin-bottom: 0.5rem; }
+        .mb-2 { margin-bottom: 1rem; }
+        .mb-3 { margin-bottom: 1.5rem; }
+
+        .mt-0 { margin-top: 0; }
+        .mt-1 { margin-top: 0.5rem; }
+        .mt-2 { margin-top: 1rem; }
+        .mt-3 { margin-top: 1.5rem; }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <div class="header">
+        <h1>Codex v2</h1>
+        <div class="subtitle">Evidence-Based Anesthesia Risk Assessment Platform</div>
+    </div>
+
+    <!-- Main container -->
+    <div class="container">
+        <!-- Main content area -->
+        <div class="main-content">
+            <!-- Navigation tabs -->
+            <div class="nav-tabs">
+                <button class="nav-tab active" onclick="showSection('hpi')">
+                    📋 HPI Input
+                </button>
+                <button class="nav-tab" onclick="showSection('risks')">
+                    ⚠️ Risk Analysis
+                </button>
+                <button class="nav-tab" onclick="showSection('medications')">
+                    💊 Medications
+                </button>
+                <button class="nav-tab" onclick="showSection('plan')">
+                    📄 Clinical Plan
+                </button>
+            </div>
+
+            <!-- HPI Input Section -->
+            <div id="hpi" class="section active">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">History of Present Illness (HPI)</h2>
+                        <p class="text-muted">Enter the patient's history to begin risk assessment</p>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Patient HPI</label>
+                        <textarea id="hpiText" class="form-control"
+                                placeholder="Paste or type patient HPI here...
+
+Example: 5-year-old male presenting for tonsillectomy and adenoidectomy. History significant for asthma and recent URI 2 weeks ago with persistent cough..."
+                                rows="12"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <button class="btn btn-outline" onclick="loadExampleHPI()">
+                            Load Example HPI
+                        </button>
+                        <button class="btn btn-primary" onclick="parseHPI()" id="parseBtn">
+                            Parse & Analyze HPI
+                        </button>
+                        <button class="btn btn-secondary" onclick="clearHPI()">
+                            Clear
+                        </button>
+                    </div>
+
+                    <div id="parseStatus" class="hidden"></div>
+                </div>
+            </div>
+
+            <!-- Risk Analysis Section -->
+            <div id="risks" class="section">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">Risk Assessment</h2>
+                        <p class="text-muted">Evidence-based perioperative risk scores</p>
+                    </div>
+
+                    <div id="riskContent">
+                        <div class="alert alert-info">
+                            Parse an HPI first to see risk analysis results.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Medications Section -->
+            <div id="medications" class="section">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">Medication Recommendations</h2>
+                        <p class="text-muted">Evidence-based draw-up list</p>
+                    </div>
+
+                    <div id="medicationContent">
+                        <div class="alert alert-info">
+                            Complete risk analysis to see medication recommendations.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Clinical Plan Section -->
+            <div id="plan" class="section">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">Clinical Plan</h2>
+                        <p class="text-muted">Structured anesthetic plan</p>
+                    </div>
+
+                    <div id="planContent">
+                        <div class="alert alert-info">
+                            Complete previous steps to generate clinical plan.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <!-- Parsed Factors Panel -->
+            <div class="sidebar-panel">
+                <h3>Extracted Factors</h3>
+                <div id="extractedFactors">
+                    <p class="text-muted small">Risk factors will appear here after parsing HPI</p>
+                </div>
+            </div>
+
+            <!-- Risk Summary Panel -->
+            <div class="sidebar-panel">
+                <h3>Risk Summary</h3>
+                <div id="riskSummary">
+                    <p class="text-muted small">Risk increases will appear here after analysis</p>
+                </div>
+            </div>
+
+            <!-- System Status Panel -->
+            <div class="sidebar-panel">
+                <h3>System Status</h3>
+                <div id="systemStatus">
+                    <p class="text-muted small">Loading system status...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        // Global variables
+        let currentSession = null;
+        let parsedData = null;
+        let riskData = null;
+        let medicationData = null;
+
+        // Initialize application
+        document.addEventListener('DOMContentLoaded', function() {
+            checkSystemHealth();
+        });
+
+        // Section navigation
+        function showSection(sectionName) {
+            // Hide all sections
+            document.querySelectorAll('.section').forEach(section => {
+                section.classList.remove('active');
+            });
+
+            // Hide all tabs
+            document.querySelectorAll('.nav-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+
+            // Show selected section
+            document.getElementById(sectionName).classList.add('active');
+
+            // Activate corresponding tab
+            event.target.classList.add('active');
+        }
+
+        // System health check
+        async function checkSystemHealth() {
+            try {
+                const response = await fetch('/api/health');
+                const data = await response.json();
+
+                const statusEl = document.getElementById('systemStatus');
+                if (data.status === 'healthy') {
+                    statusEl.innerHTML = `
+                        <div class="small">
+                            <div class="mb-1"><strong>Status:</strong> <span style="color: #28a745;">Healthy</span></div>
+                            <div class="mb-1"><strong>Version:</strong> ${data.version}</div>
+                            <div class="mb-1"><strong>Evidence:</strong> ${data.evidence_version}</div>
+                            <div><strong>Papers:</strong> ${data.database.papers}</div>
+                        </div>
+                    `;
+                } else {
+                    statusEl.innerHTML = `
+                        <div class="alert alert-danger small">
+                            System Error: ${data.error || 'Unknown error'}
+                        </div>
+                    `;
+                }
+            } catch (error) {
+                document.getElementById('systemStatus').innerHTML = `
+                    <div class="alert alert-danger small">
+                        Connection Error: ${error.message}
+                    </div>
+                `;
+            }
+        }
+
+        // Load example HPI
+        async function loadExampleHPI() {
+            try {
+                const response = await fetch('/api/hpi/examples');
+                const data = await response.json();
+
+                if (data.examples && data.examples.length > 0) {
+                    const randomExample = data.examples[Math.floor(Math.random() * data.examples.length)];
+                    document.getElementById('hpiText').value = randomExample.hpi;
+                }
+            } catch (error) {
+                showStatus('Error loading example: ' + error.message, 'danger');
+            }
+        }
+
+        // Parse HPI
+        async function parseHPI() {
+            const hpiText = document.getElementById('hpiText').value.trim();
+
+            if (!hpiText) {
+                showStatus('Please enter HPI text first', 'warning');
+                return;
+            }
+
+            const parseBtn = document.getElementById('parseBtn');
+            parseBtn.disabled = true;
+            parseBtn.innerHTML = '<span class="spinner"></span> Parsing...';
+
+            try {
+                const response = await fetch('/api/hpi/parse', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        hpi_text: hpiText
+                    })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    parsedData = data;
+                    currentSession = data.session_id;
+                    displayExtractedFactors(data.extracted_factors);
+                    displayRiskSummary(data.risk_summary);
+                    showStatus(`Successfully parsed HPI (${data.extracted_factors.length} factors found)`, 'success');
+
+                    // Auto-calculate risks
+                    calculateRisks();
+                } else {
+                    showStatus('Parsing failed: ' + data.error, 'danger');
+                }
+            } catch (error) {
+                showStatus('Network error: ' + error.message, 'danger');
+            } finally {
+                parseBtn.disabled = false;
+                parseBtn.innerHTML = 'Parse & Analyze HPI';
+            }
+        }
+
+        // Calculate risks
+        async function calculateRisks() {
+            if (!parsedData) {
+                showStatus('Parse HPI first', 'warning');
+                return;
+            }
+
+            try {
+                const factorTokens = parsedData.extracted_factors.map(f => f.token);
+
+                const response = await fetch('/api/risk/calculate', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        factors: factorTokens,
+                        demographics: parsedData.demographics,
+                        mode: 'model_based',
+                        session_id: currentSession
+                    })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    riskData = data;
+                    displayRiskAnalysis(data);
+
+                    // Auto-generate medications
+                    generateMedications();
+                } else {
+                    showStatus('Risk calculation failed: ' + data.error, 'danger');
+                }
+            } catch (error) {
+                showStatus('Network error: ' + error.message, 'danger');
+            }
+        }
+
+        // Generate medication recommendations
+        async function generateMedications() {
+            if (!riskData) return;
+
+            try {
+                const factorTokens = parsedData.extracted_factors.map(f => f.token);
+
+                const response = await fetch('/api/medications/recommend', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        factors: factorTokens,
+                        risks: riskData.risks,
+                        demographics: parsedData.demographics
+                    })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    medicationData = data;
+                    displayMedications(data);
+                } else {
+                    showStatus('Medication generation failed: ' + data.error, 'danger');
+                }
+            } catch (error) {
+                showStatus('Network error: ' + error.message, 'danger');
+            }
+        }
+
+        // Display extracted factors
+        function displayExtractedFactors(factors) {
+            const container = document.getElementById('extractedFactors');
+
+            if (factors.length === 0) {
+                container.innerHTML = '<p class="text-muted small">No risk factors detected</p>';
+                return;
+            }
+
+            let html = '';
+            factors.forEach(factor => {
+                html += `
+                    <div class="factor-tag" title="${factor.evidence_text}">
+                        ${factor.plain_label}
+                        <span class="small" style="opacity: 0.7;">(${Math.round(factor.confidence * 100)}%)</span>
+                    </div>
+                `;
+            });
+
+            container.innerHTML = html;
+        }
+
+        // Display risk summary
+        function displayRiskSummary(summary) {
+            const container = document.getElementById('riskSummary');
+
+            if (summary.length === 0) {
+                container.innerHTML = '<p class="text-muted small">No risk increases identified</p>';
+                return;
+            }
+
+            let html = '';
+            summary.slice(0, 5).forEach(item => {
+                html += `<div class="small mb-1">${item}</div>`;
+            });
+
+            container.innerHTML = html;
+        }
+
+        // Display risk analysis
+        function displayRiskAnalysis(data) {
+            const container = document.getElementById('riskContent');
+
+            if (data.risks.length === 0) {
+                container.innerHTML = '<div class="alert alert-info">No significant risks identified</div>';
+                return;
+            }
+
+            let html = `
+                <div class="alert alert-info mb-3">
+                    <strong>Assessment Summary:</strong> ${data.summary.total_outcomes_assessed} outcomes assessed,
+                    ${data.summary.outcomes_with_evidence} with evidence.
+                    Overall risk: <strong>${data.summary.overall_risk_score}</strong>
+                </div>
+            `;
+
+            // Group risks by category
+            const risksByCategory = {};
+            data.risks.forEach(risk => {
+                if (!risksByCategory[risk.category]) {
+                    risksByCategory[risk.category] = [];
+                }
+                risksByCategory[risk.category].push(risk);
+            });
+
+            Object.keys(risksByCategory).forEach(category => {
+                html += `<h4 class="mt-3 mb-2">${category.charAt(0).toUpperCase() + category.slice(1)} Complications</h4>`;
+
+                risksByCategory[category].forEach(risk => {
+                    const riskLevel = risk.adjusted_risk > 0.1 ? 'high' : (risk.adjusted_risk > 0.05 ? 'moderate' : 'low');
+
+                    html += `
+                        <div class="risk-item ${riskLevel}" onclick="toggleRiskDetails('${risk.outcome}')">
+                            <div>
+                                <div class="risk-label">${risk.outcome_label}</div>
+                                <div class="small text-muted">
+                                    Baseline: ${(risk.baseline_risk * 100).toFixed(1)}% →
+                                    Adjusted: ${(risk.adjusted_risk * 100).toFixed(1)}%
+                                    (${risk.risk_ratio.toFixed(1)}x)
+                                </div>
+                            </div>
+                            <div class="risk-value">${(risk.adjusted_risk * 100).toFixed(1)}%</div>
+                        </div>
+                        <div id="details-${risk.outcome}" class="risk-details">
+                            <div class="mb-2">
+                                <strong>Evidence Grade:</strong> ${risk.evidence_grade}
+                                (${risk.k_studies} studies)
+                            </div>
+                            <div class="mb-2">
+                                <strong>Confidence Interval:</strong>
+                                ${(risk.confidence_interval[0] * 100).toFixed(1)}% - ${(risk.confidence_interval[1] * 100).toFixed(1)}%
+                            </div>
+                            ${risk.contributing_factors.length > 0 ? `
+                                <div class="mb-2">
+                                    <strong>Contributing Factors:</strong>
+                                    ${risk.contributing_factors.map(f =>
+                                        `<div class="small">${f.factor_label}: OR ${f.or.toFixed(1)} (${f.evidence_grade})</div>`
+                                    ).join('')}
+                                </div>
+                            ` : ''}
+                            <div>
+                                <strong>Citations:</strong>
+                                ${risk.citations.map(pmid =>
+                                    `<a href="https://pubmed.ncbi.nlm.nih.gov/${pmid.replace('PMID:', '')}/"
+                                       target="_blank" class="evidence-link">${pmid}</a>`
+                                ).join('')}
+                            </div>
+                        </div>
+                    `;
+                });
+            });
+
+            container.innerHTML = html;
+        }
+
+        // Display medications
+        function displayMedications(data) {
+            const container = document.getElementById('medicationContent');
+
+            let html = '';
+
+            // Standard medications
+            if (data.recommendations.standard && data.recommendations.standard.length > 0) {
+                html += `<h4 class="mb-2">Standard Medications</h4>`;
+                data.recommendations.standard.forEach(med => {
+                    html += createMedicationItem(med);
+                });
+            }
+
+            // Draw now medications
+            if (data.recommendations.draw_now && data.recommendations.draw_now.length > 0) {
+                html += `<h4 class="mb-2 mt-3">Draw These Now</h4>`;
+                data.recommendations.draw_now.forEach(med => {
+                    html += createMedicationItem(med, 'high-priority');
+                });
+            }
+
+            // Contraindicated medications
+            if (data.recommendations.contraindicated && data.recommendations.contraindicated.length > 0) {
+                html += `<h4 class="mb-2 mt-3">Contraindicated</h4>`;
+                data.recommendations.contraindicated.forEach(med => {
+                    html += createMedicationItem(med, 'contraindicated');
+                });
+            }
+
+            container.innerHTML = html || '<div class="alert alert-info">No specific medication recommendations</div>';
+        }
+
+        // Create medication item HTML
+        function createMedicationItem(med, className = '') {
+            return `
+                <div class="med-item ${className}">
+                    <div class="med-name">${med.generic_name} (${med.evidence_grade})</div>
+                    <div class="med-indication">${med.indication}</div>
+                    ${med.dose ? `<div class="med-dose">${med.dose}</div>` : ''}
+                    ${med.contraindication_reason ? `
+                        <div class="small mt-1" style="color: #721c24;">
+                            <strong>Avoid:</strong> ${med.contraindication_reason}
+                        </div>
+                    ` : ''}
+                </div>
+            `;
+        }
+
+        // Toggle risk details
+        function toggleRiskDetails(outcome) {
+            const details = document.getElementById(`details-${outcome}`);
+            if (details) {
+                details.classList.toggle('show');
+            }
+        }
+
+        // Clear HPI
+        function clearHPI() {
+            document.getElementById('hpiText').value = '';
+            document.getElementById('extractedFactors').innerHTML = '<p class="text-muted small">Risk factors will appear here after parsing HPI</p>';
+            document.getElementById('riskSummary').innerHTML = '<p class="text-muted small">Risk increases will appear here after analysis</p>';
+            document.getElementById('riskContent').innerHTML = '<div class="alert alert-info">Parse an HPI first to see risk analysis results.</div>';
+            document.getElementById('medicationContent').innerHTML = '<div class="alert alert-info">Complete risk analysis to see medication recommendations.</div>';
+
+            parsedData = null;
+            riskData = null;
+            medicationData = null;
+            currentSession = null;
+
+            showStatus('HPI cleared', 'info');
+        }
+
+        // Show status messages
+        function showStatus(message, type = 'info') {
+            const statusEl = document.getElementById('parseStatus');
+            statusEl.className = `alert alert-${type}`;
+            statusEl.innerHTML = message;
+            statusEl.classList.remove('hidden');
+
+            // Auto-hide after 5 seconds
+            setTimeout(() => {
+                statusEl.classList.add('hidden');
+            }, 5000);
+        }
+    </script>
+</body>
+</html>

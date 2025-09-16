@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: codex-v2
+    env: python
+    buildCommand: pip install -r requirements.txt && python init_simple.py
+    startCommand: gunicorn app_simple:app --bind 0.0.0.0:$PORT --workers 2 --timeout 300
+    envVars:
+      - key: FLASK_ENV
+        value: production
+      - key: PORT
+        value: 10000

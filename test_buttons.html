@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Button Test</title>
+</head>
+<body>
+    <h1>JavaScript Button Test</h1>
+    <button onclick="testClick()">Test Button</button>
+    <div id="result"></div>
+
+    <script>
+        function testClick() {
+            document.getElementById('result').innerHTML = 'Button works!';
+            alert('Button clicked successfully!');
+        }
+
+        // Test basic JS
+        console.log('JavaScript is running');
+
+        // Test initialization
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('DOM loaded');
+            document.getElementById('result').innerHTML = 'Page loaded, JavaScript active';
+        });
+    </script>
+</body>
+</html>

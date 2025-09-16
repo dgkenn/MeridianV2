@@ -1,0 +1,653 @@
+"""
+HPI parser and risk factor extraction system.
+Uses rule-based NLP with medical ontology mapping and PHI detection.
+"""
+
+import re
+import json
+import logging
+from typing import Dict, List, Set, Tuple, Optional, Any
+from dataclasses import dataclass, asdict
+from datetime import datetime, timedelta
+try:
+    import spacy
+    from spacy.matcher import Matcher
+    SPACY_AVAILABLE = True
+except ImportError:
+    SPACY_AVAILABLE = False
+
+try:
+    import nltk
+    from nltk.corpus import stopwords
+    NLTK_AVAILABLE = True
+except ImportError:
+    NLTK_AVAILABLE = False
+
+from ..ontology.core_ontology import AnesthesiaOntology
+from ..core.database import get_database
+
+logger = logging.getLogger(__name__)
+
+@dataclass
+class ExtractedFactor:
+    token: str
+    plain_label: str
+    confidence: float
+    evidence_text: str
+    factor_type: str
+    category: str
+    severity_weight: float
+    context: str
+
+@dataclass
+class ParsedHPI:
+    session_id: str
+    raw_text: str
+    anonymized_text: str
+    extracted_factors: List[ExtractedFactor]
+    demographics: Dict[str, Any]
+    parsed_at: datetime
+    phi_detected: bool
+    phi_locations: List[Tuple[int, int, str]]  # start, end, type
+    confidence_score: float
+
+class MedicalTextProcessor:
+    """
+    Advanced medical text processor with PHI detection and clinical entity extraction.
+    """
+
+    def __init__(self):
+        # Load spaCy model (download with: python -m spacy download en_core_web_sm)
+        if SPACY_AVAILABLE:
+            try:
+                self.nlp = spacy.load("en_core_web_sm")
+            except OSError:
+                logger.warning("spaCy model not found. Using rule-based processing only.")
+                self.nlp = None
+        else:
+            logger.warning("spaCy not available. Using rule-based processing only.")
+            self.nlp = None
+
+        # Load ontology
+        self.ontology = AnesthesiaOntology()
+        self.db = get_database()
+
+        # Initialize matchers
+        if self.nlp and SPACY_AVAILABLE:
+            self.matcher = Matcher(self.nlp.vocab)
+            self._build_medical_patterns()
+        else:
+            self.matcher = None
+
+        # PHI detection patterns
+        self.phi_patterns = self._build_phi_patterns()
+
+        # Age/demographic extractors
+        self.age_patterns = [
+            re.compile(r"(\d+)[\s-]?(year|yr|y)[\s-]?old", re.I),
+            re.compile(r"(\d+)[\s-]?(month|mo|m)[\s-]?old", re.I),
+            re.compile(r"(\d+)[\s-]?(week|wk|w)[\s-]?old", re.I),
+            re.compile(r"(\d+)[\s-]?(day|d)[\s-]?old", re.I),
+            re.compile(r"age:?\s*(\d+)", re.I),
+            re.compile(r"(\d{1,2})\s*(years?|yrs?)", re.I)
+        ]
+
+        self.weight_patterns = [
+            re.compile(r"weight:?\s*(\d+(?:\.\d+)?)\s*(kg|kilograms?)", re.I),
+            re.compile(r"(\d+(?:\.\d+)?)\s*(kg|kilograms?)", re.I),
+            re.compile(r"wt:?\s*(\d+(?:\.\d+)?)", re.I)
+        ]
+
+        # Medical condition patterns
+        self.condition_patterns = self._build_condition_patterns()
+
+        # Surgical procedure patterns
+        self.procedure_patterns = self._build_procedure_patterns()
+
+    def _build_medical_patterns(self):
+        """Build spaCy matcher patterns for medical entities."""
+        if not self.nlp:
+            return
+
+        # Risk factor patterns
+        patterns = [
+            # Asthma patterns
+            ("ASTHMA", [
+                [{"LOWER": {"IN": ["asthma", "bronchial", "reactive"]}, "OP": "?"},
+                 {"LOWER": {"IN": ["asthma", "airway", "disease"]}}],
+                [{"LOWER": "asthmatic"}],
+                [{"LOWER": "wheeze"}, {"IS_ALPHA": True, "OP": "*"}, {"LOWER": {"IN": ["history", "hx"]}}]
+            ]),
+
+            # URI patterns
+            ("RECENT_URI_2W", [
+                [{"LOWER": {"IN": ["recent", "current"]}},
+                 {"LOWER": {"IN": ["uri", "cold", "runny"]}, "OP": "+"}],
+                [{"LOWER": "upper"}, {"LOWER": "respiratory"}, {"LOWER": "infection"}],
+                [{"LOWER": {"IN": ["cough", "congestion", "rhinorrhea"]}}]
+            ]),
+
+            # OSA patterns
+            ("OSA", [
+                [{"LOWER": {"IN": ["osa", "obstructive"]}},
+                 {"LOWER": {"IN": ["sleep", "apnea"]}, "OP": "?"}],
+                [{"LOWER": "sleep"}, {"LOWER": "apnea"}],
+                [{"LOWER": {"IN": ["snoring", "apneic"]}}]
+            ]),
+
+            # Prematurity patterns
+            ("PREMATURITY", [
+                [{"LOWER": {"IN": ["premature", "preterm", "born"]}},
+                 {"LIKE_NUM": True, "OP": "?"}, {"LOWER": {"IN": ["weeks", "wks"]}}],
+                [{"LOWER": "nicu"}, {"IS_ALPHA": True, "OP": "*"}]
+            ])
+        ]
+
+        for label, pattern_list in patterns:
+            for pattern in pattern_list:
+                self.matcher.add(label, [pattern])
+
+    def _build_phi_patterns(self) -> List[Tuple[re.Pattern, str]]:
+        """Build PHI detection patterns."""
+        patterns = [
+            # Names (simple patterns)
+            (re.compile(r"\b[A-Z][a-z]+\s+[A-Z][a-z]+\b"), "NAME"),
+
+            # Dates
+            (re.compile(r"\b\d{1,2}[/-]\d{1,2}[/-]\d{2,4}\b"), "DATE"),
+            (re.compile(r"\b(January|February|March|April|May|June|July|August|September|October|November|December)\s+\d{1,2},?\s+\d{4}\b"), "DATE"),
+
+            # Phone numbers
+            (re.compile(r"\b\d{3}[-.]?\d{3}[-.]?\d{4}\b"), "PHONE"),
+
+            # Medical record numbers
+            (re.compile(r"\b(MR|MRN|ID)#?\s*:?\s*\d+\b", re.I), "MRN"),
+
+            # Social security numbers
+            (re.compile(r"\b\d{3}-\d{2}-\d{4}\b"), "SSN"),
+
+            # Email addresses
+            (re.compile(r"\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b"), "EMAIL"),
+
+            # Addresses (basic patterns)
+            (re.compile(r"\b\d+\s+[A-Z][a-z]+\s+(Street|St|Avenue|Ave|Road|Rd|Drive|Dr|Lane|Ln|Boulevard|Blvd)", re.I), "ADDRESS"),
+
+            # ZIP codes
+            (re.compile(r"\b\d{5}(-\d{4})?\b"), "ZIP")
+        ]
+
+        return patterns
+
+    def _build_condition_patterns(self) -> Dict[str, List[re.Pattern]]:
+        """Build medical condition extraction patterns."""
+        return {
+            "ASTHMA": [
+                re.compile(r"\basthma\b", re.I),
+                re.compile(r"\basthmatic\b", re.I),
+                re.compile(r"\breactive airway disease\b", re.I),
+                re.compile(r"\bRAD\b")
+            ],
+
+            "RECENT_URI_2W": [
+                re.compile(r"\brecent (?:upper respiratory infection|URI|cold)\b", re.I),
+                re.compile(r"\bURI (?:within|<|less than) (?:2 weeks?|14 days?)\b", re.I),
+                re.compile(r"\bcold (?:10|14) days? ago\b", re.I),
+                re.compile(r"\brunny nose\b", re.I),
+                re.compile(r"\bcongestion\b", re.I)
+            ],
+
+            "OSA": [
+                re.compile(r"\b(?:obstructive )?sleep apnea\b", re.I),
+                re.compile(r"\bOSA\b"),
+                re.compile(r"\bsnoring\b", re.I),
+                re.compile(r"\bapneic episodes\b", re.I),
+                re.compile(r"\bAHI (?:of )?(\d+)\b", re.I)
+            ],
+
+            "PREMATURITY": [
+                re.compile(r"\bborn at (\d+) weeks\b", re.I),
+                re.compile(r"\bpremature\b", re.I),
+                re.compile(r"\bpreterm\b", re.I),
+                re.compile(r"\bNICU stay\b", re.I),
+                re.compile(r"\b(\d+) weeks? gestation\b", re.I)
+            ],
+
+            "DOWN_SYNDROME": [
+                re.compile(r"\bDown syndrome\b", re.I),
+                re.compile(r"\bDS\b"),
+                re.compile(r"\btrisomy 21\b", re.I)
+            ],
+
+            "DIABETES": [
+                re.compile(r"\bdiabetes\b", re.I),
+                re.compile(r"\bdiabetic\b", re.I),
+                re.compile(r"\bDM\b"),
+                re.compile(r"\bT1DM\b"),
+                re.compile(r"\bT2DM\b"),
+                re.compile(r"\bHbA1c\b", re.I)
+            ],
+
+            "HYPERTENSION": [
+                re.compile(r"\bhypertension\b", re.I),
+                re.compile(r"\bHTN\b"),
+                re.compile(r"\bhigh blood pressure\b", re.I)
+            ],
+
+            "HEART_FAILURE": [
+                re.compile(r"\bheart failure\b", re.I),
+                re.compile(r"\bCHF\b"),
+                re.compile(r"\bcongestive heart failure\b", re.I),
+                re.compile(r"\bNYHA (?:class )?([I-IV]+)\b", re.I)
+            ]
+        }
+
+    def _build_procedure_patterns(self) -> Dict[str, List[re.Pattern]]:
+        """Build surgical procedure patterns."""
+        return {
+            "TONSILLECTOMY": [
+                re.compile(r"\btonsillectomy\b", re.I),
+                re.compile(r"\btonsil removal\b", re.I),
+                re.compile(r"\bT&A\b")
+            ],
+
+            "ADENOIDECTOMY": [
+                re.compile(r"\badenoidectomy\b", re.I),
+                re.compile(r"\badenoid removal\b", re.I),
+                re.compile(r"\bT&A\b")
+            ],
+
+            "MYRINGOTOMY": [
+                re.compile(r"\bmyringotomy\b", re.I),
+                re.compile(r"\bPE tubes?\b", re.I),
+                re.compile(r"\bear tubes?\b", re.I),
+                re.compile(r"\btympanoplasty\b", re.I)
+            ],
+
+            "DENTAL": [
+                re.compile(r"\bdental\b", re.I),
+                re.compile(r"\btooth\b", re.I),
+                re.compile(r"\bextraction\b", re.I),
+                re.compile(r"\broot canal\b", re.I),
+                re.compile(r"\bcaries\b", re.I)
+            ],
+
+            "HERNIA_REPAIR": [
+                re.compile(r"\bhernia repair\b", re.I),
+                re.compile(r"\binguinal hernia\b", re.I),
+                re.compile(r"\bumbilical hernia\b", re.I)
+            ]
+        }
+
+    def parse_hpi(self, hpi_text: str, session_id: str = None) -> ParsedHPI:
+        """
+        Main HPI parsing function with comprehensive extraction.
+        """
+        if not session_id:
+            session_id = f"hpi_{datetime.now().isoformat()}"
+
+        # Clean and normalize text
+        cleaned_text = self._clean_text(hpi_text)
+
+        # Detect and anonymize PHI
+        phi_detected, phi_locations, anonymized_text = self._detect_and_anonymize_phi(cleaned_text)
+
+        # Extract demographics
+        demographics = self._extract_demographics(cleaned_text)
+
+        # Extract risk factors
+        extracted_factors = self._extract_risk_factors(cleaned_text)
+
+        # Calculate overall confidence
+        confidence_score = self._calculate_confidence(extracted_factors, demographics)
+
+        parsed_hpi = ParsedHPI(
+            session_id=session_id,
+            raw_text=hpi_text,
+            anonymized_text=anonymized_text,
+            extracted_factors=extracted_factors,
+            demographics=demographics,
+            parsed_at=datetime.now(),
+            phi_detected=phi_detected,
+            phi_locations=phi_locations,
+            confidence_score=confidence_score
+        )
+
+        # Store in database for audit
+        self._store_parsed_hpi(parsed_hpi)
+
+        return parsed_hpi
+
+    def _clean_text(self, text: str) -> str:
+        """Clean and normalize HPI text."""
+        # Remove extra whitespace
+        text = re.sub(r'\s+', ' ', text.strip())
+
+        # Normalize common abbreviations
+        abbreviations = {
+            r'\byo\b': 'year old',
+            r'\byo\s+(?:male|female|M|F)\b': 'year old',
+            r'\bhx\b': 'history',
+            r'\bHPI\b': 'History of Present Illness',
+            r'\bPMH\b': 'Past Medical History',
+            r'\bw/\b': 'with',
+            r'\bw/o\b': 'without',
+            r'\bs/p\b': 'status post',
+            r'\bc/o\b': 'complains of'
+        }
+
+        for abbrev, expansion in abbreviations.items():
+            text = re.sub(abbrev, expansion, text, flags=re.I)
+
+        return text
+
+    def _detect_and_anonymize_phi(self, text: str) -> Tuple[bool, List[Tuple[int, int, str]], str]:
+        """Detect and anonymize PHI in text."""
+        phi_locations = []
+        anonymized_text = text
+
+        # Apply PHI patterns
+        for pattern, phi_type in self.phi_patterns:
+            for match in pattern.finditer(text):
+                phi_locations.append((match.start(), match.end(), phi_type))
+
+        # Sort by position (reverse order for string replacement)
+        phi_locations.sort(key=lambda x: x[0], reverse=True)
+
+        # Replace PHI with anonymized placeholders
+        for start, end, phi_type in phi_locations:
+            placeholder = f"[{phi_type}]"
+            anonymized_text = anonymized_text[:start] + placeholder + anonymized_text[end:]
+
+        # Reverse the list back to normal order for return
+        phi_locations.reverse()
+
+        phi_detected = len(phi_locations) > 0
+
+        return phi_detected, phi_locations, anonymized_text
+
+    def _extract_demographics(self, text: str) -> Dict[str, Any]:
+        """Extract demographic information."""
+        demographics = {}
+
+        # Extract age
+        age_info = self._extract_age(text)
+        if age_info:
+            demographics.update(age_info)
+
+        # Extract sex
+        sex = self._extract_sex(text)
+        if sex:
+            demographics['sex'] = sex
+
+        # Extract weight
+        weight = self._extract_weight(text)
+        if weight:
+            demographics['weight_kg'] = weight
+
+        # Extract procedure
+        procedure = self._extract_procedure(text)
+        if procedure:
+            demographics['procedure'] = procedure
+
+        # Extract urgency
+        urgency = self._extract_urgency(text)
+        demographics['urgency'] = urgency
+
+        return demographics
+
+    def _extract_age(self, text: str) -> Optional[Dict[str, Any]]:
+        """Extract age information from text."""
+        for pattern in self.age_patterns:
+            match = pattern.search(text)
+            if match:
+                try:
+                    age_value = int(match.group(1))
+                    age_unit = match.group(2) if len(match.groups()) > 1 else "year"
+
+                    # Convert to standard age categories
+                    if "month" in age_unit.lower():
+                        age_years = age_value / 12.0
+                    elif "week" in age_unit.lower():
+                        age_years = age_value / 52.0
+                    elif "day" in age_unit.lower():
+                        age_years = age_value / 365.0
+                    else:
+                        age_years = age_value
+
+                    # Determine age category
+                    if age_years < (28/365):
+                        age_category = "AGE_NEONATE"
+                    elif age_years < 1:
+                        age_category = "AGE_INFANT"
+                    elif age_years < 6:
+                        age_category = "AGE_1_5"
+                    elif age_years < 13:
+                        age_category = "AGE_6_12"
+                    elif age_years < 18:
+                        age_category = "AGE_13_17"
+                    elif age_years < 40:
+                        age_category = "AGE_ADULT_YOUNG"
+                    elif age_years < 65:
+                        age_category = "AGE_ADULT_MIDDLE"
+                    elif age_years < 80:
+                        age_category = "AGE_ELDERLY"
+                    else:
+                        age_category = "AGE_VERY_ELDERLY"
+
+                    return {
+                        'age_years': age_years,
+                        'age_category': age_category,
+                        'age_text': match.group(0)
+                    }
+
+                except ValueError:
+                    continue
+
+        return None
+
+    def _extract_sex(self, text: str) -> Optional[str]:
+        """Extract sex from text."""
+        # Look for sex indicators
+        if re.search(r'\b(?:male|boy|M)\b', text, re.I):
+            return "SEX_MALE"
+        elif re.search(r'\b(?:female|girl|F)\b', text, re.I):
+            return "SEX_FEMALE"
+
+        return None
+
+    def _extract_weight(self, text: str) -> Optional[float]:
+        """Extract weight in kg."""
+        for pattern in self.weight_patterns:
+            match = pattern.search(text)
+            if match:
+                try:
+                    weight = float(match.group(1))
+                    if 0.5 <= weight <= 300:  # Reasonable weight range
+                        return weight
+                except ValueError:
+                    continue
+
+        return None
+
+    def _extract_procedure(self, text: str) -> Optional[str]:
+        """Extract surgical procedure."""
+        for procedure_token, patterns in self.procedure_patterns.items():
+            for pattern in patterns:
+                if pattern.search(text):
+                    return procedure_token
+
+        return None
+
+    def _extract_urgency(self, text: str) -> str:
+        """Extract urgency level."""
+        if re.search(r'\b(?:emergency|emergent|urgent|stat)\b', text, re.I):
+            return "EMERGENCY"
+        elif re.search(r'\burgent\b', text, re.I):
+            return "URGENT"
+        else:
+            return "ELECTIVE"
+
+    def _extract_risk_factors(self, text: str) -> List[ExtractedFactor]:
+        """Extract risk factors using multiple approaches."""
+        factors = []
+
+        # Rule-based extraction
+        rule_based_factors = self._extract_rule_based_factors(text)
+        factors.extend(rule_based_factors)
+
+        # spaCy NLP extraction (if available)
+        if self.nlp:
+            nlp_factors = self._extract_nlp_factors(text)
+            factors.extend(nlp_factors)
+
+        # Deduplicate factors
+        factors = self._deduplicate_factors(factors)
+
+        return factors
+
+    def _extract_rule_based_factors(self, text: str) -> List[ExtractedFactor]:
+        """Extract factors using rule-based patterns."""
+        factors = []
+
+        for condition_token, patterns in self.condition_patterns.items():
+            for pattern in patterns:
+                matches = pattern.finditer(text)
+                for match in matches:
+                    # Get ontology term
+                    term = self.ontology.get_term(condition_token)
+                    if term:
+                        factor = ExtractedFactor(
+                            token=condition_token,
+                            plain_label=term.plain_label,
+                            confidence=0.8,  # Rule-based confidence
+                            evidence_text=match.group(0),
+                            factor_type=term.type,
+                            category=term.category,
+                            severity_weight=term.severity_weight,
+                            context=text[max(0, match.start()-50):match.end()+50]
+                        )
+                        factors.append(factor)
+
+        return factors
+
+    def _extract_nlp_factors(self, text: str) -> List[ExtractedFactor]:
+        """Extract factors using spaCy NLP."""
+        factors = []
+
+        if not self.nlp:
+            return factors
+
+        try:
+            doc = self.nlp(text)
+            matches = self.matcher(doc)
+
+            for match_id, start, end in matches:
+                span = doc[start:end]
+                label = self.nlp.vocab.strings[match_id]
+
+                # Get ontology term
+                term = self.ontology.get_term(label)
+                if term:
+                    factor = ExtractedFactor(
+                        token=label,
+                        plain_label=term.plain_label,
+                        confidence=0.7,  # NLP confidence
+                        evidence_text=span.text,
+                        factor_type=term.type,
+                        category=term.category,
+                        severity_weight=term.severity_weight,
+                        context=text[max(0, span.start_char-50):span.end_char+50]
+                    )
+                    factors.append(factor)
+
+        except Exception as e:
+            logger.error(f"Error in NLP extraction: {e}")
+
+        return factors
+
+    def _deduplicate_factors(self, factors: List[ExtractedFactor]) -> List[ExtractedFactor]:
+        """Remove duplicate factors, keeping highest confidence."""
+        factor_dict = {}
+
+        for factor in factors:
+            if factor.token not in factor_dict:
+                factor_dict[factor.token] = factor
+            else:
+                # Keep factor with higher confidence
+                if factor.confidence > factor_dict[factor.token].confidence:
+                    factor_dict[factor.token] = factor
+
+        return list(factor_dict.values())
+
+    def _calculate_confidence(self, factors: List[ExtractedFactor], demographics: Dict[str, Any]) -> float:
+        """Calculate overall parsing confidence."""
+        base_confidence = 0.5
+
+        # Boost for extracted demographics
+        if demographics.get('age_years'):
+            base_confidence += 0.2
+        if demographics.get('sex'):
+            base_confidence += 0.1
+        if demographics.get('procedure'):
+            base_confidence += 0.2
+
+        # Boost for extracted factors
+        if factors:
+            avg_factor_confidence = sum(f.confidence for f in factors) / len(factors)
+            base_confidence += 0.2 * avg_factor_confidence
+
+        return min(base_confidence, 1.0)
+
+    def _store_parsed_hpi(self, parsed_hpi: ParsedHPI):
+        """Store parsed HPI in database for audit."""
+        try:
+            self.db.conn.execute("""
+                INSERT INTO case_sessions
+                (session_id, hpi_text, parsed_factors, risk_scores,
+                 medication_recommendations, evidence_version, anonymized_hpi)
+                VALUES (?, ?, ?, ?, ?, ?, ?)
+            """, [
+                parsed_hpi.session_id,
+                parsed_hpi.raw_text,
+                json.dumps([asdict(f) for f in parsed_hpi.extracted_factors]),
+                json.dumps({}),  # Will be filled by risk scoring
+                json.dumps({}),  # Will be filled by medication system
+                self.db.get_current_evidence_version(),
+                parsed_hpi.anonymized_text
+            ])
+
+            # Log the action
+            self.db.log_action("case_sessions", parsed_hpi.session_id, "INSERT",
+                             {"factors_extracted": len(parsed_hpi.extracted_factors),
+                              "phi_detected": parsed_hpi.phi_detected})
+
+        except Exception as e:
+            logger.error(f"Error storing parsed HPI {parsed_hpi.session_id}: {e}")
+
+    def generate_risk_summary(self, factors: List[ExtractedFactor]) -> List[str]:
+        """Generate plain-language risk summary."""
+        summaries = []
+
+        for factor in factors:
+            if factor.severity_weight > 2.0:
+                risk_level = "significantly"
+            elif factor.severity_weight > 1.5:
+                risk_level = "moderately"
+            else:
+                risk_level = "mildly"
+
+            # Map to common outcomes (simplified)
+            if factor.category == "airway":
+                outcomes = ["airway complications", "difficult intubation"]
+            elif factor.category == "respiratory":
+                outcomes = ["respiratory complications", "bronchospasm"]
+            elif factor.category == "cardiac":
+                outcomes = ["cardiovascular complications", "hemodynamic instability"]
+            else:
+                outcomes = ["perioperative complications"]
+
+            for outcome in outcomes:
+                summary = f"{factor.plain_label} {risk_level} increases risk of {outcome}"
+                summaries.append(summary)
+
+        return summaries[:10]  # Limit to top 10 for UI

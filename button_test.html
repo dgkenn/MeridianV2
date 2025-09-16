@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Load Example Button Test</title>
+</head>
+<body>
+    <h1>Load Example Button Test</h1>
+    <textarea id="hpiText" rows="10" cols="80" placeholder="HPI will load here..."></textarea><br><br>
+    <button onclick="loadExample()">Load Example</button>
+    <div id="result"></div>
+
+    <script>
+        function loadExample() {
+            console.log('loadExample called');
+            document.getElementById('result').innerHTML = 'Loading...';
+
+            fetch('http://localhost:8084/api/example')
+                .then(r => {
+                    console.log('Response received:', r.status);
+                    return r.json();
+                })
+                .then(data => {
+                    console.log('Data received:', data);
+                    document.getElementById('hpiText').value = data.hpi;
+                    document.getElementById('result').innerHTML = 'HPI loaded successfully!';
+                })
+                .catch(err => {
+                    console.error('Error:', err);
+                    document.getElementById('result').innerHTML = 'Error: ' + err.message;
+                });
+        }
+
+        console.log('Script loaded');
+    </script>
+</body>
+</html>
