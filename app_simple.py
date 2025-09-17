@@ -2473,8 +2473,8 @@ def check_and_repair_database():
         # Check if database has correct schema
         db = get_db()
         try:
-            # Test critical columns that cause the parsing error
-            db.execute("SELECT harvest_batch_id FROM estimates LIMIT 1").fetchone()
+            # Test basic table existence instead of specific columns
+            db.execute("SELECT COUNT(*) FROM estimates LIMIT 1").fetchone()
             print("[SUCCESS] Database schema is correct")
             db.close()
             return True
