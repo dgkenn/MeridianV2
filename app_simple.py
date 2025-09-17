@@ -2258,9 +2258,10 @@ def health():
 
         return jsonify({
             "status": "healthy",
-            "version": "2.0.0-demo",
+            "version": "2.0.1-auto-repair",
             "papers": papers_count,
-            "timestamp": datetime.now().isoformat()
+            "timestamp": datetime.now().isoformat(),
+            "database_schema": "auto-repair-enabled"
         })
     except Exception as e:
         return jsonify({"status": "error", "error": str(e)}), 500
