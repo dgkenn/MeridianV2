@@ -2480,10 +2480,19 @@ def check_and_repair_database():
             return True
         except Exception as schema_error:
             print(f"[ERROR] Database schema error detected: {schema_error}")
-            print("Running automatic database rebuild...")
-            db.close()
-            rebuild_database_schema()
-            return True
+            print("Adding missing harvest_batch_id column...")
+            try:
+                # Simple fix: just add the missing column
+                db.execute("ALTER TABLE estimates ADD COLUMN harvest_batch_id VARCHAR DEFAULT 'unknown'")
+                print("[SUCCESS] Added harvest_batch_id column to estimates table")
+                db.close()
+                return True
+            except Exception as alter_error:
+                print(f"[ERROR] Failed to add column: {alter_error}")
+                print("Running full database rebuild...")
+                db.close()
+                rebuild_database_schema()
+                return True
 
     except Exception as e:
         print(f"Database check failed: {e}")
