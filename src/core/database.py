@@ -338,7 +338,7 @@ class CodexDatabase:
             "CREATE INDEX IF NOT EXISTS idx_estimates_outcome ON estimates(outcome_token)",
             "CREATE INDEX IF NOT EXISTS idx_estimates_modifier ON estimates(modifier_token)",
             "CREATE INDEX IF NOT EXISTS idx_estimates_pmid ON estimates(pmid)",
-            "CREATE INDEX IF NOT EXISTS idx_estimates_harvest_batch ON estimates(harvest_batch_id)",
+            # "CREATE INDEX IF NOT EXISTS idx_estimates_harvest_batch ON estimates(harvest_batch_id)",  # Column may not exist in production
             "CREATE INDEX IF NOT EXISTS idx_papers_year ON papers(year)",
             "CREATE INDEX IF NOT EXISTS idx_papers_population ON papers(population)",
             "CREATE INDEX IF NOT EXISTS idx_ontology_type ON ontology(type)",
