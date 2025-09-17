@@ -2457,14 +2457,145 @@ def send_bug_report_email(subject, body, reporter_email):
         logger.error(f"Email sending failed: {e}")
         return False
 
+def check_and_repair_database():
+    """Check database schema and repair if needed"""
+    try:
+        print("Checking database schema...")
+
+        # Check if database exists
+        if not os.path.exists(DB_PATH):
+            print(f"Database not found at {DB_PATH}")
+            print("Running automatic database rebuild...")
+            rebuild_database_schema()
+            return True
+
+        # Check if database has correct schema
+        db = get_db()
+        try:
+            # Test critical columns that cause the parsing error
+            db.execute("SELECT harvest_batch_id FROM estimates LIMIT 1").fetchone()
+            print("[SUCCESS] Database schema is correct")
+            db.close()
+            return True
+        except Exception as schema_error:
+            print(f"[ERROR] Database schema error detected: {schema_error}")
+            print("Running automatic database rebuild...")
+            db.close()
+            rebuild_database_schema()
+            return True
+
+    except Exception as e:
+        print(f"Database check failed: {e}")
+        return False
+
+def rebuild_database_schema():
+    """Rebuild database with correct schema"""
+    try:
+        print("[RUNNING] Rebuilding database schema...")
+
+        # Backup old database if it exists
+        if os.path.exists(DB_PATH):
+            backup_path = DB_PATH.replace('.duckdb', '.backup.duckdb')
+            import shutil
+            shutil.copy2(DB_PATH, backup_path)
+            print(f"[BACKUP] Backup created: {backup_path}")
+            os.unlink(DB_PATH)
+
+        # Ensure database directory exists
+        os.makedirs(os.path.dirname(DB_PATH), exist_ok=True)
+
+        # Create fresh database with correct schema
+        db = duckdb.connect(DB_PATH)
+
+        # Create estimates table with harvest_batch_id column
+        db.execute("""
+            CREATE TABLE estimates (
+                outcome_token VARCHAR,
+                context_label VARCHAR,
+                baseline_risk DOUBLE,
+                baseline_source VARCHAR,
+                harvest_batch_id VARCHAR,
+                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+            )
+        """)
+
+        # Create other essential tables
+        db.execute("""
+            CREATE TABLE case_sessions (
+                session_id VARCHAR PRIMARY KEY,
+                hpi_text TEXT,
+                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                risk_scores JSON
+            )
+        """)
+
+        db.execute("""
+            CREATE TABLE ontology (
+                token VARCHAR PRIMARY KEY,
+                synonyms JSON,
+                display_name VARCHAR,
+                category VARCHAR
+            )
+        """)
+
+        db.execute("""
+            CREATE TABLE papers (
+                pmid INTEGER PRIMARY KEY,
+                title TEXT,
+                abstract TEXT,
+                publication_year INTEGER,
+                journal VARCHAR,
+                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+            )
+        """)
+
+        # Add sample data for immediate functionality
+        db.execute("""
+            INSERT INTO estimates (outcome_token, context_label, baseline_risk, baseline_source, harvest_batch_id)
+            VALUES
+            ('ACUTE_KIDNEY_INJURY', 'adult_general', 0.18, 'sample_data', 'auto_rebuild'),
+            ('POSTOP_DELIRIUM', 'adult_general', 0.24, 'sample_data', 'auto_rebuild'),
+            ('PROLONGED_VENTILATION', 'adult_general', 0.095, 'sample_data', 'auto_rebuild'),
+            ('DIFFICULT_INTUBATION', 'adult_general', 0.058, 'sample_data', 'auto_rebuild'),
+            ('PULMONARY_EMBOLISM', 'adult_general', 0.008, 'sample_data', 'auto_rebuild'),
+            ('ASPIRATION', 'adult_general', 0.0008, 'sample_data', 'auto_rebuild')
+        """)
+
+        # Add basic ontology data
+        db.execute("""
+            INSERT INTO ontology (token, synonyms, display_name, category)
+            VALUES
+            ('DIABETES', '["diabetes", "diabetic", "dm"]', 'Diabetes mellitus', 'endocrine'),
+            ('HYPERTENSION', '["hypertension", "htn", "high blood pressure"]', 'Hypertension', 'cardiac'),
+            ('SEX_MALE', '["male", "man"]', 'Male sex', 'demographics'),
+            ('AGE_ELDERLY', '["elderly", "old"]', 'Age 60-80 years', 'demographics'),
+            ('EMERGENCY', '["emergency", "urgent", "acute"]', 'Emergency surgery', 'urgency'),
+            ('SMOKING_HISTORY', '["smoking", "tobacco", "smoker"]', 'Smoking history', 'lifestyle')
+        """)
+
+        # Add sample papers entry
+        db.execute("""
+            INSERT INTO papers (pmid, title, abstract, publication_year, journal)
+            VALUES
+            (12345678, 'Sample Paper', 'This is a sample paper for testing', 2023, 'Sample Journal'),
+            (87654321, 'Another Sample', 'Another sample paper', 2024, 'Test Journal')
+        """)
+
+        db.close()
+        print("[SUCCESS] Database schema rebuilt successfully!")
+        print("[SUCCESS] Sample data added for immediate functionality")
+
+    except Exception as e:
+        print(f"[ERROR] Database rebuild failed: {e}")
+        raise
+
 if __name__ == '__main__':
-    # Check if database exists
-    if not os.path.exists(DB_PATH):
-        print(f"Database not found at {DB_PATH}")
-        print("Please run: python init_simple.py")
+    # Automatically check and repair database schema
+    if not check_and_repair_database():
+        print("[ERROR] Database initialization failed!")
         sys.exit(1)
 
-    print("Starting Codex v2 Demo...")
-    print("Open browser to: http://localhost:8084")
+    print("[STARTING] Codex v2 Demo...")
+    print("[INFO] Open browser to: http://localhost:8084")
 
     app.run(host='0.0.0.0', port=8084, debug=True)
