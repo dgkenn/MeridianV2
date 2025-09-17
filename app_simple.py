@@ -1808,10 +1808,29 @@ HTML_TEMPLATE = """
             .then(r => r.json())
             .then(data => {
                 currentData = data;
-                displayFactors(data.parsed.extracted_factors);
-                displayRisks(data.risks);
-                displayMedications(data.medications);
-                displayRecommendations(data.recommendations_html);
+                // Add error handling and use correct data structure
+                if (data.parsed && data.parsed.extracted_factors) {
+                    displayFactors(data.parsed.extracted_factors);
+                } else {
+                    console.error('Missing extracted_factors in response:', data);
+                    showStatus('Error: Unable to parse HPI factors', 'error');
+                    return;
+                }
+                if (data.risks) {
+                    displayRisks(data.risks);
+                } else {
+                    console.warn('No risks data found');
+                }
+                if (data.medications) {
+                    displayMedications(data.medications);
+                } else {
+                    console.warn('No medications data found');
+                }
+                if (data.recommendations_html) {
+                    displayRecommendations(data.recommendations_html);
+                } else {
+                    console.warn('No recommendations data found');
+                }
                 showStatus('Analysis complete!', 'success');
             })
             .catch(err => {
@@ -1992,13 +2011,13 @@ HTML_TEMPLATE = """
             if (data.draw_now && data.draw_now.length > 0) {
                 html += `
                     <h4 style="margin-top: 1.5rem; color: #ef4444; cursor: pointer;" onclick="toggleDrawNowSection()">
-                        🚨 Draw These Now (\${data.draw_now.length} medications)
+                        🚨 Draw These Now (${data.draw_now.length} medications)
                         <span id="draw-now-arrow" style="font-size: 0.8rem;">▼</span>
                     </h4>
                     <div id="draw-now-section" style="display: block;">
                 `;
                 data.draw_now.forEach((med, index) => {
-                    const medId = `draw-\${index}`;
+                    const medId = `draw-${index}`;
                     html += `
                         <div class="med-item" style="border-left: 4px solid #dc3545; cursor: pointer;" onclick="toggleMedDetails('${medId}')">
                             <div class="med-name">${med.generic_name} (${med.evidence_grade})
@@ -2037,7 +2056,7 @@ HTML_TEMPLATE = """
             if (data.consider && data.consider.length > 0) {
                 html += '<h4 style="margin-top: 1.5rem; color: #06b6d4;">Consider/Case-Dependent</h4>';
                 data.consider.forEach((med, index) => {
-                    const medId = `consider-\${index}`;
+                    const medId = `consider-${index}`;
                     html += `
                         <div class="med-item" style="border-left: 4px solid #17a2b8; cursor: pointer;" onclick="toggleMedDetails('${medId}')">
                             <div class="med-name">${med.generic_name} (${med.evidence_grade})
@@ -2075,7 +2094,7 @@ HTML_TEMPLATE = """
             if (data.standard && data.standard.length > 0) {
                 html += '<h4 style="margin-top: 1.5rem; color: #94a3b8;">Standard Medications</h4>';
                 data.standard.forEach((med, index) => {
-                    const medId = `standard-\${index}`;
+                    const medId = `standard-${index}`;
                     html += `
                         <div class="med-item" onclick="toggleMedDetails('${medId}')" style="cursor: pointer;">
                             <div class="med-name">${med.generic_name} (${med.evidence_grade})

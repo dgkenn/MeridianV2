@@ -794,12 +794,22 @@ class RiskEngine:
     def _store_risk_assessment(self, risk_summary: RiskSummary):
         """Store risk assessment for audit trail."""
         try:
+            # Convert risks to dict format with datetime serialization
+            risks_data = []
+            for risk in risk_summary.risks:
+                risk_dict = asdict(risk)
+                # Convert datetime field to string
+                if 'last_updated' in risk_dict and risk_dict['last_updated'] is not None:
+                    risk_dict['last_updated'] = risk_dict['last_updated'].isoformat()
+                risks_data.append(risk_dict)
+
             # Update case session with risk scores
             risk_data = {
-                "risks": [asdict(r) for r in risk_summary.risks],
+                "risks": risks_data,
                 "summary": risk_summary.summary,
                 "mode": risk_summary.mode,
-                "evidence_version": risk_summary.evidence_version
+                "evidence_version": risk_summary.evidence_version,
+                "calculated_at": risk_summary.calculated_at.isoformat()
             }
 
             self.db.conn.execute("""
