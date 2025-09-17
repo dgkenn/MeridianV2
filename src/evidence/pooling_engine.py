@@ -434,7 +434,8 @@ class MetaAnalysisEngine:
         """Fetch baseline estimates from database."""
 
         query = """
-            SELECT * FROM estimates
+            SELECT outcome_token, context_label, baseline_risk, baseline_source
+            FROM estimates
             WHERE outcome_token = ? AND modifier_token IS NULL AND measure = 'INCIDENCE'
         """
         params = [outcome_token]
@@ -452,7 +453,8 @@ class MetaAnalysisEngine:
         """Fetch effect modifier estimates from database."""
 
         query = """
-            SELECT * FROM estimates
+            SELECT outcome_token, context_label, baseline_risk, baseline_source
+            FROM estimates
             WHERE outcome_token = ? AND modifier_token = ? AND measure IN ('OR', 'RR', 'HR')
         """
         params = [outcome_token, modifier_token]
