@@ -46,7 +46,7 @@ def main():
         return False
 
     # Step 4: Test the rebuilt database
-    if not run_command("python -c \"from src.core.database import Database; db = Database(); print(f'Database ready with {len(db.conn.execute(\\\"SELECT * FROM estimates\\\").fetchall())} evidence estimates')\"", "Testing rebuilt database"):
+    if not run_command("python -c \"from src.core.database import Database; db = Database(); print(f'Database ready with {len(db.conn.execute(\\\"SELECT COUNT(*) FROM estimates\\\").fetchone())} evidence estimates')\"", "Testing rebuilt database"):
         print("[ERROR] Failed to validate rebuilt database")
         return False
 

@@ -569,9 +569,13 @@ class ComprehensiveEvidenceHarvester:
     def _update_outcome_pooled_model(self, outcome_token: str):
         """Update pooled model for a specific outcome."""
 
-        # Get all estimates for this outcome
+        # Get all estimates for this outcome (excluding harvest_batch_id for compatibility)
         estimates = self.db.conn.execute("""
-            SELECT * FROM estimates
+            SELECT outcome_token, context_label, baseline_risk, baseline_source,
+                   modifier_token, measure, effect_size, ci_low, ci_high,
+                   denominator, numerator, events, sample_size, pmid,
+                   evidence_grade, quality_weight, covariates, subgroup, extracted_at
+            FROM estimates
             WHERE outcome_token = ?
             AND quality_weight >= ?
             ORDER BY evidence_grade, quality_weight DESC
