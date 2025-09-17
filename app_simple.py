@@ -19,14 +19,21 @@ from email.mime.multipart import MIMEMultipart as MimeMultipart
 from flask import Flask, render_template_string, request, jsonify
 from flask_cors import CORS
 
+# Import error handling system
+from src.core.error_codes import CodexError, ErrorCode, ErrorLogger, handle_risk_empty_sequence_error, handle_hpi_parse_error
+
 # Import the database-driven risk engine
 sys.path.append(os.path.join(os.path.dirname(__file__)))
 from src.core.risk_engine import RiskEngine
 from src.core.hpi_parser import ExtractedFactor
 
+# Set NCBI API key for evidence harvesting
+os.environ['NCBI_API_KEY'] = '75080d5c230ad16abe97b1b3a27051e02908'
+
 # Configure logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
+error_logger = ErrorLogger('codex_app')
 
 # Initialize Flask app
 app = Flask(__name__)
@@ -2347,8 +2354,43 @@ def analyze():
         })
 
     except Exception as e:
-        logger.error(f"Analysis error: {e}")
-        return jsonify({"error": str(e)}), 500
+        # Handle specific error types with detailed codes
+        if "max() arg is an empty sequence" in str(e):
+            codex_error = handle_risk_empty_sequence_error(
+                outcome_token="unknown",
+                population="pediatric_general"
+            )
+            error_logger.log_error(codex_error)
+            return jsonify({
+                "error_code": codex_error.error_code.value,
+                "error": codex_error.message,
+                "details": codex_error.details,
+                "trace_id": codex_error.trace_id
+            }), 500
+        elif "parse" in str(e).lower():
+            codex_error = handle_hpi_parse_error(hpi_text, e)
+            error_logger.log_error(codex_error)
+            return jsonify({
+                "error_code": codex_error.error_code.value,
+                "error": codex_error.message,
+                "details": codex_error.details,
+                "trace_id": codex_error.trace_id
+            }), 500
+        else:
+            # Generic application error
+            codex_error = CodexError(
+                error_code=ErrorCode.APP_INTERNAL_ERROR,
+                message=f"Unexpected error during analysis: {str(e)}",
+                details={"original_error": str(e)},
+                original_exception=e
+            )
+            error_logger.log_error(codex_error)
+            return jsonify({
+                "error_code": codex_error.error_code.value,
+                "error": codex_error.message,
+                "details": codex_error.details,
+                "trace_id": codex_error.trace_id
+            }), 500
 
 @app.route('/api/bug-report', methods=['POST'])
 def bug_report():

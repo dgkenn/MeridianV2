@@ -550,9 +550,12 @@ class RiskEngine:
                 ci_low = math.exp(weighted_log_or - 1.96 * se_log_or)
                 ci_high = math.exp(weighted_log_or + 1.96 * se_log_or)
 
-                # Best evidence grade
+                # Best evidence grade with fallback
                 grade_order = {"A": 4, "B": 3, "C": 2, "D": 1}
-                best_grade = max(evidence_grades, key=lambda g: grade_order.get(g, 1))
+                if evidence_grades:
+                    best_grade = max(evidence_grades, key=lambda g: grade_order.get(g, 1))
+                else:
+                    best_grade = "D"  # Default to lowest grade if no evidence
 
                 factor_term = self.ontology.terms.get(modifier_token)
                 factor_label = factor_term.plain_label if factor_term else modifier_token
@@ -699,8 +702,11 @@ class RiskEngine:
             if grade_counts.get(grade, 0) >= 2:  # At least 2 studies
                 return grade
 
-        # Return most common grade
-        return max(grade_counts.items(), key=lambda x: x[1])[0]
+        # Return most common grade with fallback
+        if grade_counts:
+            return max(grade_counts.items(), key=lambda x: x[1])[0]
+        else:
+            return "D"  # Default to lowest grade if no evidence
 
     def _determine_evidence_grade(self, all_results: List[Any]) -> str:
         """Determine overall evidence grade for an assessment."""
