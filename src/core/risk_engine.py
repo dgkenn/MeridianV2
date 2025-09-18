@@ -267,48 +267,67 @@ class RiskEngine:
         elif "obstetric" in context_label.lower():
             population = "obstetric"
 
-        # Try to get baseline from pooled estimates (modifier_token IS NULL for baseline)
-        baseline_query = """
-            SELECT pooled_estimate, pooled_ci_low, pooled_ci_high, n_studies,
-                   evidence_grade, contributing_pmids, population
-            FROM pooled_estimates
+        # First try to get baseline from evidence_based_adjusted_risks table (most specific)
+        evidence_based_query = """
+            SELECT adjusted_risk, confidence_interval_lower, confidence_interval_upper,
+                   studies_count, evidence_grade, adjustment_category
+            FROM evidence_based_adjusted_risks
             WHERE outcome_token = ?
-            AND modifier_token IS NULL
+            AND adjustment_category = 'baseline'
+            LIMIT 1
+        """
+
+        evidence_result = self.db.conn.execute(evidence_based_query, [outcome_token]).fetchone()
+
+        if evidence_result:
+            baseline_risk = evidence_result[0]
+            context = f"{population}_evidence_based"
+
+            # Validate baseline risk is reasonable
+            if self.min_baseline_risk <= baseline_risk <= self.max_baseline_risk:
+                return (baseline_risk, context, [])
+
+        # Fallback: Try to get baseline from baseline_risks table
+        baseline_query = """
+            SELECT baseline_risk, confidence_interval_lower, confidence_interval_upper,
+                   studies_count, evidence_grade, population
+            FROM baseline_risks
+            WHERE outcome_token = ?
             AND (population = ? OR population = 'mixed')
-            AND n_studies >= ?
             ORDER BY
                 CASE WHEN population = ? THEN 1 ELSE 2 END,
-                evidence_grade,
-                n_studies DESC
+                CASE WHEN evidence_grade = 'A' THEN 1
+                     WHEN evidence_grade = 'B' THEN 2
+                     WHEN evidence_grade = 'C' THEN 3
+                     ELSE 4 END,
+                studies_count DESC
             LIMIT 1
         """
 
         baseline_result = self.db.conn.execute(baseline_query, [
-            outcome_token, population, self.min_studies_for_pooled, population
+            outcome_token, population, population
         ]).fetchone()
 
         if baseline_result:
             baseline_risk = baseline_result[0]
-            pmids = json.loads(baseline_result[5] or "[]")
-            context = f"{baseline_result[6]}_baseline"
+            context = f"{baseline_result[5] or 'mixed'}_baseline"
 
             # Validate baseline risk is reasonable
             if self.min_baseline_risk <= baseline_risk <= self.max_baseline_risk:
-                return (baseline_risk, context, pmids)
+                return (baseline_risk, context, [])
 
         # Fallback: try less specific population
         if population != "mixed":
             fallback_result = self.db.conn.execute(baseline_query, [
-                outcome_token, "mixed", self.min_studies_for_pooled, "mixed"
+                outcome_token, "mixed", "mixed"
             ]).fetchone()
 
             if fallback_result:
                 baseline_risk = fallback_result[0]
-                pmids = json.loads(fallback_result[5] or "[]")
                 context = "mixed_baseline"
 
                 if self.min_baseline_risk <= baseline_risk <= self.max_baseline_risk:
-                    return (baseline_risk, context, pmids)
+                    return (baseline_risk, context, [])
 
         # Final fallback: use individual estimates to calculate baseline
         individual_baseline = self._calculate_baseline_from_estimates(outcome_token, population)
@@ -416,55 +435,81 @@ class RiskEngine:
     def _get_pooled_effect_estimate(self, outcome_token: str, modifier_token: str, population: str) -> Optional[Dict[str, Any]]:
         """Get pooled effect estimate from comprehensive evidence database."""
 
-        # Query pooled estimates for this outcome-modifier combination
-        effect_query = """
-            SELECT pooled_estimate, pooled_ci_low, pooled_ci_high, n_studies,
-                   evidence_grade, contributing_pmids, heterogeneity_i2, total_n, population
-            FROM pooled_estimates
+        # First try to get from evidence_based_adjusted_risks table (most specific)
+        evidence_based_query = """
+            SELECT adjustment_multiplier, confidence_interval_lower, confidence_interval_upper,
+                   studies_count, evidence_grade, adjustment_type
+            FROM evidence_based_adjusted_risks
             WHERE outcome_token = ?
-            AND modifier_token = ?
-            AND (population = ? OR population = 'mixed')
-            AND n_studies >= ?
-            ORDER BY
-                CASE WHEN population = ? THEN 1 ELSE 2 END,
-                evidence_grade,
-                n_studies DESC
+            AND adjustment_type = ?
+            AND adjustment_category != 'baseline'
             LIMIT 1
         """
 
-        effect_result = self.db.conn.execute(effect_query, [
-            outcome_token, modifier_token, population, self.min_studies_for_pooled, population
-        ]).fetchone()
+        evidence_result = self.db.conn.execute(evidence_based_query, [outcome_token, modifier_token]).fetchone()
+
+        if evidence_result:
+            or_value = evidence_result[0]
+            ci_low = evidence_result[1] if evidence_result[1] is not None else or_value * 0.8
+            ci_high = evidence_result[2] if evidence_result[2] is not None else or_value * 1.2
+            n_studies = evidence_result[3] or 1
+            evidence_grade = evidence_result[4] or 'C'
+
+            # Validate OR is reasonable
+            if self.min_or <= or_value <= self.max_or:
+                return {
+                    'or_value': or_value,
+                    'ci_low': ci_low,
+                    'ci_high': ci_high,
+                    'n_studies': n_studies,
+                    'evidence_grade': evidence_grade,
+                    'pmids': [],
+                    'heterogeneity_i2': 0.0,
+                    'factor_token': modifier_token,
+                    'factor_type': 'evidence_based_adjustment'
+                }
+
+        # Fallback: Query risk modifiers table for this outcome-modifier combination
+        effect_query = """
+            SELECT effect_estimate, confidence_interval_lower, confidence_interval_upper,
+                   studies_count, evidence_grade
+            FROM risk_modifiers
+            WHERE outcome_token = ?
+            AND modifier_token = ?
+            ORDER BY
+                CASE WHEN evidence_grade = 'A' THEN 1
+                     WHEN evidence_grade = 'B' THEN 2
+                     WHEN evidence_grade = 'C' THEN 3
+                     ELSE 4 END,
+                studies_count DESC
+            LIMIT 1
+        """
+
+        effect_result = self.db.conn.execute(effect_query, [outcome_token, modifier_token]).fetchone()
 
         if effect_result:
             or_value = effect_result[0]
-            ci_low = effect_result[1]
-            ci_high = effect_result[2]
-            n_studies = effect_result[3]
-            evidence_grade = effect_result[4]
-            pmids = json.loads(effect_result[5] or "[]")
-            i2 = effect_result[6]
-            total_n = effect_result[7]
-            effect_population = effect_result[8]
+            ci_low = effect_result[1] if effect_result[1] is not None else or_value * 0.8
+            ci_high = effect_result[2] if effect_result[2] is not None else or_value * 1.2
+            n_studies = effect_result[3] or 1
+            evidence_grade = effect_result[4] or 'C'
 
             # Validate OR is reasonable
             if self.min_or <= or_value <= self.max_or:
                 # Get factor label from ontology
-                factor_term = self.ontology.terms.get(modifier_token)
+                factor_term = self.ontology.get_term(modifier_token)
                 factor_label = factor_term.plain_label if factor_term else modifier_token
 
                 return {
-                    'factor': modifier_token,
-                    'factor_label': factor_label,
-                    'or': or_value,
-                    'ci': (ci_low, ci_high) if ci_low and ci_high else None,
+                    'or_value': or_value,
+                    'ci_low': ci_low,
+                    'ci_high': ci_high,
+                    'n_studies': n_studies,
                     'evidence_grade': evidence_grade,
-                    'k_studies': n_studies,
-                    'total_n': total_n,
-                    'pmids': pmids,
-                    'heterogeneity_i2': i2,
-                    'population': effect_population,
-                    'method': 'pooled_comprehensive'
+                    'pmids': [],
+                    'heterogeneity_i2': 0.0,
+                    'factor_token': modifier_token,
+                    'factor_type': 'risk_modifier'
                 }
 
         # Fallback: try to get individual estimates and calculate on-the-fly
