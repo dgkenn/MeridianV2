@@ -1,0 +1,68 @@
+{
+  "session_id": "20250917_225232",
+  "timestamp": "2025-09-17T22:53:57.480755",
+  "base_url": "https://meridian-zr3e.onrender.com",
+  "total_tests": 8,
+  "passed_tests": 3,
+  "success_rate": 37.5,
+  "headless": false,
+  "debug": true,
+  "tests": [
+    {
+      "test": "Homepage Load",
+      "success": true,
+      "message": "Title: Meridian - Perioperative Intelligence Platform, HPI textarea found",
+      "timestamp": "2025-09-17T22:52:36.186586",
+      "screenshot": "20250917_225232_01_homepage_loaded.png"
+    },
+    {
+      "test": "Load Example Button",
+      "success": false,
+      "message": "Locator.input_value: Error: strict mode violation: locator(\"textarea\") resolved to 3 elements:\n    1) <textarea rows=\"12\" id=\"hpiText\" class=\"form-control\" placeholder=\"Enter patient HPI here...\"></textarea> aka get_by_role(\"textbox\", name=\"Enter patient HPI here...\")\n    2) <textarea rows=\"6\" required=\"\" id=\"issueDescription\" placeholder=\"Please describe the issue in detail:??? What were you trying to do??? What happened instead??? What did you expect to happen??? Can you reproduce this issue??? Include any error messages if applicable\"></textarea> aka get_by_placeholder(\"Please describe the issue in\")\n    3) <textarea rows=\"3\" id=\"patientCase\" placeholder=\"If relevant, provide anonymized patient details (age, conditions, procedure) that triggered the issue\"></textarea> aka get_by_placeholder(\"If relevant, provide\")\n\nCall log:\n  - waiting for locator(\"textarea\")\n",
+      "timestamp": "2025-09-17T22:52:36.798859",
+      "screenshot": "20250917_225232_02_load_example_failed.png"
+    },
+    {
+      "test": "Manual HPI Input",
+      "success": true,
+      "message": "Fallback HPI input successful",
+      "timestamp": "2025-09-17T22:52:36.822534",
+      "screenshot": null
+    },
+    {
+      "test": "HPI Analysis",
+      "success": true,
+      "message": "Analysis completed, 0 factor sections found",
+      "timestamp": "2025-09-17T22:52:55.211580",
+      "screenshot": "20250917_225232_03_hpi_analyzed.png"
+    },
+    {
+      "test": "Risk Scores Tab",
+      "success": false,
+      "message": "Locator.click: Timeout 15000ms exceeded.\nCall log:\n  - waiting for locator(\"text=Risk Scores, text=Risk Analysis, button:has-text('Risk')\").first\n",
+      "timestamp": "2025-09-17T22:53:10.518119",
+      "screenshot": "20250917_225232_04_risk_scores_failed.png"
+    },
+    {
+      "test": "Medications Tab",
+      "success": false,
+      "message": "Locator.click: Timeout 15000ms exceeded.\nCall log:\n  - waiting for locator(\"text=Medications, text=Clinical Recommendations, button:has-text('Med')\").first\n",
+      "timestamp": "2025-09-17T22:53:25.834133",
+      "screenshot": "20250917_225232_05_medications_failed.png"
+    },
+    {
+      "test": "Relevant Studies Tab",
+      "success": false,
+      "message": "Locator.click: Timeout 15000ms exceeded.\nCall log:\n  - waiting for locator(\"text=Relevant Studies, text=Evidence, button:has-text('Studies')\").first\n",
+      "timestamp": "2025-09-17T22:53:41.152655",
+      "screenshot": "20250917_225232_06_studies_failed.png"
+    },
+    {
+      "test": "Learning Tab",
+      "success": false,
+      "message": "Locator.click: Timeout 15000ms exceeded.\nCall log:\n  - waiting for locator(\"text=Learning, text=Questions, button:has-text('Learn')\").first\n",
+      "timestamp": "2025-09-17T22:53:56.488295",
+      "screenshot": "20250917_225232_07_learning_failed.png"
+    }
+  ]
+}

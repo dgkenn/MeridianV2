@@ -42,40 +42,68 @@ class BasicRiskCalculator:
         self.db = init_database(db_path)
         logger.info(f"Initialized BasicRiskCalculator with database: {db_path}")
 
-    def normalize_outcome_temporal(self, outcome_token: str, estimate: float) -> float:
-        """Normalize outcome estimates to 30-day standard timeframe"""
+    def get_outcome_temporal_horizons(self, outcome_token: str) -> List[str]:
+        """Get appropriate temporal horizons for each outcome based on clinical evidence"""
 
-        # Temporal conversion factors based on clinical evidence
-        # These convert shorter timeframes to approximate 30-day risk
-        temporal_factors = {
-            # Mortality timeframes
-            'MORTALITY_24H': 1.5,    # 24h mortality is typically ~67% of 30-day
-            'MORTALITY_7D': 1.2,     # 7-day mortality is typically ~83% of 30-day
-            'MORTALITY_30D': 1.0,    # Already 30-day standard
-            'MORTALITY_90D': 0.9,    # 90-day mortality higher, adjust down to 30-day
+        temporal_mapping = {
+            # Immediate/Intraoperative events (during surgery)
+            'FAILED_INTUBATION': ['intraoperative'],
+            'ASPIRATION': ['intraoperative', 'perioperative'],  # Can occur during induction or recovery
+            'LARYNGOSPASM': ['intraoperative'],
+            'BRONCHOSPASM': ['intraoperative', 'perioperative'],  # Can be immediate or delayed
+            'AWARENESS_UNDER_ANESTHESIA': ['intraoperative'],
+            'AMNIOTIC_FLUID_EMBOLISM': ['intraoperative'],
 
-            # Cardiac events (typically occur early)
-            'CARDIAC_ARREST': 1.1,   # Most occur within first few days
-            'CARDIOGENIC_SHOCK': 1.2, # Often early complication
+            # Cardiac events (can be immediate or early postop)
+            'CARDIAC_ARREST': ['intraoperative', 'perioperative'],
+            'CARDIOGENIC_SHOCK': ['intraoperative', 'perioperative'],
+            'VENTRICULAR_ARRHYTHMIA': ['intraoperative', 'perioperative'],
 
-            # Other complications (vary by timing)
-            'ASPIRATION': 1.0,       # Usually immediate/early
-            'BRONCHOSPASM': 1.0,     # Usually immediate
-            'FAILED_INTUBATION': 1.0, # Immediate event
-            'AMNIOTIC_FLUID_EMBOLISM': 1.0, # Immediate event
+            # Postoperative complications
+            'STROKE': ['perioperative'],
+            'PULMONARY_EMBOLISM': ['perioperative'],
+            'ARDS': ['perioperative'],
+            'SEPSIS': ['perioperative'],
+            'ACUTE_KIDNEY_INJURY': ['perioperative'],
+            'MULTIPLE_ORGAN_DYSFUNCTION': ['perioperative'],
 
-            # Default for unspecified outcomes
-            'DEFAULT': 1.0
+            # Mortality (by temporal definition)
+            'MORTALITY_24H': ['perioperative'],
+            'MORTALITY_30D': ['perioperative'],
+            'MORTALITY_INHOSPITAL': ['perioperative'],
         }
 
-        # Apply temporal normalization
-        factor = temporal_factors.get(outcome_token, temporal_factors['DEFAULT'])
+        return temporal_mapping.get(outcome_token, ['perioperative'])  # Default to perioperative
 
-        # For very small estimates, be more conservative with adjustment
-        if estimate < 0.001:  # < 0.1%
-            factor = min(factor, 1.1)  # Limit adjustment for rare events
+    def get_temporal_conversion_factor(self, outcome_token: str, temporal_horizon: str) -> float:
+        """Get conversion factors for different temporal horizons"""
 
-        return estimate * factor
+        conversion_factors = {
+            'intraoperative': {
+                # For intraoperative risks, use original estimates
+                'ASPIRATION': 1.0,
+                'BRONCHOSPASM': 1.0,
+                'CARDIAC_ARREST': 0.6,  # ~60% of cardiac arrests are intraoperative
+                'CARDIOGENIC_SHOCK': 0.4,  # ~40% are intraoperative
+                'VENTRICULAR_ARRHYTHMIA': 0.7,  # ~70% are intraoperative
+                'DEFAULT': 1.0
+            },
+            'perioperative': {
+                # For perioperative (30-day) risks
+                'ASPIRATION': 1.2,  # Some aspiration occurs in recovery
+                'BRONCHOSPASM': 1.3,  # Can develop postoperatively
+                'CARDIAC_ARREST': 1.0,  # Total risk includes intra + postop
+                'CARDIOGENIC_SHOCK': 1.0,  # Total risk
+                'VENTRICULAR_ARRHYTHMIA': 1.0,  # Total risk
+                'MORTALITY_24H': 1.5,  # Convert to 30-day equivalent
+                'STROKE': 1.0,
+                'PULMONARY_EMBOLISM': 1.0,
+                'DEFAULT': 1.0
+            }
+        }
+
+        horizon_factors = conversion_factors.get(temporal_horizon, conversion_factors['perioperative'])
+        return horizon_factors.get(outcome_token, horizon_factors['DEFAULT'])
 
     def calculate_pooled_estimate(self, estimates: List[float], weights: List[float]) -> Dict:
         """Calculate simple pooled estimate using inverse variance weighting"""
@@ -138,16 +166,22 @@ class BasicRiskCalculator:
                 evidence = self.db.conn.execute(evidence_query, [outcome_token]).fetchall()
 
                 if evidence:
-                    estimates = []
-                    weights = []
+                    # Get temporal horizons for this outcome
+                    temporal_horizons = self.get_outcome_temporal_horizons(outcome_token)
 
-                    for est, quality_weight, evidence_grade, n_group, pub_year in evidence:
-                        # Apply temporal outcome normalization
-                        normalized_est = self.normalize_outcome_temporal(outcome_token, est)
-                        estimates.append(normalized_est)
+                    # Calculate risks for each temporal horizon
+                    for temporal_horizon in temporal_horizons:
+                        estimates = []
+                        weights = []
 
-                        # Calculate weight based on quality and sample size
-                        weight = quality_weight or 1.0
+                        for est, quality_weight, evidence_grade, n_group, pub_year in evidence:
+                            # Apply temporal conversion for this horizon
+                            conversion_factor = self.get_temporal_conversion_factor(outcome_token, temporal_horizon)
+                            normalized_est = est * conversion_factor
+                            estimates.append(normalized_est)
+
+                            # Calculate weight based on quality and sample size
+                            weight = quality_weight or 1.0
 
                         # Add evidence grade weight
                         grade_weights = {'A': 4.0, 'B': 3.0, 'C': 2.0, 'D': 1.0}
@@ -225,9 +259,8 @@ class BasicRiskCalculator:
                     weights = []
 
                     for est, quality_weight, evidence_grade, n_group, pub_year in evidence:
-                        # Apply temporal outcome normalization
-                        normalized_est = self.normalize_outcome_temporal(outcome_token, est)
-                        estimates.append(normalized_est)
+                        # Use estimate as-is (basic calculation doesn't apply temporal normalization)
+                        estimates.append(est)
 
                         # Calculate weight
                         weight = quality_weight or 1.0

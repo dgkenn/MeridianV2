@@ -1,0 +1,118 @@
+{
+  "calculation_summary": {
+    "timestamp": "2025-09-17T22:50:28.569098",
+    "total_calculations": 126,
+    "baseline_risks": 18,
+    "modifier_effects": 108,
+    "database_path": "database/codex.duckdb"
+  },
+  "baseline_risk_examples": {
+    "ARDS": {
+      "outcome_token": "ARDS",
+      "risk_type": "baseline",
+      "estimate": 16.02062633020637,
+      "standard_error": 0.01631905581761622,
+      "ci_lower": 15.988640980803842,
+      "ci_upper": 16.052611679608898,
+      "studies_count": 132,
+      "total_weight": 3755.000025033951
+    },
+    "MORTALITY_INHOSPITAL": {
+      "outcome_token": "MORTALITY_INHOSPITAL",
+      "risk_type": "baseline",
+      "estimate": 5.281343409746258,
+      "standard_error": 0.009130889115083569,
+      "ci_lower": 5.263446867080694,
+      "ci_upper": 5.299239952411821,
+      "studies_count": 475,
+      "total_weight": 11994.271147684356
+    },
+    "VENTRICULAR_ARRHYTHMIA": {
+      "outcome_token": "VENTRICULAR_ARRHYTHMIA",
+      "risk_type": "baseline",
+      "estimate": 4.58945783609774,
+      "standard_error": 0.021084981481718012,
+      "ci_lower": 4.548131272393572,
+      "ci_upper": 4.630784399801907,
+      "studies_count": 97,
+      "total_weight": 2249.331950233008
+    },
+    "MORTALITY_30D": {
+      "outcome_token": "MORTALITY_30D",
+      "risk_type": "baseline",
+      "estimate": 7.144905450839613,
+      "standard_error": 0.008040244301104466,
+      "ci_lower": 7.129146572009448,
+      "ci_upper": 7.160664329669778,
+      "studies_count": 652,
+      "total_weight": 15468.974025252168
+    },
+    "PULMONARY_EMBOLISM": {
+      "outcome_token": "PULMONARY_EMBOLISM",
+      "risk_type": "baseline",
+      "estimate": 3.2701127263275005,
+      "standard_error": 0.013045452374795768,
+      "ci_lower": 3.2445436396729006,
+      "ci_upper": 3.2956818129821004,
+      "studies_count": 237,
+      "total_weight": 5875.99899315834
+    }
+  },
+  "modifier_effect_examples": {
+    "PULMONARY_EMBOLISM_SEX_MALE": {
+      "outcome_token": "PULMONARY_EMBOLISM",
+      "modifier_token": "SEX_MALE",
+      "effect_type": "modifier",
+      "estimate": 1.8311391304957458,
+      "standard_error": 0.10898446413874682,
+      "ci_lower": 1.6175295807838022,
+      "ci_upper": 2.0447486802076895,
+      "studies_count": 4,
+      "total_weight": 84.19199752807617
+    },
+    "STROKE_SEX_MALE": {
+      "outcome_token": "STROKE",
+      "modifier_token": "SEX_MALE",
+      "effect_type": "modifier",
+      "estimate": 2.0050999517286816,
+      "standard_error": 0.12309148920070863,
+      "ci_lower": 1.7638406328952927,
+      "ci_upper": 2.2463592705620705,
+      "studies_count": 3,
+      "total_weight": 66.00000190734863
+    },
+    "MORTALITY_INHOSPITAL_PREGNANCY": {
+      "outcome_token": "MORTALITY_INHOSPITAL",
+      "modifier_token": "PREGNANCY",
+      "effect_type": "modifier",
+      "estimate": 2.8450000286102295,
+      "standard_error": 0.3077287213343115,
+      "ci_lower": 2.241851734794979,
+      "ci_upper": 3.44814832242548,
+      "studies_count": 2,
+      "total_weight": 10.5600004196167
+    },
+    "MORTALITY_30D_OSA": {
+      "outcome_token": "MORTALITY_30D",
+      "modifier_token": "OSA",
+      "effect_type": "modifier",
+      "estimate": 2.7462763932952052,
+      "standard_error": 0.11938649560720356,
+      "ci_lower": 2.512278861905086,
+      "ci_upper": 2.9802739246853243,
+      "studies_count": 3,
+      "total_weight": 70.16000175476074
+    },
+    "ACUTE_KIDNEY_INJURY_AGE_INFANT": {
+      "outcome_token": "ACUTE_KIDNEY_INJURY",
+      "modifier_token": "AGE_INFANT",
+      "effect_type": "modifier",
+      "estimate": 39.5,
+      "standard_error": 0.2985407134607273,
+      "ci_lower": 38.914860201616975,
+      "ci_upper": 40.085139798383025,
+      "studies_count": 2,
+      "total_weight": 11.220000267028809
+    }
+  }
+}

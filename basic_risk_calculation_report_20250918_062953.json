@@ -1,0 +1,118 @@
+{
+  "calculation_summary": {
+    "timestamp": "2025-09-18T06:29:53.512236",
+    "total_calculations": 126,
+    "baseline_risks": 18,
+    "modifier_effects": 108,
+    "database_path": "database/codex.duckdb"
+  },
+  "baseline_risk_examples": {
+    "LARYNGOSPASM": {
+      "outcome_token": "LARYNGOSPASM",
+      "risk_type": "baseline",
+      "estimate": 20.0,
+      "standard_error": 0.19665841331001913,
+      "ci_lower": 19.61454950991236,
+      "ci_upper": 20.38545049008764,
+      "studies_count": 99,
+      "total_weight": 25.85680965101531
+    },
+    "AWARENESS_UNDER_ANESTHESIA": {
+      "outcome_token": "AWARENESS_UNDER_ANESTHESIA",
+      "risk_type": "baseline",
+      "estimate": 7.269999980926514,
+      "standard_error": 0.29012942519541063,
+      "ci_lower": 6.701346307543509,
+      "ci_upper": 7.838653654309518,
+      "studies_count": 61,
+      "total_weight": 11.880000114440918
+    },
+    "MORTALITY_30D": {
+      "outcome_token": "MORTALITY_30D",
+      "risk_type": "baseline",
+      "estimate": 0.023000000044703484,
+      "standard_error": 0.19597817110810967,
+      "ci_lower": -0.36111721532719143,
+      "ci_upper": 0.4071172154165984,
+      "studies_count": 652,
+      "total_weight": 26.036619663979184
+    },
+    "PULMONARY_EMBOLISM": {
+      "outcome_token": "PULMONARY_EMBOLISM",
+      "risk_type": "baseline",
+      "estimate": 0.9200000166893005,
+      "standard_error": 0.1973410166394493,
+      "ci_lower": 0.5332116240759799,
+      "ci_upper": 1.3067884093026212,
+      "studies_count": 237,
+      "total_weight": 25.67824141371891
+    },
+    "VENTRICULAR_ARRHYTHMIA": {
+      "outcome_token": "VENTRICULAR_ARRHYTHMIA",
+      "risk_type": "baseline",
+      "estimate": 0.07000000029802322,
+      "standard_error": 0.25086775251302634,
+      "ci_lower": -0.4217007946275084,
+      "ci_upper": 0.5617007952235549,
+      "studies_count": 97,
+      "total_weight": 15.889503313235313
+    }
+  },
+  "modifier_effect_examples": {
+    "SEPSIS_AGE_INFANT": {
+      "outcome_token": "SEPSIS",
+      "modifier_token": "AGE_INFANT",
+      "effect_type": "modifier",
+      "estimate": 16.154765453397975,
+      "standard_error": 0.09169881504505135,
+      "ci_lower": 15.975035775909674,
+      "ci_upper": 16.334495130886275,
+      "studies_count": 7,
+      "total_weight": 118.92483367787983
+    },
+    "VENTRICULAR_ARRHYTHMIA_ICD": {
+      "outcome_token": "VENTRICULAR_ARRHYTHMIA",
+      "modifier_token": "ICD",
+      "effect_type": "modifier",
+      "estimate": 0.3998789798549001,
+      "standard_error": 0.0582567789932927,
+      "ci_lower": 0.2856956930280464,
+      "ci_upper": 0.5140622666817538,
+      "studies_count": 14,
+      "total_weight": 294.6504184613155
+    },
+    "MORTALITY_INHOSPITAL_PREMATURITY": {
+      "outcome_token": "MORTALITY_INHOSPITAL",
+      "modifier_token": "PREMATURITY",
+      "effect_type": "modifier",
+      "estimate": 36.0,
+      "standard_error": 0.7518268631538663,
+      "ci_lower": 34.526419348218425,
+      "ci_upper": 37.473580651781575,
+      "studies_count": 1,
+      "total_weight": 1.7691486345083163
+    },
+    "MORTALITY_30D_AGE_NEONATE": {
+      "outcome_token": "MORTALITY_30D",
+      "modifier_token": "AGE_NEONATE",
+      "effect_type": "modifier",
+      "estimate": 9.0,
+      "standard_error": 0.46531356420797015,
+      "ci_lower": 8.087985414152378,
+      "ci_upper": 9.912014585847622,
+      "studies_count": 1,
+      "total_weight": 4.618581106180374
+    },
+    "ARDS_HYPERTENSION": {
+      "outcome_token": "ARDS",
+      "modifier_token": "HYPERTENSION",
+      "effect_type": "modifier",
+      "estimate": 2.051747219122592,
+      "standard_error": 0.11630949853900857,
+      "ci_lower": 1.8237806019861351,
+      "ci_upper": 2.2797138362590488,
+      "studies_count": 3,
+      "total_weight": 73.92130638365693
+    }
+  }
+}

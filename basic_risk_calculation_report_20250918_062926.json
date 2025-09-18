@@ -1,0 +1,62 @@
+{
+  "calculation_summary": {
+    "timestamp": "2025-09-18T06:29:26.577069",
+    "total_calculations": 18,
+    "baseline_risks": 18,
+    "modifier_effects": 0,
+    "database_path": "database/codex.duckdb"
+  },
+  "baseline_risk_examples": {
+    "BRONCHOSPASM": {
+      "outcome_token": "BRONCHOSPASM",
+      "risk_type": "baseline",
+      "estimate": 0.0013000000617466867,
+      "standard_error": 0.305676567154919,
+      "ci_lower": -0.5978260715618945,
+      "ci_upper": 0.6004260716853879,
+      "studies_count": 37,
+      "total_weight": 10.702265116523204
+    },
+    "VENTRICULAR_ARRHYTHMIA": {
+      "outcome_token": "VENTRICULAR_ARRHYTHMIA",
+      "risk_type": "baseline",
+      "estimate": 0.07000000029802322,
+      "standard_error": 0.25086775251302634,
+      "ci_lower": -0.4217007946275084,
+      "ci_upper": 0.5617007952235549,
+      "studies_count": 97,
+      "total_weight": 15.889503313235313
+    },
+    "ACUTE_KIDNEY_INJURY": {
+      "outcome_token": "ACUTE_KIDNEY_INJURY",
+      "risk_type": "baseline",
+      "estimate": 10.899999618530273,
+      "standard_error": 0.19597817110810967,
+      "ci_lower": 10.515882403158379,
+      "ci_upper": 11.284116833902168,
+      "studies_count": 287,
+      "total_weight": 26.036619663979184
+    },
+    "FAILED_INTUBATION": {
+      "outcome_token": "FAILED_INTUBATION",
+      "risk_type": "baseline",
+      "estimate": 0.2800000011920929,
+      "standard_error": 0.3368164052356936,
+      "ci_lower": -0.3801601530698666,
+      "ci_upper": 0.9401601554540524,
+      "studies_count": 2,
+      "total_weight": 8.81482159930778
+    },
+    "LARYNGOSPASM": {
+      "outcome_token": "LARYNGOSPASM",
+      "risk_type": "baseline",
+      "estimate": 20.0,
+      "standard_error": 0.19665841331001913,
+      "ci_lower": 19.61454950991236,
+      "ci_upper": 20.38545049008764,
+      "studies_count": 99,
+      "total_weight": 25.85680965101531
+    }
+  },
+  "modifier_effect_examples": {}
+}

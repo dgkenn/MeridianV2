@@ -1,0 +1,123 @@
+{
+  "calculation_summary": {
+    "timestamp": "2025-09-18T06:29:12.687355",
+    "total_calculations": 23,
+    "intraoperative_risks": 9,
+    "perioperative_risks": 14,
+    "database_path": "database/codex.duckdb"
+  },
+  "intraoperative_examples": {
+    "LARYNGOSPASM_intraoperative": {
+      "outcome_token": "LARYNGOSPASM",
+      "temporal_horizon": "intraoperative",
+      "display_name": "LARYNGOSPASM (intraoperative)",
+      "estimate": 1.079910552389365,
+      "standard_error": 0.022203445412428146,
+      "ci_lower": 1.036391799381006,
+      "ci_upper": 1.1234293053977242,
+      "studies_count": 99,
+      "total_weight": 2028.4264157311993
+    },
+    "AWARENESS_UNDER_ANESTHESIA_intraoperative": {
+      "outcome_token": "AWARENESS_UNDER_ANESTHESIA",
+      "temporal_horizon": "intraoperative",
+      "display_name": "AWARENESS_UNDER_ANESTHESIA (intraoperative)",
+      "estimate": 4.4170602428635055,
+      "standard_error": 0.026951966763218708,
+      "ci_lower": 4.364234388007596,
+      "ci_upper": 4.469886097719415,
+      "studies_count": 61,
+      "total_weight": 1376.6358501063012
+    },
+    "ASPIRATION_intraoperative": {
+      "outcome_token": "ASPIRATION",
+      "temporal_horizon": "intraoperative",
+      "display_name": "ASPIRATION (intraoperative)",
+      "estimate": 1.870056122065996,
+      "standard_error": 0.026976806451003976,
+      "ci_lower": 1.817181581422028,
+      "ci_upper": 1.9229306627099638,
+      "studies_count": 56,
+      "total_weight": 1374.1018613888
+    },
+    "AMNIOTIC_FLUID_EMBOLISM_intraoperative": {
+      "outcome_token": "AMNIOTIC_FLUID_EMBOLISM",
+      "temporal_horizon": "intraoperative",
+      "display_name": "AMNIOTIC_FLUID_EMBOLISM (intraoperative)",
+      "estimate": 16.09050878844062,
+      "standard_error": 0.10705900367167111,
+      "ci_lower": 15.880673141244143,
+      "ci_upper": 16.300344435637093,
+      "studies_count": 5,
+      "total_weight": 87.24762330401306
+    },
+    "VENTRICULAR_ARRHYTHMIA_intraoperative": {
+      "outcome_token": "VENTRICULAR_ARRHYTHMIA",
+      "temporal_horizon": "intraoperative",
+      "display_name": "VENTRICULAR_ARRHYTHMIA (intraoperative)",
+      "estimate": 3.2454311849877326,
+      "standard_error": 0.02143541099115661,
+      "ci_lower": 3.203417779445066,
+      "ci_upper": 3.2874445905303995,
+      "studies_count": 97,
+      "total_weight": 2176.3882386572254
+    }
+  },
+  "perioperative_examples": {
+    "STROKE_perioperative": {
+      "outcome_token": "STROKE",
+      "temporal_horizon": "perioperative",
+      "display_name": "STROKE (perioperative)",
+      "estimate": 3.787808140842582,
+      "standard_error": 0.011266388985724416,
+      "ci_lower": 3.7657260184305623,
+      "ci_upper": 3.809890263254602,
+      "studies_count": 291,
+      "total_weight": 7878.263758863434
+    },
+    "MORTALITY_24H_perioperative": {
+      "outcome_token": "MORTALITY_24H",
+      "temporal_horizon": "perioperative",
+      "display_name": "MORTALITY_24H (perioperative)",
+      "estimate": 11.312758805058824,
+      "standard_error": 0.021616175919301678,
+      "ci_lower": 11.270391100256992,
+      "ci_upper": 11.355126509860655,
+      "studies_count": 70,
+      "total_weight": 2140.1404117429506
+    },
+    "ASPIRATION_perioperative": {
+      "outcome_token": "ASPIRATION",
+      "temporal_horizon": "perioperative",
+      "display_name": "ASPIRATION (perioperative)",
+      "estimate": 2.337570152582495,
+      "standard_error": 0.026976806451003976,
+      "ci_lower": 2.284695611938527,
+      "ci_upper": 2.390444693226463,
+      "studies_count": 56,
+      "total_weight": 1374.1018613888
+    },
+    "MULTIPLE_ORGAN_DYSFUNCTION_perioperative": {
+      "outcome_token": "MULTIPLE_ORGAN_DYSFUNCTION",
+      "temporal_horizon": "perioperative",
+      "display_name": "MULTIPLE_ORGAN_DYSFUNCTION (perioperative)",
+      "estimate": 3.9250176876611063,
+      "standard_error": 0.02579026501620781,
+      "ci_lower": 3.874468768229339,
+      "ci_upper": 3.9755666070928735,
+      "studies_count": 78,
+      "total_weight": 1503.4479256711118
+    },
+    "VENTRICULAR_ARRHYTHMIA_perioperative": {
+      "outcome_token": "VENTRICULAR_ARRHYTHMIA",
+      "temporal_horizon": "perioperative",
+      "display_name": "VENTRICULAR_ARRHYTHMIA (perioperative)",
+      "estimate": 4.6363302642681905,
+      "standard_error": 0.02143541099115661,
+      "ci_lower": 4.594316858725524,
+      "ci_upper": 4.678343669810857,
+      "studies_count": 97,
+      "total_weight": 2176.3882386572254
+    }
+  }
+}
