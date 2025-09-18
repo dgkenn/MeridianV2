@@ -84,6 +84,11 @@ def verify_database_tables():
 # Verify database on startup
 verify_database_tables()
 
+# CRITICAL FIX: Initialize the risk engine database to use the same path
+from src.core.database import init_database
+logger.info(f"Initializing risk engine with database: {DB_PATH}")
+init_database(DB_PATH)
+
 # Comprehensive ontology mapping based on clinical risk factors
 ONTOLOGY_MAP = {
     # Demographics
