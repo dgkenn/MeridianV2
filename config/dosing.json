@@ -1,0 +1,346 @@
+{
+  "dosing_rules": {
+    "Albuterol": {
+      "pediatric": {
+        "IV": {
+          "dose_mg": 2.5,
+          "weight_based": false,
+          "min_age_months": 2,
+          "max_dose": 2.5
+        },
+        "nebulizer": {
+          "dose_mg": 2.5,
+          "weight_based": false,
+          "min_age_months": 2,
+          "max_dose": 2.5,
+          "frequency": "q4-6h PRN"
+        },
+        "MDI": {
+          "dose_puffs": 3,
+          "weight_based": false,
+          "min_age_years": 4
+        }
+      },
+      "adult": {
+        "IV": {
+          "dose_mg": 2.5,
+          "weight_based": false
+        },
+        "nebulizer": {
+          "dose_mg": 2.5,
+          "weight_based": false,
+          "frequency": "q4-6h PRN"
+        }
+      }
+    },
+    "Ipratropium": {
+      "pediatric": {
+        "IV": {
+          "dose_mcg": 250,
+          "weight_based": false,
+          "min_age_months": 2,
+          "max_dose": 500
+        },
+        "nebulizer": {
+          "dose_mcg": 250,
+          "weight_based": false,
+          "min_age_months": 2,
+          "max_dose": 500
+        }
+      },
+      "adult": {
+        "IV": {
+          "dose_mcg": 500,
+          "weight_based": false
+        },
+        "nebulizer": {
+          "dose_mcg": 500,
+          "weight_based": false
+        }
+      }
+    },
+    "Dexamethasone": {
+      "pediatric": {
+        "IV": {
+          "dose_mg_kg": 0.15,
+          "min_dose": 0.5,
+          "max_dose": 8,
+          "single_dose": true,
+          "timing": "induction"
+        }
+      },
+      "adult": {
+        "IV": {
+          "dose_mg": 4,
+          "weight_based": false,
+          "max_dose": 8,
+          "timing": "induction"
+        }
+      },
+      "renal_adjustment": "none",
+      "hepatic_adjustment": "caution_severe"
+    },
+    "Epinephrine": {
+      "pediatric": {
+        "IV": {
+          "dose_mcg_kg": 1,
+          "min_dose": 1,
+          "max_dose": 100,
+          "concentration": "1:10000",
+          "route": "IV"
+        },
+        "IV_bolus": {
+          "dose_mcg_kg": 1,
+          "min_dose": 1,
+          "max_dose": 100,
+          "concentration": "1:10000",
+          "route": "IV"
+        },
+        "infusion": {
+          "start_mcg_kg_min": 0.1,
+          "max_mcg_kg_min": 1,
+          "concentration": "1:10000"
+        }
+      },
+      "adult": {
+        "IV": {
+          "dose_mcg": 50,
+          "weight_based": false,
+          "concentration": "1:10000"
+        },
+        "IV_bolus": {
+          "dose_mcg": 50,
+          "weight_based": false,
+          "concentration": "1:10000"
+        },
+        "infusion": {
+          "start_mcg_min": 5,
+          "max_mcg_min": 15
+        }
+      }
+    },
+    "Succinylcholine": {
+      "pediatric": {
+        "IV": {
+          "dose_mg_kg": 2,
+          "min_dose": 20,
+          "max_dose": 150,
+          "onset_seconds": "30-60"
+        }
+      },
+      "adult": {
+        "IV": {
+          "dose_mg_kg": 1.5,
+          "typical_dose": "100-150",
+          "onset_seconds": "30-60"
+        }
+      },
+      "contraindications": ["MH_HISTORY", "MUSCULAR_DYSTROPHY", "HYPERKALEMIA"]
+    },
+    "Rocuronium": {
+      "pediatric": {
+        "IV": {
+          "dose_mg_kg": 0.6,
+          "onset_minutes": "1-3"
+        },
+        "IV_standard": {
+          "dose_mg_kg": 0.6,
+          "onset_minutes": "1-3"
+        },
+        "IV_RSI": {
+          "dose_mg_kg": 1.2,
+          "onset_minutes": "1-2"
+        }
+      },
+      "adult": {
+        "IV": {
+          "dose_mg_kg": 0.6,
+          "typical_dose": 50,
+          "onset_minutes": "2-3"
+        },
+        "IV_RSI": {
+          "dose_mg_kg": 1.2,
+          "onset_minutes": "1-2"
+        }
+      },
+      "renal_adjustment": "none",
+      "hepatic_adjustment": "prolonged_duration"
+    },
+    "Ondansetron": {
+      "pediatric": {
+        "IV": {
+          "dose_mg_kg": 0.1,
+          "min_dose": 1,
+          "max_dose": 4,
+          "timing": "30_min_before_emergence"
+        }
+      },
+      "adult": {
+        "IV": {
+          "dose_mg": 4,
+          "weight_based": false,
+          "timing": "30_min_before_emergence"
+        }
+      },
+      "renal_adjustment": "none",
+      "hepatic_adjustment": "reduce_dose_severe"
+    },
+    "Phenylephrine": {
+      "pediatric": {
+        "IV_bolus": {
+          "dose_mcg_kg": 1.0,
+          "min_dose": 5,
+          "max_dose": 50,
+          "concentration": "100 mcg/mL"
+        },
+        "infusion": {
+          "start_mcg_kg_min": 0.1,
+          "max_mcg_kg_min": 1,
+          "concentration": "40 mcg/mL"
+        }
+      },
+      "adult": {
+        "IV_bolus": {
+          "dose_mcg": 100,
+          "weight_based": false,
+          "concentration": "100 mcg/mL"
+        },
+        "infusion": {
+          "start_mcg_min": 50,
+          "max_mcg_min": 200
+        }
+      }
+    },
+    "Ephedrine": {
+      "pediatric": {
+        "IV": {
+          "dose_mg_kg": 0.1,
+          "min_dose": 2.5,
+          "max_dose": 25
+        }
+      },
+      "adult": {
+        "IV": {
+          "dose_mg": 10,
+          "weight_based": false
+        }
+      }
+    },
+    "Dexmedetomidine": {
+      "pediatric": {
+        "IV_bolus": {
+          "dose_mcg_kg": 0.3,
+          "infusion_time_min": 10,
+          "concentration": "4 mcg/mL"
+        },
+        "infusion": {
+          "start_mcg_kg_hr": 0.2,
+          "max_mcg_kg_hr": 1
+        }
+      },
+      "adult": {
+        "IV_bolus": {
+          "dose_mcg_kg": 0.7,
+          "infusion_time_min": 10
+        },
+        "infusion": {
+          "start_mcg_kg_hr": 0.2,
+          "max_mcg_kg_hr": 0.7
+        }
+      },
+      "renal_adjustment": "reduce_dose",
+      "hepatic_adjustment": "reduce_dose"
+    },
+    "Atropine": {
+      "pediatric": {
+        "IV": {
+          "dose_mcg_kg": 20,
+          "min_dose": 100,
+          "max_dose": 1000
+        }
+      },
+      "adult": {
+        "IV": {
+          "dose_mcg": 500,
+          "weight_based": false
+        }
+      }
+    },
+    "Propofol": {
+      "pediatric": {
+        "IV": {
+          "dose_mg_kg": 0.3,
+          "max_single_dose": 20,
+          "timing": "emergence_agitation"
+        }
+      },
+      "adult": {
+        "IV": {
+          "dose_mg_kg": 0.3,
+          "typical_dose": 25,
+          "timing": "emergence_agitation"
+        }
+      },
+      "contraindications": ["EGG_SOY_ALLERGY"]
+    },
+    "Aprepitant": {
+      "pediatric": {
+        "PO": {
+          "dose_mg_kg": 3,
+          "max_dose": 125,
+          "timing": "1-3h_before_surgery"
+        }
+      },
+      "adult": {
+        "PO": {
+          "dose_mg": 125,
+          "weight_based": false,
+          "timing": "1-3h_before_surgery"
+        }
+      }
+    },
+    "Scopolamine": {
+      "pediatric": {
+        "transdermal": {
+          "dose_patches": 0.5,
+          "min_age_years": 12,
+          "timing": "4h_before_surgery"
+        }
+      },
+      "adult": {
+        "transdermal": {
+          "dose_patches": 1,
+          "timing": "4h_before_surgery"
+        }
+      }
+    }
+  },
+  "dose_calculation_rules": {
+    "weight_ranges": {
+      "neonate": {"min_kg": 2, "max_kg": 5},
+      "infant": {"min_kg": 3, "max_kg": 12},
+      "toddler": {"min_kg": 8, "max_kg": 20},
+      "child": {"min_kg": 15, "max_kg": 50},
+      "adult": {"min_kg": 40, "max_kg": 150}
+    },
+    "safety_bounds": {
+      "max_single_dose_factor": 3,
+      "min_practical_volume_ml": 0.1,
+      "rounding_rules": {
+        "volume_ml": 0.1,
+        "dose_mg": 0.1,
+        "dose_mcg": 1
+      }
+    },
+    "renal_adjustments": {
+      "mild": {"creatinine_range": "1.2-2.0", "dose_factor": 1.0},
+      "moderate": {"creatinine_range": "2.0-3.0", "dose_factor": 0.75},
+      "severe": {"creatinine_range": ">3.0", "dose_factor": 0.5}
+    },
+    "hepatic_adjustments": {
+      "mild": {"child_pugh": "A", "dose_factor": 1.0},
+      "moderate": {"child_pugh": "B", "dose_factor": 0.75},
+      "severe": {"child_pugh": "C", "dose_factor": 0.5}
+    }
+  }
+}

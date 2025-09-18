@@ -1,0 +1,164 @@
+{
+  "test_cases": [
+    {
+      "case_id": "peds_ent_asthma_uri",
+      "description": "4-year-old for T&A with asthma and recent URI",
+      "hpi_text": "4-year-old male for tonsillectomy and adenoidectomy. Medical history significant for asthma with recent upper respiratory infection 5 days ago. Uses albuterol PRN. No other significant medical history. No known drug allergies. Vital signs stable. Physical exam appropriate for age. NPO since midnight.",
+      "patient_params": {
+        "age_years": 4,
+        "weight_kg": 18,
+        "height_cm": 100,
+        "sex": "M",
+        "urgency": "elective",
+        "surgery_domain": "ENT",
+        "allergies": [],
+        "renal_function": null,
+        "hepatic_function": null
+      },
+      "expected_features": ["ASTHMA", "RECENT_URI_2W", "ENT_CASE", "T_AND_A"],
+      "expected_elevated_risks": ["BRONCHOSPASM", "LARYNGOSPASM", "PONV"],
+      "expected_draw_now": ["Epinephrine"],
+      "expected_standard": ["Albuterol", "Dexamethasone", "Ondansetron"],
+      "expected_contraindicated": []
+    },
+    {
+      "case_id": "adult_osa_cardiac",
+      "description": "Adult with OSA for cardiac surgery",
+      "hpi_text": "45-year-old female for mitral valve repair. Medical history significant for obstructive sleep apnea on CPAP, hypertension, and diabetes. BMI 32. No known drug allergies. Preoperative echocardiogram shows moderate mitral regurgitation. NPO since midnight.",
+      "patient_params": {
+        "age_years": 45,
+        "weight_kg": 85,
+        "height_cm": 165,
+        "sex": "F",
+        "urgency": "elective",
+        "surgery_domain": "CARDIAC",
+        "allergies": [],
+        "renal_function": null,
+        "hepatic_function": null
+      },
+      "expected_features": ["OSA", "HYPERTENSION", "DIABETES", "OBESITY"],
+      "expected_elevated_risks": ["HYPOTENSION", "PONV"],
+      "expected_draw_now": ["Phenylephrine", "Ephedrine"],
+      "expected_standard": ["Ondansetron"],
+      "expected_contraindicated": []
+    },
+    {
+      "case_id": "mh_history_case",
+      "description": "Patient with malignant hyperthermia history",
+      "hpi_text": "12-year-old male for appendectomy. Medical history significant for family history of malignant hyperthermia - father had reaction during surgery. No other significant medical history. No known drug allergies. Presenting with acute appendicitis. NPO since presentation.",
+      "patient_params": {
+        "age_years": 12,
+        "weight_kg": 40,
+        "height_cm": 145,
+        "sex": "M",
+        "urgency": "urgent",
+        "surgery_domain": "GENERAL",
+        "allergies": [],
+        "renal_function": null,
+        "hepatic_function": null
+      },
+      "expected_features": ["MH_HISTORY", "FULL_STOMACH"],
+      "expected_elevated_risks": [],
+      "expected_draw_now": ["Rocuronium"],
+      "expected_standard": ["Ondansetron"],
+      "expected_contraindicated": ["Succinylcholine", "Volatile_Anesthetics"]
+    },
+    {
+      "case_id": "egg_soy_allergy",
+      "description": "Patient with egg/soy allergy",
+      "hpi_text": "6-year-old female for strabismus repair. Medical history significant for severe egg and soy allergies with anaphylactic reactions. No other significant medical history. Carries epinephrine auto-injector. Vital signs stable. Physical exam appropriate for age. NPO since midnight.",
+      "patient_params": {
+        "age_years": 6,
+        "weight_kg": 22,
+        "height_cm": 115,
+        "sex": "F",
+        "urgency": "elective",
+        "surgery_domain": "OPHTHALMOLOGY",
+        "allergies": ["EGG_SOY_ALLERGY"],
+        "renal_function": null,
+        "hepatic_function": null
+      },
+      "expected_features": ["EGG_SOY_ALLERGY"],
+      "expected_elevated_risks": [],
+      "expected_draw_now": ["Epinephrine"],
+      "expected_standard": ["Ondansetron"],
+      "expected_contraindicated": ["Propofol"]
+    },
+    {
+      "case_id": "neonate_prematurity",
+      "description": "Ex-premature neonate for hernia repair",
+      "hpi_text": "2-week-old male for inguinal hernia repair. Born at 32 weeks gestation, now 42 weeks corrected gestational age. Medical history significant for bronchopulmonary dysplasia, currently on room air. History of apnea of prematurity, resolved. Weight 4.2 kg. NPO per guidelines.",
+      "patient_params": {
+        "age_years": 0.04,
+        "weight_kg": 4.2,
+        "height_cm": 52,
+        "sex": "M",
+        "urgency": "elective",
+        "surgery_domain": "GENERAL",
+        "allergies": [],
+        "renal_function": null,
+        "hepatic_function": null
+      },
+      "expected_features": ["PREMATURITY", "BRONCHOPULMONARY_DYSPLASIA"],
+      "expected_elevated_risks": ["BRONCHOSPASM", "LARYNGOSPASM"],
+      "expected_draw_now": ["Epinephrine"],
+      "expected_standard": ["Ondansetron"],
+      "expected_contraindicated": []
+    }
+  ],
+  "dose_calculation_tests": [
+    {
+      "agent": "Ondansetron",
+      "patient": {
+        "age_years": 4,
+        "weight_kg": 18
+      },
+      "expected_dose_mg": 1.8,
+      "expected_volume_ml": 0.9,
+      "expected_concentration": "2 mg/mL"
+    },
+    {
+      "agent": "Dexamethasone",
+      "patient": {
+        "age_years": 6,
+        "weight_kg": 22
+      },
+      "expected_dose_mg": 3.3,
+      "expected_volume_ml": 0.8,
+      "expected_concentration": "4 mg/mL"
+    },
+    {
+      "agent": "Phenylephrine",
+      "patient": {
+        "age_years": 45,
+        "weight_kg": 70
+      },
+      "expected_dose_mcg": 100,
+      "expected_volume_ml": 1.0,
+      "expected_concentration": "100 mcg/mL"
+    }
+  ],
+  "contraindication_tests": [
+    {
+      "scenario": "MH history",
+      "features": ["MH_HISTORY"],
+      "allergies": [],
+      "expected_contraindicated": ["Succinylcholine", "Volatile_Anesthetics"],
+      "expected_alternatives": ["Rocuronium", "TIVA_Protocol"]
+    },
+    {
+      "scenario": "Egg/soy allergy",
+      "features": [],
+      "allergies": ["EGG_SOY_ALLERGY"],
+      "expected_contraindicated": ["Propofol"],
+      "expected_alternatives": ["Etomidate", "Ketamine"]
+    },
+    {
+      "scenario": "Severe renal failure",
+      "features": ["SEVERE_RENAL_FAILURE"],
+      "allergies": [],
+      "expected_contraindicated": ["Morphine", "Meperidine"],
+      "expected_alternatives": ["Fentanyl", "Hydromorphone"]
+    }
+  ]
+}

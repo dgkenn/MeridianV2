@@ -40,6 +40,16 @@ app = Flask(__name__)
 CORS(app)
 app.config['SECRET_KEY'] = 'codex-demo-key'
 
+# Register API blueprints
+try:
+    from api.meds_api import meds_api
+    app.register_blueprint(meds_api)
+    logger.info("Medication API registered successfully")
+except ImportError as e:
+    logger.warning(f"Could not register medication API: {e}")
+except Exception as e:
+    logger.error(f"Error registering medication API: {e}")
+
 # Database connection - try minimal production first, then regular production, then development
 MINIMAL_PRODUCTION_DB_PATH = "database/minimal_production.duckdb"
 PRODUCTION_DB_PATH = "database/production.duckdb"

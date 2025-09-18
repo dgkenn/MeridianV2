@@ -1,0 +1,241 @@
+{
+  "guideline_mapping": {
+    "BRONCHOSPASM": {
+      "primary_guidelines": [
+        {
+          "organization": "ASA",
+          "title": "Practice Guidelines for Perioperative Bronchospasm",
+          "year": 2018,
+          "strength": "A",
+          "pmid": "29356773",
+          "recommendations": {
+            "Beta2_Agonist": "Strong recommendation for bronchodilator therapy",
+            "Corticosteroid": "Strong recommendation for anti-inflammatory therapy",
+            "Emergency_Bronchodilator": "Strong recommendation for refractory cases"
+          }
+        }
+      ],
+      "supporting_evidence": [
+        {
+          "type": "meta_analysis",
+          "title": "Bronchodilators for perioperative bronchospasm",
+          "pmid": "32816316",
+          "confidence": "B"
+        }
+      ]
+    },
+    "LARYNGOSPASM": {
+      "primary_guidelines": [
+        {
+          "organization": "ASA",
+          "title": "Practice Guidelines for Management of the Difficult Airway",
+          "year": 2022,
+          "strength": "A",
+          "recommendations": {
+            "Depolarizing_NMBD": "Strong recommendation for immediate treatment",
+            "Non_Depolarizing_NMBD_High": "Alternative for contraindications"
+          }
+        }
+      ]
+    },
+    "PONV": {
+      "primary_guidelines": [
+        {
+          "organization": "ASA",
+          "title": "Guidelines for Postoperative Nausea and Vomiting",
+          "year": 2020,
+          "strength": "A",
+          "pmid": "32804577",
+          "recommendations": {
+            "5HT3_Antagonist": "Strong recommendation as first-line therapy",
+            "Corticosteroid": "Strong recommendation for combination therapy",
+            "NK1_Antagonist": "Moderate recommendation for high-risk patients"
+          }
+        },
+        {
+          "organization": "SOAP",
+          "title": "Consensus Guidelines for PONV Management",
+          "year": 2020,
+          "strength": "A"
+        }
+      ],
+      "supporting_evidence": [
+        {
+          "type": "cochrane_review",
+          "title": "5-HT3 receptor antagonists for postoperative nausea and vomiting",
+          "year": 2021,
+          "confidence": "A"
+        }
+      ]
+    },
+    "HYPOTENSION": {
+      "primary_guidelines": [
+        {
+          "organization": "ASA",
+          "title": "Practice Guidelines for Perioperative Hemodynamic Management",
+          "year": 2021,
+          "strength": "A",
+          "recommendations": {
+            "Alpha_Agonist": "Strong recommendation for phenylephrine first-line",
+            "Mixed_Adrenergic": "Strong recommendation when chronotropy needed"
+          }
+        }
+      ]
+    },
+    "EMERGENCE_AGITATION": {
+      "primary_guidelines": [
+        {
+          "organization": "SPA",
+          "title": "Guidelines for Pediatric Emergence Agitation",
+          "year": 2020,
+          "strength": "B",
+          "recommendations": {
+            "Alpha2_Agonist": "Moderate recommendation for prevention and treatment",
+            "Propofol_Bolus": "Moderate recommendation for acute management"
+          }
+        }
+      ],
+      "supporting_evidence": [
+        {
+          "type": "meta_analysis",
+          "title": "Dexmedetomidine for pediatric emergence agitation",
+          "pmid": "32156101",
+          "confidence": "B"
+        }
+      ]
+    }
+  },
+  "feature_guidelines": {
+    "ASTHMA": {
+      "guidelines": [
+        {
+          "organization": "ASA",
+          "title": "Perioperative Management of Patients with Asthma",
+          "year": 2019,
+          "recommendations": {
+            "continue_bronchodilators": "Strong recommendation",
+            "avoid_histamine_release": "Strong recommendation",
+            "corticosteroid_therapy": "Moderate recommendation for poorly controlled"
+          }
+        }
+      ]
+    },
+    "OSA": {
+      "guidelines": [
+        {
+          "organization": "ASA",
+          "title": "Practice Guidelines for Perioperative Management of OSA",
+          "year": 2020,
+          "recommendations": {
+            "minimize_opioids": "Strong recommendation",
+            "regional_techniques": "Moderate recommendation",
+            "monitoring_requirements": "Strong recommendation"
+          }
+        }
+      ]
+    },
+    "MH_HISTORY": {
+      "guidelines": [
+        {
+          "organization": "MHAUS",
+          "title": "Malignant Hyperthermia Clinical Guidelines",
+          "year": 2021,
+          "strength": "A",
+          "recommendations": {
+            "avoid_triggers": "Absolute contraindication to volatile agents and succinylcholine",
+            "TIVA_protocol": "Strong recommendation for trigger-free anesthesia"
+          }
+        }
+      ]
+    },
+    "FULL_STOMACH": {
+      "guidelines": [
+        {
+          "organization": "ASA",
+          "title": "Practice Guidelines for Preoperative Fasting",
+          "year": 2017,
+          "recommendations": {
+            "rapid_sequence": "Strong recommendation when indicated",
+            "aspiration_prophylaxis": "Moderate recommendation"
+          }
+        }
+      ]
+    }
+  },
+  "surgery_guidelines": {
+    "ENT": {
+      "guidelines": [
+        {
+          "organization": "SPA",
+          "title": "Guidelines for Pediatric ENT Anesthesia",
+          "year": 2019,
+          "recommendations": {
+            "ponv_prophylaxis": "Strong recommendation due to high incidence",
+            "airway_edema_prevention": "Moderate recommendation for corticosteroids",
+            "emergence_planning": "Strong recommendation for smooth emergence"
+          }
+        }
+      ]
+    },
+    "CARDIAC": {
+      "guidelines": [
+        {
+          "organization": "SCA",
+          "title": "Guidelines for Cardiac Anesthesia",
+          "year": 2020,
+          "recommendations": {
+            "hemodynamic_stability": "Strong recommendation for vasoactive support",
+            "myocardial_protection": "Strong recommendation"
+          }
+        }
+      ]
+    },
+    "NEUROSURGERY": {
+      "guidelines": [
+        {
+          "organization": "SNACC",
+          "title": "Guidelines for Neuroanesthesia",
+          "year": 2021,
+          "recommendations": {
+            "icp_management": "Strong recommendation",
+            "neuroprotection": "Moderate recommendation for specific agents"
+          }
+        }
+      ]
+    }
+  },
+  "evidence_quality_criteria": {
+    "A": {
+      "description": "High quality evidence",
+      "criteria": [
+        "Randomized controlled trials",
+        "Systematic reviews with meta-analysis",
+        "Strong guideline recommendations"
+      ]
+    },
+    "B": {
+      "description": "Moderate quality evidence",
+      "criteria": [
+        "Observational studies",
+        "Moderate guideline recommendations",
+        "Expert consensus with good evidence"
+      ]
+    },
+    "C": {
+      "description": "Limited evidence",
+      "criteria": [
+        "Case series",
+        "Weak recommendations",
+        "Conflicting evidence"
+      ]
+    },
+    "D": {
+      "description": "Expert opinion",
+      "criteria": [
+        "Expert opinion only",
+        "Very limited data",
+        "Theoretical considerations"
+      ]
+    }
+  }
+}

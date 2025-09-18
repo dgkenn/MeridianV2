@@ -1,0 +1,238 @@
+# Medication Recommendation Rules for Meridian
+# Maps clinical features and risk patterns to medication recommendations
+
+# Risk-based medication mapping
+risk_medication_mapping:
+  BRONCHOSPASM:
+    threshold: 0.03  # 3% absolute risk
+    delta_threshold: 0.02  # 2pp increase
+    medication_classes:
+      - class: "Beta2_Agonist"
+        priority: 1
+        confidence: "A"
+        timing: "pre_induction"
+        evidence: ["ASA Periop Bronchospasm 2018", "PMID:29356773"]
+      - class: "Anticholinergic_Bronchodilator"
+        priority: 2
+        confidence: "B"
+        timing: "pre_induction"
+        evidence: ["Cochrane Review 2020", "PMID:32816316"]
+      - class: "Corticosteroid"
+        priority: 3
+        confidence: "A"
+        timing: "pre_induction"
+        evidence: ["ASA Guidelines 2018"]
+        conditions: ["!DIABETES_SEVERE", "!IMMUNOSUPPRESSION"]
+      - class: "Emergency_Bronchodilator"
+        priority: 4
+        confidence: "A"
+        timing: "standby"
+        evidence: ["ASA Emergency Response 2019"]
+
+  LARYNGOSPASM:
+    threshold: 0.02
+    delta_threshold: 0.015
+    medication_classes:
+      - class: "Depolarizing_NMBD"
+        priority: 1
+        confidence: "A"
+        timing: "emergency_standby"
+        evidence: ["ASA Difficult Airway 2022"]
+        contraindications: ["MH_HISTORY", "MUSCULAR_DYSTROPHY", "MYOPATHY"]
+      - class: "Non_Depolarizing_NMBD_High"
+        priority: 2
+        confidence: "B"
+        timing: "emergency_standby"
+        evidence: ["PMID:31794562"]
+      - class: "Anticholinergic"
+        priority: 3
+        confidence: "B"
+        timing: "premedication"
+        evidence: ["Pediatric Anesthesia Guidelines"]
+
+  PONV:
+    threshold: 0.40  # 40% Apfel risk
+    delta_threshold: 0.20
+    medication_classes:
+      - class: "5HT3_Antagonist"
+        priority: 1
+        confidence: "A"
+        timing: "pre_emergence"
+        evidence: ["ASA PONV Guidelines 2020", "PMID:32804577"]
+      - class: "Corticosteroid"
+        priority: 2
+        confidence: "A"
+        timing: "induction"
+        evidence: ["ASA PONV Guidelines 2020"]
+        conditions: ["!DIABETES_SEVERE"]
+      - class: "NK1_Antagonist"
+        priority: 3
+        confidence: "B"
+        timing: "pre_induction"
+        evidence: ["Cochrane 2021"]
+        conditions: ["PONV_RISK_VERY_HIGH"]
+      - class: "Anticholinergic_Antiemetic"
+        priority: 4
+        confidence: "B"
+        timing: "premedication"
+        evidence: ["Meta-analysis 2019"]
+
+  HYPOTENSION:
+    threshold: 0.25
+    delta_threshold: 0.15
+    medication_classes:
+      - class: "Alpha_Agonist"
+        priority: 1
+        confidence: "A"
+        timing: "induction_standby"
+        evidence: ["ASA Hemodynamic 2021"]
+      - class: "Mixed_Adrenergic"
+        priority: 2
+        confidence: "A"
+        timing: "induction_standby"
+        evidence: ["SOAP Guidelines 2020"]
+        conditions: ["BRADYCARDIA_RISK", "CARDIAC_OUTPUT_LOW"]
+
+  EMERGENCE_AGITATION:
+    threshold: 0.30
+    delta_threshold: 0.20
+    age_groups: ["PEDIATRIC"]
+    medication_classes:
+      - class: "Alpha2_Agonist"
+        priority: 1
+        confidence: "B"
+        timing: "intraop_or_emergence"
+        evidence: ["Pediatric EA Meta-analysis 2020", "PMID:32156101"]
+      - class: "Propofol_Bolus"
+        priority: 2
+        confidence: "B"
+        timing: "emergence"
+        evidence: ["Peds Anesthesia 2019"]
+
+# Feature-based medication triggers
+feature_medication_mapping:
+  ASTHMA:
+    severity_modifier: 1.5
+    medications:
+      - "Beta2_Agonist"
+      - "Corticosteroid"
+    contraindications:
+      - "Beta_Blocker_Nonselective"
+
+  RECENT_URI_2W:
+    severity_modifier: 2.0
+    medications:
+      - "Beta2_Agonist"
+      - "Anticholinergic_Bronchodilator"
+    special_considerations:
+      - "Consider postponing elective surgery"
+
+  OSA:
+    medications:
+      - "avoid_opioids_high_dose"
+    special_considerations:
+      - "Minimize respiratory depressants"
+      - "Consider regional techniques"
+
+  FULL_STOMACH:
+    medications:
+      - "Rapid_Sequence_Drugs"
+    timing: "induction"
+
+  DIABETES:
+    considerations:
+      - "Monitor glucose"
+      - "Steroid dose adjustment"
+
+  MH_HISTORY:
+    absolute_contraindications:
+      - "Volatile_Anesthetics"
+      - "Depolarizing_NMBD"
+    medications:
+      - "Non_Depolarizing_NMBD_High"
+      - "Emergency_Medications"
+    alternatives:
+      - "TIVA_Protocol"
+
+# Surgery-specific recommendations
+surgery_specific:
+  ENT:
+    baseline_medications:
+      - class: "5HT3_Antagonist"
+        reason: "High PONV risk"
+        confidence: "A"
+      - class: "Corticosteroid"
+        reason: "Airway edema prevention"
+        confidence: "B"
+    special_considerations:
+      - "Higher laryngospasm risk"
+      - "Shared airway concerns"
+
+  CARDIAC:
+    baseline_medications:
+      - class: "Hemodynamic_Support"
+        reason: "Cardiovascular stability"
+        confidence: "A"
+    contraindications:
+      - "Negative_Inotropes"
+
+  NEUROSURGERY:
+    baseline_medications:
+      - class: "Neuroprotective"
+        reason: "ICP management"
+        confidence: "B"
+    special_considerations:
+      - "Avoid hyperglycemia"
+      - "Maintain CPP"
+
+# Age-specific considerations
+age_specific:
+  PEDIATRIC:
+    weight_based_dosing: true
+    special_classes:
+      - "Pediatric_Premedication"
+      - "Emergence_Agitation_Prevention"
+    contraindications:
+      - "Adult_Specific_Drugs"
+
+  GERIATRIC:
+    dose_reduction_factor: 0.7
+    special_considerations:
+      - "Reduced clearance"
+      - "Polypharmacy interactions"
+    preferred_agents:
+      - "Short_Acting_Preferred"
+
+# Contraindication rules
+contraindications:
+  absolute:
+    MH_HISTORY:
+      - "Volatile_Anesthetics"
+      - "Depolarizing_NMBD"
+      - "Succinylcholine"
+    MUSCULAR_DYSTROPHY:
+      - "Depolarizing_NMBD"
+    EGG_SOY_ALLERGY:
+      - "Propofol"
+      - "Propofol_Bolus"
+    SEVERE_RENAL_FAILURE:
+      - "Morphine"
+      - "Meperidine"
+    SEVERE_HEPATIC_FAILURE:
+      - "High_Dose_Acetaminophen"
+
+  relative:
+    DIABETES_SEVERE:
+      - class: "Corticosteroid"
+        reason: "Hyperglycemia risk"
+        alternatives: ["Non_steroid_alternatives"]
+    PREGNANCY:
+      - class: "Teratogenic_Drugs"
+        reason: "Fetal safety"
+
+# Evidence confidence mapping
+evidence_confidence:
+  A: "Strong guideline recommendation with high-quality evidence"
+  B: "Moderate recommendation with good evidence"
+  C: "Weak recommendation or limited evidence"
+  D: "Expert opinion or very limited evidence"

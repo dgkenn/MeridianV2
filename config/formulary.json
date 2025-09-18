@@ -1,0 +1,234 @@
+{
+  "medication_classes": {
+    "Beta2_Agonist": {
+      "preferred_agent": "Albuterol",
+      "agents": {
+        "Albuterol": {
+          "concentrations": [
+            {"strength": "2.5 mg/3 mL", "route": "nebulizer", "volume": 3},
+            {"strength": "90 mcg/puff", "route": "MDI", "volume": null},
+            {"strength": "1 mg/mL", "route": "IV", "volume": 1}
+          ],
+          "rxnorm": "435",
+          "class": "Beta2_Agonist"
+        },
+        "Levalbuterol": {
+          "concentrations": [
+            {"strength": "1.25 mg/3 mL", "route": "nebulizer", "volume": 3}
+          ],
+          "rxnorm": "274783",
+          "class": "Beta2_Agonist"
+        }
+      }
+    },
+    "Anticholinergic_Bronchodilator": {
+      "preferred_agent": "Ipratropium",
+      "agents": {
+        "Ipratropium": {
+          "concentrations": [
+            {"strength": "0.5 mg/2.5 mL", "route": "nebulizer", "volume": 2.5},
+            {"strength": "17 mcg/puff", "route": "MDI", "volume": null},
+            {"strength": "0.25 mg/mL", "route": "IV", "volume": 1}
+          ],
+          "rxnorm": "6107",
+          "class": "Anticholinergic_Bronchodilator"
+        }
+      }
+    },
+    "Corticosteroid": {
+      "preferred_agent": "Dexamethasone",
+      "agents": {
+        "Dexamethasone": {
+          "concentrations": [
+            {"strength": "4 mg/mL", "route": "IV", "volume": 1},
+            {"strength": "10 mg/mL", "route": "IV", "volume": 1}
+          ],
+          "rxnorm": "3264",
+          "class": "Corticosteroid"
+        },
+        "Methylprednisolone": {
+          "concentrations": [
+            {"strength": "40 mg/mL", "route": "IV", "volume": 1}
+          ],
+          "rxnorm": "6922",
+          "class": "Corticosteroid"
+        }
+      }
+    },
+    "Emergency_Bronchodilator": {
+      "preferred_agent": "Epinephrine",
+      "agents": {
+        "Epinephrine": {
+          "concentrations": [
+            {"strength": "1 mg/mL", "route": "IV", "volume": 1, "dilution": "1:10000"},
+            {"strength": "1 mg/10 mL", "route": "IV", "volume": 10, "final_conc": "100 mcg/mL"}
+          ],
+          "rxnorm": "3992",
+          "class": "Emergency_Bronchodilator"
+        }
+      }
+    },
+    "Emergency_Medications": {
+      "preferred_agent": "Epinephrine",
+      "agents": {
+        "Epinephrine": {
+          "concentrations": [
+            {"strength": "1 mg/mL", "route": "IV", "volume": 1, "dilution": "1:10000"},
+            {"strength": "1 mg/10 mL", "route": "IV", "volume": 10, "final_conc": "100 mcg/mL"}
+          ],
+          "rxnorm": "3992",
+          "class": "Emergency_Medications"
+        },
+        "Atropine": {
+          "concentrations": [
+            {"strength": "0.4 mg/mL", "route": "IV", "volume": 1}
+          ],
+          "rxnorm": "1191",
+          "class": "Emergency_Medications"
+        }
+      }
+    },
+    "Depolarizing_NMBD": {
+      "preferred_agent": "Succinylcholine",
+      "agents": {
+        "Succinylcholine": {
+          "concentrations": [
+            {"strength": "20 mg/mL", "route": "IV", "volume": 10}
+          ],
+          "rxnorm": "9906",
+          "class": "Depolarizing_NMBD"
+        }
+      }
+    },
+    "Non_Depolarizing_NMBD_High": {
+      "preferred_agent": "Rocuronium",
+      "agents": {
+        "Rocuronium": {
+          "concentrations": [
+            {"strength": "10 mg/mL", "route": "IV", "volume": 5}
+          ],
+          "rxnorm": "73274",
+          "class": "Non_Depolarizing_NMBD_High"
+        }
+      }
+    },
+    "5HT3_Antagonist": {
+      "preferred_agent": "Ondansetron",
+      "agents": {
+        "Ondansetron": {
+          "concentrations": [
+            {"strength": "2 mg/mL", "route": "IV", "volume": 2},
+            {"strength": "4 mg/2 mL", "route": "IV", "volume": 2}
+          ],
+          "rxnorm": "7242",
+          "class": "5HT3_Antagonist"
+        },
+        "Granisetron": {
+          "concentrations": [
+            {"strength": "1 mg/mL", "route": "IV", "volume": 1}
+          ],
+          "rxnorm": "4637",
+          "class": "5HT3_Antagonist"
+        }
+      }
+    },
+    "NK1_Antagonist": {
+      "preferred_agent": "Aprepitant",
+      "agents": {
+        "Aprepitant": {
+          "concentrations": [
+            {"strength": "125 mg", "route": "PO", "volume": null}
+          ],
+          "rxnorm": "358255",
+          "class": "NK1_Antagonist"
+        }
+      }
+    },
+    "Anticholinergic_Antiemetic": {
+      "preferred_agent": "Scopolamine",
+      "agents": {
+        "Scopolamine": {
+          "concentrations": [
+            {"strength": "1.5 mg", "route": "patch", "volume": null}
+          ],
+          "rxnorm": "9314",
+          "class": "Anticholinergic_Antiemetic"
+        }
+      }
+    },
+    "Alpha_Agonist": {
+      "preferred_agent": "Phenylephrine",
+      "agents": {
+        "Phenylephrine": {
+          "concentrations": [
+            {"strength": "10 mg/mL", "route": "IV", "volume": 1, "typical_dilution": "100 mcg/mL"},
+            {"strength": "10 mg/250 mL", "route": "IV_infusion", "volume": 250, "final_conc": "40 mcg/mL"}
+          ],
+          "rxnorm": "8163",
+          "class": "Alpha_Agonist"
+        }
+      }
+    },
+    "Mixed_Adrenergic": {
+      "preferred_agent": "Ephedrine",
+      "agents": {
+        "Ephedrine": {
+          "concentrations": [
+            {"strength": "50 mg/mL", "route": "IV", "volume": 1}
+          ],
+          "rxnorm": "3917",
+          "class": "Mixed_Adrenergic"
+        }
+      }
+    },
+    "Alpha2_Agonist": {
+      "preferred_agent": "Dexmedetomidine",
+      "agents": {
+        "Dexmedetomidine": {
+          "concentrations": [
+            {"strength": "100 mcg/mL", "route": "IV", "volume": 2, "requires_dilution": true}
+          ],
+          "rxnorm": "135447",
+          "class": "Alpha2_Agonist"
+        }
+      }
+    },
+    "Propofol_Bolus": {
+      "preferred_agent": "Propofol",
+      "agents": {
+        "Propofol": {
+          "concentrations": [
+            {"strength": "10 mg/mL", "route": "IV", "volume": 20}
+          ],
+          "rxnorm": "8782",
+          "class": "Propofol_Bolus"
+        }
+      }
+    },
+    "Anticholinergic": {
+      "preferred_agent": "Atropine",
+      "agents": {
+        "Atropine": {
+          "concentrations": [
+            {"strength": "0.1 mg/mL", "route": "IV", "volume": 10},
+            {"strength": "0.4 mg/mL", "route": "IV", "volume": 1}
+          ],
+          "rxnorm": "1202",
+          "class": "Anticholinergic"
+        }
+      }
+    }
+  },
+  "formulary_preferences": {
+    "institution_type": "academic_medical_center",
+    "preferred_concentrations": {
+      "Phenylephrine": "10 mg/mL",
+      "Epinephrine": "1 mg/10 mL",
+      "Ondansetron": "2 mg/mL"
+    },
+    "stocking_constraints": {
+      "Aprepitant": "limited_availability",
+      "Sugammadex": "high_cost_approval_required"
+    }
+  }
+}
