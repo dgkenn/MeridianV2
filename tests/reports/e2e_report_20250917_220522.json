@@ -1,0 +1,19 @@
+{
+  "session_id": "20250917_220522",
+  "timestamp": "2025-09-17T22:05:43.376381",
+  "base_url": "https://meridian-zr3e.onrender.com",
+  "total_tests": 1,
+  "passed_tests": 0,
+  "success_rate": 0.0,
+  "headless": true,
+  "debug": true,
+  "tests": [
+    {
+      "test": "Homepage Load",
+      "success": false,
+      "message": "Page.wait_for_selector: Timeout 5000ms exceeded.\nCall log:\n  - waiting for locator(\"textarea\") to be visible\n",
+      "timestamp": "2025-09-17T22:05:43.093021",
+      "screenshot": "20250917_220522_01_homepage_failed.png"
+    }
+  ]
+}

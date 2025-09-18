@@ -1,0 +1,118 @@
+{
+  "calculation_summary": {
+    "timestamp": "2025-09-17T22:04:30.065995",
+    "total_calculations": 103,
+    "baseline_risks": 18,
+    "modifier_effects": 85,
+    "database_path": "database/codex.duckdb"
+  },
+  "baseline_risk_examples": {
+    "MORTALITY_INHOSPITAL": {
+      "outcome_token": "MORTALITY_INHOSPITAL",
+      "risk_type": "baseline",
+      "estimate": 4.366890684179747,
+      "standard_error": 0.016764869701068042,
+      "ci_lower": 4.334031539565654,
+      "ci_upper": 4.399749828793841,
+      "studies_count": 131,
+      "total_weight": 3557.9483173078447
+    },
+    "ARDS": {
+      "outcome_token": "ARDS",
+      "risk_type": "baseline",
+      "estimate": 2.8530592736446962,
+      "standard_error": 0.025105903490097288,
+      "ci_lower": 2.8038517028041055,
+      "ci_upper": 2.902266844485287,
+      "studies_count": 59,
+      "total_weight": 1586.5300047397614
+    },
+    "BRONCHOSPASM": {
+      "outcome_token": "BRONCHOSPASM",
+      "risk_type": "baseline",
+      "estimate": 1.497384871817811,
+      "standard_error": 0.030986890940429876,
+      "ci_lower": 1.4366505655745685,
+      "ci_upper": 1.5581191780610537,
+      "studies_count": 37,
+      "total_weight": 1041.4633533254882
+    },
+    "ACUTE_KIDNEY_INJURY": {
+      "outcome_token": "ACUTE_KIDNEY_INJURY",
+      "risk_type": "baseline",
+      "estimate": 7.7044875324222435,
+      "standard_error": 0.01897331920975827,
+      "ci_lower": 7.667299826771117,
+      "ci_upper": 7.74167523807337,
+      "studies_count": 120,
+      "total_weight": 2777.8793105368236
+    },
+    "FAILED_INTUBATION": {
+      "outcome_token": "FAILED_INTUBATION",
+      "risk_type": "baseline",
+      "estimate": 2.1384837041292997,
+      "standard_error": 0.19000284744750806,
+      "ci_lower": 1.7660781231321838,
+      "ci_upper": 2.5108892851264155,
+      "studies_count": 2,
+      "total_weight": 27.700000762939453
+    }
+  },
+  "modifier_effect_examples": {
+    "ASPIRATION_HYPERTENSION": {
+      "outcome_token": "ASPIRATION",
+      "modifier_token": "HYPERTENSION",
+      "effect_type": "modifier",
+      "estimate": 0.38217330592198256,
+      "standard_error": 0.14992318282601302,
+      "ci_lower": 0.08832386758299704,
+      "ci_upper": 0.6760227442609681,
+      "studies_count": 3,
+      "total_weight": 44.49000072479248
+    },
+    "PULMONARY_EMBOLISM_AGE_INFANT": {
+      "outcome_token": "PULMONARY_EMBOLISM",
+      "modifier_token": "AGE_INFANT",
+      "effect_type": "modifier",
+      "estimate": 0.5549999922513962,
+      "standard_error": 0.1685499637891995,
+      "ci_lower": 0.22464206322456515,
+      "ci_upper": 0.8853579212782272,
+      "studies_count": 2,
+      "total_weight": 35.20000076293945
+    },
+    "SEPSIS_AGE_ELDERLY": {
+      "outcome_token": "SEPSIS",
+      "modifier_token": "AGE_ELDERLY",
+      "effect_type": "modifier",
+      "estimate": 2.7010000114678405,
+      "standard_error": 0.3077287213343115,
+      "ci_lower": 2.09785171765259,
+      "ci_upper": 3.304148305283091,
+      "studies_count": 2,
+      "total_weight": 10.5600004196167
+    },
+    "VENTRICULAR_ARRHYTHMIA_AGE_NEONATE": {
+      "outcome_token": "VENTRICULAR_ARRHYTHMIA",
+      "modifier_token": "AGE_NEONATE",
+      "effect_type": "modifier",
+      "estimate": 11.314307055450096,
+      "standard_error": 0.24854406635960996,
+      "ci_lower": 10.82716068538526,
+      "ci_upper": 11.80145342551493,
+      "studies_count": 3,
+      "total_weight": 16.188000202178955
+    },
+    "SEPSIS_SEX_MALE": {
+      "outcome_token": "SEPSIS",
+      "modifier_token": "SEX_MALE",
+      "effect_type": "modifier",
+      "estimate": 46.458333306290484,
+      "standard_error": 0.09622504550221092,
+      "ci_lower": 46.26973221710615,
+      "ci_upper": 46.646934395474815,
+      "studies_count": 2,
+      "total_weight": 107.99999856948853
+    }
+  }
+}

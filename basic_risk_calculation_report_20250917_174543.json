@@ -1,0 +1,11 @@
+{
+  "calculation_summary": {
+    "timestamp": "2025-09-17T17:45:43.364333",
+    "total_calculations": 0,
+    "baseline_risks": 0,
+    "modifier_effects": 0,
+    "database_path": "database/codex.duckdb"
+  },
+  "baseline_risk_examples": {},
+  "modifier_effect_examples": {}
+}

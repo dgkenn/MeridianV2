@@ -1,0 +1,62 @@
+{
+  "calculation_summary": {
+    "timestamp": "2025-09-17T22:03:53.079674",
+    "total_calculations": 18,
+    "baseline_risks": 18,
+    "modifier_effects": 0,
+    "database_path": "database/codex.duckdb"
+  },
+  "baseline_risk_examples": {
+    "STROKE": {
+      "outcome_token": "STROKE",
+      "risk_type": "baseline",
+      "estimate": 3.74107865516306,
+      "standard_error": 0.01105139643255997,
+      "ci_lower": 3.7194179181552425,
+      "ci_upper": 3.762739392170878,
+      "studies_count": 291,
+      "total_weight": 8187.770929574966
+    },
+    "MORTALITY_24H": {
+      "outcome_token": "MORTALITY_24H",
+      "risk_type": "baseline",
+      "estimate": 7.543278991369915,
+      "standard_error": 0.02124349650439892,
+      "ci_lower": 7.501641738221293,
+      "ci_upper": 7.584916244518537,
+      "studies_count": 70,
+      "total_weight": 2215.8889961242676
+    },
+    "BRONCHOSPASM": {
+      "outcome_token": "BRONCHOSPASM",
+      "risk_type": "baseline",
+      "estimate": 1.497384871817811,
+      "standard_error": 0.030986890940429876,
+      "ci_lower": 1.4366505655745685,
+      "ci_upper": 1.5581191780610537,
+      "studies_count": 37,
+      "total_weight": 1041.4633533254882
+    },
+    "MORTALITY_INHOSPITAL": {
+      "outcome_token": "MORTALITY_INHOSPITAL",
+      "risk_type": "baseline",
+      "estimate": 4.366890684179747,
+      "standard_error": 0.016764869701068042,
+      "ci_lower": 4.334031539565654,
+      "ci_upper": 4.399749828793841,
+      "studies_count": 131,
+      "total_weight": 3557.9483173078447
+    },
+    "ARDS": {
+      "outcome_token": "ARDS",
+      "risk_type": "baseline",
+      "estimate": 2.8530592736446962,
+      "standard_error": 0.025105903490097288,
+      "ci_lower": 2.8038517028041055,
+      "ci_upper": 2.902266844485287,
+      "studies_count": 59,
+      "total_weight": 1586.5300047397614
+    }
+  },
+  "modifier_effect_examples": {}
+}

@@ -1,38 +1,30 @@
 {
   "harvest_summary": {
-    "timestamp": "2025-09-16T08:03:32.246569",
+    "timestamp": "2025-09-17T12:54:51.472226",
     "total_outcomes_processed": 18,
-    "total_papers_found": 7474,
-    "total_papers_processed": 4294,
-    "total_effects_extracted": 2473,
-    "processing_rate": "57.5%"
+    "total_papers_found": 7418,
+    "total_papers_processed": 3218,
+    "total_effects_extracted": 1858,
+    "processing_rate": "43.4%"
   },
   "quality_distribution": {
-    "A": 2442,
-    "B": 1239,
-    "C": 480,
-    "D": 133
+    "B": 886,
+    "A": 1849,
+    "C": 370,
+    "D": 113
   },
   "top_evidence_outcomes": [
     {
-      "outcome": "ACUTE_KIDNEY_INJURY",
-      "effects_count": 426
-    },
-    {
-      "outcome": "PULMONARY_EMBOLISM",
-      "effects_count": 379
-    },
-    {
-      "outcome": "MORTALITY_INHOSPITAL",
-      "effects_count": 294
+      "outcome": "SEPSIS",
+      "effects_count": 440
     },
     {
       "outcome": "STROKE",
-      "effects_count": 271
+      "effects_count": 388
     },
     {
-      "outcome": "ARDS",
-      "effects_count": 228
+      "outcome": "PULMONARY_EMBOLISM",
+      "effects_count": 382
     },
     {
       "outcome": "LARYNGOSPASM",
@@ -43,30 +35,27 @@
       "effects_count": 189
     },
     {
+      "outcome": "BRONCHOSPASM",
+      "effects_count": 122
+    },
+    {
       "outcome": "ASPIRATION",
-      "effects_count": 116
+      "effects_count": 58
     },
     {
       "outcome": "AWARENESS_UNDER_ANESTHESIA",
-      "effects_count": 100
+      "effects_count": 55
     },
     {
-      "outcome": "SEPSIS",
-      "effects_count": 85
+      "outcome": "AMNIOTIC_FLUID_EMBOLISM",
+      "effects_count": 0
+    },
+    {
+      "outcome": "CARDIAC_ARREST",
+      "effects_count": 0
     }
   ],
   "detailed_results": [
-    {
-      "outcome_token": "AMNIOTIC_FLUID_EMBOLISM",
-      "population": "both",
-      "query_used": "(\"amniotic fluid embolism\" OR \"afe\") AND (\"anesthesia\" OR \"anaesthesia\" OR \"perioperative\" OR \"intraoperative\" OR \"surgical\" OR \"operation\" OR \"surgery\" OR \"general anesthesia\" OR \"regional anesthesia\" OR \"epidural\" OR \"spinal\") AND (\"randomized controlled trial\" OR \"systematic review\" OR \"meta-analysis\" OR \"cohort study\" OR \"case-control\" OR \"prospective study\") AND 2004:3000[dp] AND english[la]",
-      "papers_found": 50,
-      "papers_processed": 0,
-      "effects_extracted": 0,
-      "quality_grade_distribution": {},
-      "harvest_timestamp": "2025-09-16 08:02:46.464269",
-      "errors": []
-    },
     {
       "outcome_token": "AMNIOTIC_FLUID_EMBOLISM",
       "population": "obstetric",
@@ -75,21 +64,19 @@
       "papers_processed": 0,
       "effects_extracted": 0,
       "quality_grade_distribution": {},
-      "harvest_timestamp": "2025-09-16 08:02:46.470790",
+      "harvest_timestamp": "2025-09-17 12:52:11.390361",
       "errors": []
     },
     {
-      "outcome_token": "CARDIAC_ARREST",
+      "outcome_token": "AMNIOTIC_FLUID_EMBOLISM",
       "population": "both",
-      "query_used": "(\"cardiac arrest\" OR \"cardiac arrest\" OR \"cardiopulmonary arrest\") AND (\"anesthesia\" OR \"anaesthesia\" OR \"perioperative\" OR \"intraoperative\" OR \"surgical\" OR \"operation\" OR \"surgery\" OR \"general anesthesia\" OR \"regional anesthesia\" OR \"epidural\" OR \"spinal\") AND (\"randomized controlled trial\" OR \"systematic review\" OR \"meta-analysis\" OR \"cohort study\" OR \"case-control\" OR \"prospective study\") AND 2004:3000[dp] AND english[la]",
-      "papers_found": 0,
+      "query_used": "(\"amniotic fluid embolism\" OR \"afe\") AND (\"anesthesia\" OR \"anaesthesia\" OR \"perioperative\" OR \"intraoperative\" OR \"surgical\" OR \"operation\" OR \"surgery\" OR \"general anesthesia\" OR \"regional anesthesia\" OR \"epidural\" OR \"spinal\") AND (\"randomized controlled trial\" OR \"systematic review\" OR \"meta-analysis\" OR \"cohort study\" OR \"case-control\" OR \"prospective study\") AND 2004:3000[dp] AND english[la]",
+      "papers_found": 50,
       "papers_processed": 0,
       "effects_extracted": 0,
       "quality_grade_distribution": {},
-      "harvest_timestamp": "2025-09-16 08:02:46.787790",
-      "errors": [
-        "No papers found"
-      ]
+      "harvest_timestamp": "2025-09-17 12:52:11.398474",
+      "errors": []
     },
     {
       "outcome_token": "CARDIAC_ARREST",
@@ -99,7 +86,20 @@
       "papers_processed": 0,
       "effects_extracted": 0,
       "quality_grade_distribution": {},
-      "harvest_timestamp": "2025-09-16 08:02:46.795735",
+      "harvest_timestamp": "2025-09-17 12:52:11.710155",
+      "errors": [
+        "No papers found"
+      ]
+    },
+    {
+      "outcome_token": "CARDIAC_ARREST",
+      "population": "both",
+      "query_used": "(\"cardiac arrest\" OR \"cardiac arrest\" OR \"cardiopulmonary arrest\") AND (\"anesthesia\" OR \"anaesthesia\" OR \"perioperative\" OR \"intraoperative\" OR \"surgical\" OR \"operation\" OR \"surgery\" OR \"general anesthesia\" OR \"regional anesthesia\" OR \"epidural\" OR \"spinal\") AND (\"randomized controlled trial\" OR \"systematic review\" OR \"meta-analysis\" OR \"cohort study\" OR \"case-control\" OR \"prospective study\") AND 2004:3000[dp] AND english[la]",
+      "papers_found": 0,
+      "papers_processed": 0,
+      "effects_extracted": 0,
+      "quality_grade_distribution": {},
+      "harvest_timestamp": "2025-09-17 12:52:11.723741",
       "errors": [
         "No papers found"
       ]
@@ -112,7 +112,7 @@
       "papers_processed": 0,
       "effects_extracted": 0,
       "quality_grade_distribution": {},
-      "harvest_timestamp": "2025-09-16 08:02:46.801969",
+      "harvest_timestamp": "2025-09-17 12:52:11.726852",
       "errors": []
     },
     {
@@ -123,18 +123,7 @@
       "papers_processed": 0,
       "effects_extracted": 0,
       "quality_grade_distribution": {},
-      "harvest_timestamp": "2025-09-16 08:02:47.498203",
-      "errors": []
-    },
-    {
-      "outcome_token": "CARDIOGENIC_SHOCK",
-      "population": "adult",
-      "query_used": "(\"cardiogenic shock\" OR \"cardiogenic shock\") AND (\"anesthesia\" OR \"anaesthesia\" OR \"perioperative\" OR \"intraoperative\" OR \"surgical\" OR \"operation\" OR \"surgery\" OR \"general anesthesia\" OR \"regional anesthesia\" OR \"epidural\" OR \"spinal\") AND (adult OR elderly OR geriatric) AND (\"randomized controlled trial\" OR \"systematic review\" OR \"meta-analysis\" OR \"cohort study\" OR \"case-control\" OR \"prospective study\") AND 2004:3000[dp] AND english[la]",
-      "papers_found": 200,
-      "papers_processed": 0,
-      "effects_extracted": 0,
-      "quality_grade_distribution": {},
-      "harvest_timestamp": "2025-09-16 08:02:47.836765",
+      "harvest_timestamp": "2025-09-17 12:52:12.489530",
       "errors": []
     },
     {
@@ -145,7 +134,7 @@
       "papers_processed": 0,
       "effects_extracted": 0,
       "quality_grade_distribution": {},
-      "harvest_timestamp": "2025-09-16 08:02:47.839420",
+      "harvest_timestamp": "2025-09-17 12:52:12.816757",
       "errors": []
     },
     {
@@ -156,10 +145,21 @@
       "papers_processed": 0,
       "effects_extracted": 0,
       "quality_grade_distribution": {},
-      "harvest_timestamp": "2025-09-16 08:02:47.844159",
+      "harvest_timestamp": "2025-09-17 12:52:12.824506",
       "errors": [
         "No papers found"
       ]
+    },
+    {
+      "outcome_token": "CARDIOGENIC_SHOCK",
+      "population": "adult",
+      "query_used": "(\"cardiogenic shock\" OR \"cardiogenic shock\") AND (\"anesthesia\" OR \"anaesthesia\" OR \"perioperative\" OR \"intraoperative\" OR \"surgical\" OR \"operation\" OR \"surgery\" OR \"general anesthesia\" OR \"regional anesthesia\" OR \"epidural\" OR \"spinal\") AND (adult OR elderly OR geriatric) AND (\"randomized controlled trial\" OR \"systematic review\" OR \"meta-analysis\" OR \"cohort study\" OR \"case-control\" OR \"prospective study\") AND 2004:3000[dp] AND english[la]",
+      "papers_found": 200,
+      "papers_processed": 0,
+      "effects_extracted": 0,
+      "quality_grade_distribution": {},
+      "harvest_timestamp": "2025-09-17 12:52:12.827356",
+      "errors": []
     },
     {
       "outcome_token": "MORTALITY_24H",
@@ -169,8 +169,21 @@
       "papers_processed": 0,
       "effects_extracted": 0,
       "quality_grade_distribution": {},
-      "harvest_timestamp": "2025-09-16 08:02:48.509087",
+      "harvest_timestamp": "2025-09-17 12:52:13.518451",
       "errors": []
+    },
+    {
+      "outcome_token": "MORTALITY_24H",
+      "population": "pediatric",
+      "query_used": "(\"24-hour mortality\" OR \"24-hour death\") AND (\"anesthesia\" OR \"anaesthesia\" OR \"perioperative\" OR \"intraoperative\" OR \"surgical\" OR \"operation\" OR \"surgery\" OR \"general anesthesia\" OR \"regional anesthesia\" OR \"epidural\" OR \"spinal\") AND (pediatric OR paediatric OR child OR infant OR neonate OR adolescent) AND (\"randomized controlled trial\" OR \"systematic review\" OR \"meta-analysis\" OR \"cohort study\" OR \"case-control\" OR \"prospective study\") AND 2004:3000[dp] AND english[la]",
+      "papers_found": 0,
+      "papers_processed": 0,
+      "effects_extracted": 0,
+      "quality_grade_distribution": {},
+      "harvest_timestamp": "2025-09-17 12:52:13.864482",
+      "errors": [
+        "No papers found"
+      ]
     },
     {
       "outcome_token": "FAILED_INTUBATION",
@@ -180,7 +193,7 @@
       "papers_processed": 0,
       "effects_extracted": 0,
       "quality_grade_distribution": {},
-      "harvest_timestamp": "2025-09-16 08:02:48.513409",
+      "harvest_timestamp": "2025-09-17 12:52:13.867132",
       "errors": []
     },
     {
@@ -191,45 +204,32 @@
       "papers_processed": 0,
       "effects_extracted": 0,
       "quality_grade_distribution": {},
-      "harvest_timestamp": "2025-09-16 08:02:48.821908",
+      "harvest_timestamp": "2025-09-17 12:52:13.869873",
       "errors": []
     },
     {
       "outcome_token": "MORTALITY_24H",
       "population": "both",
       "query_used": "(\"24-hour mortality\" OR \"24-hour death\") AND (\"anesthesia\" OR \"anaesthesia\" OR \"perioperative\" OR \"intraoperative\" OR \"surgical\" OR \"operation\" OR \"surgery\" OR \"general anesthesia\" OR \"regional anesthesia\" OR \"epidural\" OR \"spinal\") AND (\"randomized controlled trial\" OR \"systematic review\" OR \"meta-analysis\" OR \"cohort study\" OR \"case-control\" OR \"prospective study\") AND 2004:3000[dp] AND english[la]",
-      "papers_found": 0,
+      "papers_found": 48,
       "papers_processed": 0,
       "effects_extracted": 0,
       "quality_grade_distribution": {},
-      "harvest_timestamp": "2025-09-16 08:02:48.830881",
-      "errors": [
-        "No papers found"
-      ]
-    },
-    {
-      "outcome_token": "MORTALITY_24H",
-      "population": "pediatric",
-      "query_used": "(\"24-hour mortality\" OR \"24-hour death\") AND (\"anesthesia\" OR \"anaesthesia\" OR \"perioperative\" OR \"intraoperative\" OR \"surgical\" OR \"operation\" OR \"surgery\" OR \"general anesthesia\" OR \"regional anesthesia\" OR \"epidural\" OR \"spinal\") AND (pediatric OR paediatric OR child OR infant OR neonate OR adolescent) AND (\"randomized controlled trial\" OR \"systematic review\" OR \"meta-analysis\" OR \"cohort study\" OR \"case-control\" OR \"prospective study\") AND 2004:3000[dp] AND english[la]",
-      "papers_found": 0,
-      "papers_processed": 0,
-      "effects_extracted": 0,
-      "quality_grade_distribution": {},
-      "harvest_timestamp": "2025-09-16 08:02:48.834598",
-      "errors": [
-        "No papers found"
-      ]
+      "harvest_timestamp": "2025-09-17 12:52:14.576683",
+      "errors": []
     },
     {
       "outcome_token": "MORTALITY_30D",
       "population": "both",
       "query_used": "(\"30-day mortality\" OR \"30-day death\") AND (\"anesthesia\" OR \"anaesthesia\" OR \"perioperative\" OR \"intraoperative\" OR \"surgical\" OR \"operation\" OR \"surgery\" OR \"general anesthesia\" OR \"regional anesthesia\" OR \"epidural\" OR \"spinal\") AND (\"randomized controlled trial\" OR \"systematic review\" OR \"meta-analysis\" OR \"cohort study\" OR \"case-control\" OR \"prospective study\") AND 2004:3000[dp] AND english[la]",
-      "papers_found": 200,
+      "papers_found": 0,
       "papers_processed": 0,
       "effects_extracted": 0,
       "quality_grade_distribution": {},
-      "harvest_timestamp": "2025-09-16 08:02:49.624360",
-      "errors": []
+      "harvest_timestamp": "2025-09-17 12:52:14.921380",
+      "errors": [
+        "No papers found"
+      ]
     },
     {
       "outcome_token": "MORTALITY_30D",
@@ -239,21 +239,8 @@
       "papers_processed": 0,
       "effects_extracted": 0,
       "quality_grade_distribution": {},
-      "harvest_timestamp": "2025-09-16 08:02:49.970720",
+      "harvest_timestamp": "2025-09-17 12:52:14.928573",
       "errors": []
-    },
-    {
-      "outcome_token": "MORTALITY_INHOSPITAL",
-      "population": "adult",
-      "query_used": "(\"in-hospital mortality\" OR \"in-hospital death\") AND (\"anesthesia\" OR \"anaesthesia\" OR \"perioperative\" OR \"intraoperative\" OR \"surgical\" OR \"operation\" OR \"surgery\" OR \"general anesthesia\" OR \"regional anesthesia\" OR \"epidural\" OR \"spinal\") AND (adult OR elderly OR geriatric) AND (\"randomized controlled trial\" OR \"systematic review\" OR \"meta-analysis\" OR \"cohort study\" OR \"case-control\" OR \"prospective study\") AND 2004:3000[dp] AND english[la]",
-      "papers_found": 0,
-      "papers_processed": 0,
-      "effects_extracted": 0,
-      "quality_grade_distribution": {},
-      "harvest_timestamp": "2025-09-16 08:02:49.975792",
-      "errors": [
-        "No papers found"
-      ]
     },
     {
       "outcome_token": "MORTALITY_30D",
@@ -263,7 +250,18 @@
       "papers_processed": 0,
       "effects_extracted": 0,
       "quality_grade_distribution": {},
-      "harvest_timestamp": "2025-09-16 08:02:49.986930",
+      "harvest_timestamp": "2025-09-17 12:52:14.938944",
+      "errors": []
+    },
+    {
+      "outcome_token": "MORTALITY_INHOSPITAL",
+      "population": "both",
+      "query_used": "(\"in-hospital mortality\" OR \"in-hospital death\") AND (\"anesthesia\" OR \"anaesthesia\" OR \"perioperative\" OR \"intraoperative\" OR \"surgical\" OR \"operation\" OR \"surgery\" OR \"general anesthesia\" OR \"regional anesthesia\" OR \"epidural\" OR \"spinal\") AND (\"randomized controlled trial\" OR \"systematic review\" OR \"meta-analysis\" OR \"cohort study\" OR \"case-control\" OR \"prospective study\") AND 2004:3000[dp] AND english[la]",
+      "papers_found": 200,
+      "papers_processed": 0,
+      "effects_extracted": 0,
+      "quality_grade_distribution": {},
+      "harvest_timestamp": "2025-09-17 12:52:15.862080",
       "errors": []
     },
     {
@@ -274,39 +272,42 @@
       "papers_processed": 0,
       "effects_extracted": 0,
       "quality_grade_distribution": {},
-      "harvest_timestamp": "2025-09-16 08:02:51.150229",
+      "harvest_timestamp": "2025-09-17 12:52:16.205124",
       "errors": []
+    },
+    {
+      "outcome_token": "MORTALITY_INHOSPITAL",
+      "population": "adult",
+      "query_used": "(\"in-hospital mortality\" OR \"in-hospital death\") AND (\"anesthesia\" OR \"anaesthesia\" OR \"perioperative\" OR \"intraoperative\" OR \"surgical\" OR \"operation\" OR \"surgery\" OR \"general anesthesia\" OR \"regional anesthesia\" OR \"epidural\" OR \"spinal\") AND (adult OR elderly OR geriatric) AND (\"randomized controlled trial\" OR \"systematic review\" OR \"meta-analysis\" OR \"cohort study\" OR \"case-control\" OR \"prospective study\") AND 2004:3000[dp] AND english[la]",
+      "papers_found": 200,
+      "papers_processed": 0,
+      "effects_extracted": 0,
+      "quality_grade_distribution": {},
+      "harvest_timestamp": "2025-09-17 12:52:16.222428",
+      "errors": []
+    },
+    {
+      "outcome_token": "MULTIPLE_ORGAN_DYSFUNCTION",
+      "population": "adult",
+      "query_used": "(\"multiple organ dysfunction syndrome\" OR \"mods\" OR \"multi-organ failure\") AND (\"anesthesia\" OR \"anaesthesia\" OR \"perioperative\" OR \"intraoperative\" OR \"surgical\" OR \"operation\" OR \"surgery\" OR \"general anesthesia\" OR \"regional anesthesia\" OR \"epidural\" OR \"spinal\") AND (adult OR elderly OR geriatric) AND (\"randomized controlled trial\" OR \"systematic review\" OR \"meta-analysis\" OR \"cohort study\" OR \"case-control\" OR \"prospective study\") AND 2004:3000[dp] AND english[la]",
+      "papers_found": 0,
+      "papers_processed": 0,
+      "effects_extracted": 0,
+      "quality_grade_distribution": {},
+      "harvest_timestamp": "2025-09-17 12:52:16.223835",
+      "errors": [
+        "No papers found"
+      ]
     },
     {
       "outcome_token": "MULTIPLE_ORGAN_DYSFUNCTION",
       "population": "pediatric",
       "query_used": "(\"multiple organ dysfunction syndrome\" OR \"mods\" OR \"multi-organ failure\") AND (\"anesthesia\" OR \"anaesthesia\" OR \"perioperative\" OR \"intraoperative\" OR \"surgical\" OR \"operation\" OR \"surgery\" OR \"general anesthesia\" OR \"regional anesthesia\" OR \"epidural\" OR \"spinal\") AND (pediatric OR paediatric OR child OR infant OR neonate OR adolescent) AND (\"randomized controlled trial\" OR \"systematic review\" OR \"meta-analysis\" OR \"cohort study\" OR \"case-control\" OR \"prospective study\") AND 2004:3000[dp] AND english[la]",
       "papers_found": 59,
-      "papers_processed": 35,
-      "effects_extracted": 14,
-      "quality_grade_distribution": {
-        "A": 11,
-        "B": 14,
-        "C": 8,
-        "D": 2
-      },
-      "harvest_timestamp": "2025-09-16 08:02:52.850227",
-      "errors": []
-    },
-    {
-      "outcome_token": "MORTALITY_INHOSPITAL",
-      "population": "both",
-      "query_used": "(\"in-hospital mortality\" OR \"in-hospital death\") AND (\"anesthesia\" OR \"anaesthesia\" OR \"perioperative\" OR \"intraoperative\" OR \"surgical\" OR \"operation\" OR \"surgery\" OR \"general anesthesia\" OR \"regional anesthesia\" OR \"epidural\" OR \"spinal\") AND (\"randomized controlled trial\" OR \"systematic review\" OR \"meta-analysis\" OR \"cohort study\" OR \"case-control\" OR \"prospective study\") AND 2004:3000[dp] AND english[la]",
-      "papers_found": 200,
-      "papers_processed": 186,
-      "effects_extracted": 294,
-      "quality_grade_distribution": {
-        "A": 139,
-        "B": 35,
-        "C": 8,
-        "D": 4
-      },
-      "harvest_timestamp": "2025-09-16 08:02:53.402503",
+      "papers_processed": 0,
+      "effects_extracted": 0,
+      "quality_grade_distribution": {},
+      "harvest_timestamp": "2025-09-17 12:52:16.951380",
       "errors": []
     },
     {
@@ -314,15 +315,10 @@
       "population": "both",
       "query_used": "(\"multiple organ dysfunction syndrome\" OR \"mods\" OR \"multi-organ failure\") AND (\"anesthesia\" OR \"anaesthesia\" OR \"perioperative\" OR \"intraoperative\" OR \"surgical\" OR \"operation\" OR \"surgery\" OR \"general anesthesia\" OR \"regional anesthesia\" OR \"epidural\" OR \"spinal\") AND (\"randomized controlled trial\" OR \"systematic review\" OR \"meta-analysis\" OR \"cohort study\" OR \"case-control\" OR \"prospective study\") AND 2004:3000[dp] AND english[la]",
       "papers_found": 200,
-      "papers_processed": 129,
-      "effects_extracted": 64,
-      "quality_grade_distribution": {
-        "A": 53,
-        "B": 47,
-        "C": 21,
-        "D": 8
-      },
-      "harvest_timestamp": "2025-09-16 08:02:55.433846",
+      "papers_processed": 0,
+      "effects_extracted": 0,
+      "quality_grade_distribution": {},
+      "harvest_timestamp": "2025-09-17 12:52:17.275641",
       "errors": []
     },
     {
@@ -330,63 +326,58 @@
       "population": "adult",
       "query_used": "(\"acute kidney injury\" OR \"aki\" OR \"acute renal failure\") AND (\"anesthesia\" OR \"anaesthesia\" OR \"perioperative\" OR \"intraoperative\" OR \"surgical\" OR \"operation\" OR \"surgery\" OR \"general anesthesia\" OR \"regional anesthesia\" OR \"epidural\" OR \"spinal\") AND (adult OR elderly OR geriatric) AND (\"randomized controlled trial\" OR \"systematic review\" OR \"meta-analysis\" OR \"cohort study\" OR \"case-control\" OR \"prospective study\") AND 2004:3000[dp] AND english[la]",
       "papers_found": 200,
-      "papers_processed": 179,
-      "effects_extracted": 126,
-      "quality_grade_distribution": {
-        "A": 65,
-        "C": 31,
-        "B": 81,
-        "D": 2
-      },
-      "harvest_timestamp": "2025-09-16 08:02:56.393113",
+      "papers_processed": 0,
+      "effects_extracted": 0,
+      "quality_grade_distribution": {},
+      "harvest_timestamp": "2025-09-17 12:52:17.283002",
       "errors": []
     },
     {
       "outcome_token": "ACUTE_KIDNEY_INJURY",
       "population": "pediatric",
       "query_used": "(\"acute kidney injury\" OR \"aki\" OR \"acute renal failure\") AND (\"anesthesia\" OR \"anaesthesia\" OR \"perioperative\" OR \"intraoperative\" OR \"surgical\" OR \"operation\" OR \"surgery\" OR \"general anesthesia\" OR \"regional anesthesia\" OR \"epidural\" OR \"spinal\") AND (pediatric OR paediatric OR child OR infant OR neonate OR adolescent) AND (\"randomized controlled trial\" OR \"systematic review\" OR \"meta-analysis\" OR \"cohort study\" OR \"case-control\" OR \"prospective study\") AND 2004:3000[dp] AND english[la]",
-      "papers_found": 200,
-      "papers_processed": 169,
-      "effects_extracted": 137,
-      "quality_grade_distribution": {
-        "A": 64,
-        "C": 27,
-        "B": 75,
-        "D": 3
-      },
-      "harvest_timestamp": "2025-09-16 08:02:59.329311",
-      "errors": []
-    },
-    {
-      "outcome_token": "ACUTE_KIDNEY_INJURY",
-      "population": "both",
-      "query_used": "(\"acute kidney injury\" OR \"aki\" OR \"acute renal failure\") AND (\"anesthesia\" OR \"anaesthesia\" OR \"perioperative\" OR \"intraoperative\" OR \"surgical\" OR \"operation\" OR \"surgery\" OR \"general anesthesia\" OR \"regional anesthesia\" OR \"epidural\" OR \"spinal\") AND (\"randomized controlled trial\" OR \"systematic review\" OR \"meta-analysis\" OR \"cohort study\" OR \"case-control\" OR \"prospective study\") AND 2004:3000[dp] AND english[la]",
-      "papers_found": 200,
-      "papers_processed": 177,
-      "effects_extracted": 163,
-      "quality_grade_distribution": {
-        "A": 112,
-        "B": 54,
-        "C": 10,
-        "D": 1
-      },
-      "harvest_timestamp": "2025-09-16 08:02:59.718857",
-      "errors": []
+      "papers_found": 0,
+      "papers_processed": 0,
+      "effects_extracted": 0,
+      "quality_grade_distribution": {},
+      "harvest_timestamp": "2025-09-17 12:52:17.286175",
+      "errors": [
+        "No papers found"
+      ]
     },
     {
       "outcome_token": "ARDS",
       "population": "adult",
       "query_used": "(\"acute respiratory distress syndrome\" OR \"ards\" OR \"acute lung injury\" OR \"ali\") AND (\"anesthesia\" OR \"anaesthesia\" OR \"perioperative\" OR \"intraoperative\" OR \"surgical\" OR \"operation\" OR \"surgery\" OR \"general anesthesia\" OR \"regional anesthesia\" OR \"epidural\" OR \"spinal\") AND (adult OR elderly OR geriatric) AND (\"randomized controlled trial\" OR \"systematic review\" OR \"meta-analysis\" OR \"cohort study\" OR \"case-control\" OR \"prospective study\") AND 2004:3000[dp] AND english[la]",
       "papers_found": 200,
-      "papers_processed": 150,
-      "effects_extracted": 77,
-      "quality_grade_distribution": {
-        "A": 76,
-        "B": 47,
-        "D": 5,
-        "C": 22
-      },
-      "harvest_timestamp": "2025-09-16 08:03:03.029260",
+      "papers_processed": 0,
+      "effects_extracted": 0,
+      "quality_grade_distribution": {},
+      "harvest_timestamp": "2025-09-17 12:52:18.237306",
+      "errors": []
+    },
+    {
+      "outcome_token": "ARDS",
+      "population": "both",
+      "query_used": "(\"acute respiratory distress syndrome\" OR \"ards\" OR \"acute lung injury\" OR \"ali\") AND (\"anesthesia\" OR \"anaesthesia\" OR \"perioperative\" OR \"intraoperative\" OR \"surgical\" OR \"operation\" OR \"surgery\" OR \"general anesthesia\" OR \"regional anesthesia\" OR \"epidural\" OR \"spinal\") AND (\"randomized controlled trial\" OR \"systematic review\" OR \"meta-analysis\" OR \"cohort study\" OR \"case-control\" OR \"prospective study\") AND 2004:3000[dp] AND english[la]",
+      "papers_found": 0,
+      "papers_processed": 0,
+      "effects_extracted": 0,
+      "quality_grade_distribution": {},
+      "harvest_timestamp": "2025-09-17 12:52:18.540521",
+      "errors": [
+        "No papers found"
+      ]
+    },
+    {
+      "outcome_token": "ACUTE_KIDNEY_INJURY",
+      "population": "both",
+      "query_used": "(\"acute kidney injury\" OR \"aki\" OR \"acute renal failure\") AND (\"anesthesia\" OR \"anaesthesia\" OR \"perioperative\" OR \"intraoperative\" OR \"surgical\" OR \"operation\" OR \"surgery\" OR \"general anesthesia\" OR \"regional anesthesia\" OR \"epidural\" OR \"spinal\") AND (\"randomized controlled trial\" OR \"systematic review\" OR \"meta-analysis\" OR \"cohort study\" OR \"case-control\" OR \"prospective study\") AND 2004:3000[dp] AND english[la]",
+      "papers_found": 200,
+      "papers_processed": 0,
+      "effects_extracted": 0,
+      "quality_grade_distribution": {},
+      "harvest_timestamp": "2025-09-17 12:52:18.555142",
       "errors": []
     },
     {
@@ -394,31 +385,32 @@
       "population": "pediatric",
       "query_used": "(\"acute respiratory distress syndrome\" OR \"ards\" OR \"acute lung injury\" OR \"ali\") AND (\"anesthesia\" OR \"anaesthesia\" OR \"perioperative\" OR \"intraoperative\" OR \"surgical\" OR \"operation\" OR \"surgery\" OR \"general anesthesia\" OR \"regional anesthesia\" OR \"epidural\" OR \"spinal\") AND (pediatric OR paediatric OR child OR infant OR neonate OR adolescent) AND (\"randomized controlled trial\" OR \"systematic review\" OR \"meta-analysis\" OR \"cohort study\" OR \"case-control\" OR \"prospective study\") AND 2004:3000[dp] AND english[la]",
       "papers_found": 200,
-      "papers_processed": 155,
-      "effects_extracted": 60,
-      "quality_grade_distribution": {
-        "A": 96,
-        "B": 48,
-        "C": 10,
-        "D": 1
-      },
-      "harvest_timestamp": "2025-09-16 08:03:04.683190",
+      "papers_processed": 0,
+      "effects_extracted": 0,
+      "quality_grade_distribution": {},
+      "harvest_timestamp": "2025-09-17 12:52:18.572162",
       "errors": []
     },
     {
-      "outcome_token": "ARDS",
+      "outcome_token": "ASPIRATION",
       "population": "both",
-      "query_used": "(\"acute respiratory distress syndrome\" OR \"ards\" OR \"acute lung injury\" OR \"ali\") AND (\"anesthesia\" OR \"anaesthesia\" OR \"perioperative\" OR \"intraoperative\" OR \"surgical\" OR \"operation\" OR \"surgery\" OR \"general anesthesia\" OR \"regional anesthesia\" OR \"epidural\" OR \"spinal\") AND (\"randomized controlled trial\" OR \"systematic review\" OR \"meta-analysis\" OR \"cohort study\" OR \"case-control\" OR \"prospective study\") AND 2004:3000[dp] AND english[la]",
+      "query_used": "(\"pulmonary aspiration\" OR \"aspiration\" OR \"gastric aspiration\" OR \"mendelson syndrome\") AND (\"anesthesia\" OR \"anaesthesia\" OR \"perioperative\" OR \"intraoperative\" OR \"surgical\" OR \"operation\" OR \"surgery\" OR \"general anesthesia\" OR \"regional anesthesia\" OR \"epidural\" OR \"spinal\") AND (\"randomized controlled trial\" OR \"systematic review\" OR \"meta-analysis\" OR \"cohort study\" OR \"case-control\" OR \"prospective study\") AND 2004:3000[dp] AND english[la]",
       "papers_found": 200,
-      "papers_processed": 156,
-      "effects_extracted": 91,
-      "quality_grade_distribution": {
-        "A": 111,
-        "B": 29,
-        "D": 5,
-        "C": 11
-      },
-      "harvest_timestamp": "2025-09-16 08:03:06.340731",
+      "papers_processed": 0,
+      "effects_extracted": 0,
+      "quality_grade_distribution": {},
+      "harvest_timestamp": "2025-09-17 12:52:19.752532",
+      "errors": []
+    },
+    {
+      "outcome_token": "AWARENESS_UNDER_ANESTHESIA",
+      "population": "adult",
+      "query_used": "(\"awareness under anesthesia\" OR \"awareness\" OR \"intraoperative awareness\") AND (\"anesthesia\" OR \"anaesthesia\" OR \"perioperative\" OR \"intraoperative\" OR \"surgical\" OR \"operation\" OR \"surgery\" OR \"general anesthesia\" OR \"regional anesthesia\" OR \"epidural\" OR \"spinal\") AND (adult OR elderly OR geriatric) AND (\"randomized controlled trial\" OR \"systematic review\" OR \"meta-analysis\" OR \"cohort study\" OR \"case-control\" OR \"prospective study\") AND 2004:3000[dp] AND english[la]",
+      "papers_found": 200,
+      "papers_processed": 0,
+      "effects_extracted": 0,
+      "quality_grade_distribution": {},
+      "harvest_timestamp": "2025-09-17 12:52:20.719822",
       "errors": []
     },
     {
@@ -434,7 +426,7 @@
         "C": 28,
         "D": 6
       },
-      "harvest_timestamp": "2025-09-16 08:03:07.815712",
+      "harvest_timestamp": "2025-09-17 12:52:25.976272",
       "errors": []
     },
     {
@@ -450,52 +442,23 @@
         "B": 52,
         "D": 7
       },
-      "harvest_timestamp": "2025-09-16 08:03:09.685988",
+      "harvest_timestamp": "2025-09-17 12:52:27.135262",
       "errors": []
     },
     {
-      "outcome_token": "ASPIRATION",
-      "population": "both",
-      "query_used": "(\"pulmonary aspiration\" OR \"aspiration\" OR \"gastric aspiration\" OR \"mendelson syndrome\") AND (\"anesthesia\" OR \"anaesthesia\" OR \"perioperative\" OR \"intraoperative\" OR \"surgical\" OR \"operation\" OR \"surgery\" OR \"general anesthesia\" OR \"regional anesthesia\" OR \"epidural\" OR \"spinal\") AND (\"randomized controlled trial\" OR \"systematic review\" OR \"meta-analysis\" OR \"cohort study\" OR \"case-control\" OR \"prospective study\") AND 2004:3000[dp] AND english[la]",
-      "papers_found": 200,
-      "papers_processed": 176,
-      "effects_extracted": 58,
-      "quality_grade_distribution": {
-        "B": 33,
-        "A": 127,
-        "C": 14,
-        "D": 2
-      },
-      "harvest_timestamp": "2025-09-16 08:03:10.603615",
-      "errors": []
-    },
-    {
-      "outcome_token": "MULTIPLE_ORGAN_DYSFUNCTION",
+      "outcome_token": "BRONCHOSPASM",
       "population": "adult",
-      "query_used": "(\"multiple organ dysfunction syndrome\" OR \"mods\" OR \"multi-organ failure\") AND (\"anesthesia\" OR \"anaesthesia\" OR \"perioperative\" OR \"intraoperative\" OR \"surgical\" OR \"operation\" OR \"surgery\" OR \"general anesthesia\" OR \"regional anesthesia\" OR \"epidural\" OR \"spinal\") AND (adult OR elderly OR geriatric) AND (\"randomized controlled trial\" OR \"systematic review\" OR \"meta-analysis\" OR \"cohort study\" OR \"case-control\" OR \"prospective study\") AND 2004:3000[dp] AND english[la]",
-      "papers_found": 0,
-      "papers_processed": 0,
-      "effects_extracted": 0,
-      "quality_grade_distribution": {},
-      "harvest_timestamp": "2025-09-16 08:03:11.280286",
-      "errors": [
-        "No papers found"
-      ]
-    },
-    {
-      "outcome_token": "AWARENESS_UNDER_ANESTHESIA",
-      "population": "adult",
-      "query_used": "(\"awareness under anesthesia\" OR \"awareness\" OR \"intraoperative awareness\") AND (\"anesthesia\" OR \"anaesthesia\" OR \"perioperative\" OR \"intraoperative\" OR \"surgical\" OR \"operation\" OR \"surgery\" OR \"general anesthesia\" OR \"regional anesthesia\" OR \"epidural\" OR \"spinal\") AND (adult OR elderly OR geriatric) AND (\"randomized controlled trial\" OR \"systematic review\" OR \"meta-analysis\" OR \"cohort study\" OR \"case-control\" OR \"prospective study\") AND 2004:3000[dp] AND english[la]",
-      "papers_found": 200,
-      "papers_processed": 146,
-      "effects_extracted": 45,
+      "query_used": "(\"bronchospasm\" OR \"bronchospasm\" OR \"wheeze\" OR \"bronchial spasm\") AND (\"anesthesia\" OR \"anaesthesia\" OR \"perioperative\" OR \"intraoperative\" OR \"surgical\" OR \"operation\" OR \"surgery\" OR \"general anesthesia\" OR \"regional anesthesia\" OR \"epidural\" OR \"spinal\") AND (adult OR elderly OR geriatric) AND (\"randomized controlled trial\" OR \"systematic review\" OR \"meta-analysis\" OR \"cohort study\" OR \"case-control\" OR \"prospective study\") AND 2004:3000[dp] AND english[la]",
+      "papers_found": 96,
+      "papers_processed": 65,
+      "effects_extracted": 29,
       "quality_grade_distribution": {
-        "A": 69,
-        "B": 55,
-        "C": 18,
-        "D": 4
+        "A": 28,
+        "B": 22,
+        "D": 7,
+        "C": 8
       },
-      "harvest_timestamp": "2025-09-16 08:03:12.314498",
+      "harvest_timestamp": "2025-09-17 12:52:38.176843",
       "errors": []
     },
     {
@@ -511,36 +474,23 @@
         "C": 5,
         "D": 5
       },
-      "harvest_timestamp": "2025-09-16 08:03:13.150577",
+      "harvest_timestamp": "2025-09-17 12:52:42.943867",
       "errors": []
     },
     {
       "outcome_token": "BRONCHOSPASM",
       "population": "pediatric",
       "query_used": "(\"bronchospasm\" OR \"bronchospasm\" OR \"wheeze\" OR \"bronchial spasm\") AND (\"anesthesia\" OR \"anaesthesia\" OR \"perioperative\" OR \"intraoperative\" OR \"surgical\" OR \"operation\" OR \"surgery\" OR \"general anesthesia\" OR \"regional anesthesia\" OR \"epidural\" OR \"spinal\") AND (pediatric OR paediatric OR child OR infant OR neonate OR adolescent) AND (\"randomized controlled trial\" OR \"systematic review\" OR \"meta-analysis\" OR \"cohort study\" OR \"case-control\" OR \"prospective study\") AND 2004:3000[dp] AND english[la]",
-      "papers_found": 0,
-      "papers_processed": 0,
-      "effects_extracted": 0,
-      "quality_grade_distribution": {},
-      "harvest_timestamp": "2025-09-16 08:03:13.477720",
-      "errors": [
-        "No papers found"
-      ]
-    },
-    {
-      "outcome_token": "BRONCHOSPASM",
-      "population": "adult",
-      "query_used": "(\"bronchospasm\" OR \"bronchospasm\" OR \"wheeze\" OR \"bronchial spasm\") AND (\"anesthesia\" OR \"anaesthesia\" OR \"perioperative\" OR \"intraoperative\" OR \"surgical\" OR \"operation\" OR \"surgery\" OR \"general anesthesia\" OR \"regional anesthesia\" OR \"epidural\" OR \"spinal\") AND (adult OR elderly OR geriatric) AND (\"randomized controlled trial\" OR \"systematic review\" OR \"meta-analysis\" OR \"cohort study\" OR \"case-control\" OR \"prospective study\") AND 2004:3000[dp] AND english[la]",
       "papers_found": 96,
-      "papers_processed": 65,
-      "effects_extracted": 29,
+      "papers_processed": 68,
+      "effects_extracted": 39,
       "quality_grade_distribution": {
-        "A": 28,
-        "B": 22,
-        "D": 7,
-        "C": 8
+        "A": 27,
+        "D": 5,
+        "C": 15,
+        "B": 21
       },
-      "harvest_timestamp": "2025-09-16 08:03:14.192290",
+      "harvest_timestamp": "2025-09-17 12:52:49.250750",
       "errors": []
     },
     {
@@ -556,23 +506,7 @@
         "C": 8,
         "D": 5
       },
-      "harvest_timestamp": "2025-09-16 08:03:15.044470",
-      "errors": []
-    },
-    {
-      "outcome_token": "BRONCHOSPASM",
-      "population": "both",
-      "query_used": "(\"bronchospasm\" OR \"bronchospasm\" OR \"wheeze\" OR \"bronchial spasm\") AND (\"anesthesia\" OR \"anaesthesia\" OR \"perioperative\" OR \"intraoperative\" OR \"surgical\" OR \"operation\" OR \"surgery\" OR \"general anesthesia\" OR \"regional anesthesia\" OR \"epidural\" OR \"spinal\") AND (\"randomized controlled trial\" OR \"systematic review\" OR \"meta-analysis\" OR \"cohort study\" OR \"case-control\" OR \"prospective study\") AND 2004:3000[dp] AND english[la]",
-      "papers_found": 170,
-      "papers_processed": 123,
-      "effects_extracted": 54,
-      "quality_grade_distribution": {
-        "A": 50,
-        "B": 40,
-        "D": 11,
-        "C": 22
-      },
-      "harvest_timestamp": "2025-09-16 08:03:15.971986",
+      "harvest_timestamp": "2025-09-17 12:52:51.542594",
       "errors": []
     },
     {
@@ -588,7 +522,23 @@
         "C": 15,
         "D": 7
       },
-      "harvest_timestamp": "2025-09-16 08:03:16.375435",
+      "harvest_timestamp": "2025-09-17 12:53:01.796803",
+      "errors": []
+    },
+    {
+      "outcome_token": "BRONCHOSPASM",
+      "population": "both",
+      "query_used": "(\"bronchospasm\" OR \"bronchospasm\" OR \"wheeze\" OR \"bronchial spasm\") AND (\"anesthesia\" OR \"anaesthesia\" OR \"perioperative\" OR \"intraoperative\" OR \"surgical\" OR \"operation\" OR \"surgery\" OR \"general anesthesia\" OR \"regional anesthesia\" OR \"epidural\" OR \"spinal\") AND (\"randomized controlled trial\" OR \"systematic review\" OR \"meta-analysis\" OR \"cohort study\" OR \"case-control\" OR \"prospective study\") AND 2004:3000[dp] AND english[la]",
+      "papers_found": 170,
+      "papers_processed": 123,
+      "effects_extracted": 54,
+      "quality_grade_distribution": {
+        "A": 50,
+        "B": 40,
+        "D": 11,
+        "C": 22
+      },
+      "harvest_timestamp": "2025-09-17 12:53:02.270251",
       "errors": []
     },
     {
@@ -604,7 +554,7 @@
         "C": 21,
         "B": 31
       },
-      "harvest_timestamp": "2025-09-16 08:03:17.162394",
+      "harvest_timestamp": "2025-09-17 12:53:03.411458",
       "errors": []
     },
     {
@@ -620,23 +570,7 @@
         "C": 22,
         "B": 39
       },
-      "harvest_timestamp": "2025-09-16 08:03:18.638171",
-      "errors": []
-    },
-    {
-      "outcome_token": "PULMONARY_EMBOLISM",
-      "population": "pediatric",
-      "query_used": "(\"pulmonary embolism\" OR \"pe\" OR \"pulmonary embolism\") AND (\"anesthesia\" OR \"anaesthesia\" OR \"perioperative\" OR \"intraoperative\" OR \"surgical\" OR \"operation\" OR \"surgery\" OR \"general anesthesia\" OR \"regional anesthesia\" OR \"epidural\" OR \"spinal\") AND (pediatric OR paediatric OR child OR infant OR neonate OR adolescent) AND (\"randomized controlled trial\" OR \"systematic review\" OR \"meta-analysis\" OR \"cohort study\" OR \"case-control\" OR \"prospective study\") AND 2004:3000[dp] AND english[la]",
-      "papers_found": 200,
-      "papers_processed": 166,
-      "effects_extracted": 59,
-      "quality_grade_distribution": {
-        "A": 97,
-        "B": 49,
-        "C": 17,
-        "D": 3
-      },
-      "harvest_timestamp": "2025-09-16 08:03:21.117221",
+      "harvest_timestamp": "2025-09-17 12:53:13.558924",
       "errors": []
     },
     {
@@ -652,7 +586,23 @@
         "C": 35,
         "D": 3
       },
-      "harvest_timestamp": "2025-09-16 08:03:21.161833",
+      "harvest_timestamp": "2025-09-17 12:53:24.836102",
+      "errors": []
+    },
+    {
+      "outcome_token": "PULMONARY_EMBOLISM",
+      "population": "pediatric",
+      "query_used": "(\"pulmonary embolism\" OR \"pe\" OR \"pulmonary embolism\") AND (\"anesthesia\" OR \"anaesthesia\" OR \"perioperative\" OR \"intraoperative\" OR \"surgical\" OR \"operation\" OR \"surgery\" OR \"general anesthesia\" OR \"regional anesthesia\" OR \"epidural\" OR \"spinal\") AND (pediatric OR paediatric OR child OR infant OR neonate OR adolescent) AND (\"randomized controlled trial\" OR \"systematic review\" OR \"meta-analysis\" OR \"cohort study\" OR \"case-control\" OR \"prospective study\") AND 2004:3000[dp] AND english[la]",
+      "papers_found": 200,
+      "papers_processed": 166,
+      "effects_extracted": 59,
+      "quality_grade_distribution": {
+        "A": 97,
+        "B": 49,
+        "C": 17,
+        "D": 3
+      },
+      "harvest_timestamp": "2025-09-17 12:53:31.036174",
       "errors": []
     },
     {
@@ -661,13 +611,13 @@
       "query_used": "(\"pulmonary embolism\" OR \"pe\" OR \"pulmonary embolism\") AND (\"anesthesia\" OR \"anaesthesia\" OR \"perioperative\" OR \"intraoperative\" OR \"surgical\" OR \"operation\" OR \"surgery\" OR \"general anesthesia\" OR \"regional anesthesia\" OR \"epidural\" OR \"spinal\") AND (\"randomized controlled trial\" OR \"systematic review\" OR \"meta-analysis\" OR \"cohort study\" OR \"case-control\" OR \"prospective study\") AND 2004:3000[dp] AND english[la]",
       "papers_found": 200,
       "papers_processed": 183,
-      "effects_extracted": 142,
+      "effects_extracted": 145,
       "quality_grade_distribution": {
         "A": 150,
         "B": 25,
         "C": 8
       },
-      "harvest_timestamp": "2025-09-16 08:03:22.154649",
+      "harvest_timestamp": "2025-09-17 12:53:36.808197",
       "errors": []
     },
     {
@@ -675,35 +625,16 @@
       "population": "adult",
       "query_used": "(\"sepsis\" OR \"sepsis\" OR \"septic shock\") AND (\"anesthesia\" OR \"anaesthesia\" OR \"perioperative\" OR \"intraoperative\" OR \"surgical\" OR \"operation\" OR \"surgery\" OR \"general anesthesia\" OR \"regional anesthesia\" OR \"epidural\" OR \"spinal\") AND (adult OR elderly OR geriatric) AND (\"randomized controlled trial\" OR \"systematic review\" OR \"meta-analysis\" OR \"cohort study\" OR \"case-control\" OR \"prospective study\") AND 2004:3000[dp] AND english[la]",
       "papers_found": 200,
-      "papers_processed": 0,
-      "effects_extracted": 0,
-      "quality_grade_distribution": {},
-      "harvest_timestamp": "2025-09-16 08:03:22.868786",
+      "papers_processed": 157,
+      "effects_extracted": 203,
+      "quality_grade_distribution": {
+        "A": 53,
+        "C": 32,
+        "B": 65,
+        "D": 7
+      },
+      "harvest_timestamp": "2025-09-17 12:53:49.405530",
       "errors": []
-    },
-    {
-      "outcome_token": "SEPSIS",
-      "population": "both",
-      "query_used": "(\"sepsis\" OR \"sepsis\" OR \"septic shock\") AND (\"anesthesia\" OR \"anaesthesia\" OR \"perioperative\" OR \"intraoperative\" OR \"surgical\" OR \"operation\" OR \"surgery\" OR \"general anesthesia\" OR \"regional anesthesia\" OR \"epidural\" OR \"spinal\") AND (\"randomized controlled trial\" OR \"systematic review\" OR \"meta-analysis\" OR \"cohort study\" OR \"case-control\" OR \"prospective study\") AND 2004:3000[dp] AND english[la]",
-      "papers_found": 200,
-      "papers_processed": 0,
-      "effects_extracted": 0,
-      "quality_grade_distribution": {},
-      "harvest_timestamp": "2025-09-16 08:03:23.195446",
-      "errors": []
-    },
-    {
-      "outcome_token": "STROKE",
-      "population": "adult",
-      "query_used": "(\"stroke/tia\" OR \"stroke\" OR \"cva\" OR \"tia\" OR \"transient ischemic attack\") AND (\"anesthesia\" OR \"anaesthesia\" OR \"perioperative\" OR \"intraoperative\" OR \"surgical\" OR \"operation\" OR \"surgery\" OR \"general anesthesia\" OR \"regional anesthesia\" OR \"epidural\" OR \"spinal\") AND (adult OR elderly OR geriatric) AND (\"randomized controlled trial\" OR \"systematic review\" OR \"meta-analysis\" OR \"cohort study\" OR \"case-control\" OR \"prospective study\") AND 2004:3000[dp] AND english[la]",
-      "papers_found": 0,
-      "papers_processed": 0,
-      "effects_extracted": 0,
-      "quality_grade_distribution": {},
-      "harvest_timestamp": "2025-09-16 08:03:23.199439",
-      "errors": [
-        "No papers found"
-      ]
     },
     {
       "outcome_token": "SEPSIS",
@@ -711,14 +642,62 @@
       "query_used": "(\"sepsis\" OR \"sepsis\" OR \"septic shock\") AND (\"anesthesia\" OR \"anaesthesia\" OR \"perioperative\" OR \"intraoperative\" OR \"surgical\" OR \"operation\" OR \"surgery\" OR \"general anesthesia\" OR \"regional anesthesia\" OR \"epidural\" OR \"spinal\") AND (pediatric OR paediatric OR child OR infant OR neonate OR adolescent) AND (\"randomized controlled trial\" OR \"systematic review\" OR \"meta-analysis\" OR \"cohort study\" OR \"case-control\" OR \"prospective study\") AND 2004:3000[dp] AND english[la]",
       "papers_found": 200,
       "papers_processed": 166,
-      "effects_extracted": 85,
+      "effects_extracted": 86,
       "quality_grade_distribution": {
-        "A": 83,
-        "B": 64,
+        "A": 82,
+        "B": 65,
         "C": 16,
         "D": 3
       },
-      "harvest_timestamp": "2025-09-16 08:03:24.797618",
+      "harvest_timestamp": "2025-09-17 12:54:01.555936",
+      "errors": []
+    },
+    {
+      "outcome_token": "SEPSIS",
+      "population": "both",
+      "query_used": "(\"sepsis\" OR \"sepsis\" OR \"septic shock\") AND (\"anesthesia\" OR \"anaesthesia\" OR \"perioperative\" OR \"intraoperative\" OR \"surgical\" OR \"operation\" OR \"surgery\" OR \"general anesthesia\" OR \"regional anesthesia\" OR \"epidural\" OR \"spinal\") AND (\"randomized controlled trial\" OR \"systematic review\" OR \"meta-analysis\" OR \"cohort study\" OR \"case-control\" OR \"prospective study\") AND 2004:3000[dp] AND english[la]",
+      "papers_found": 200,
+      "papers_processed": 179,
+      "effects_extracted": 151,
+      "quality_grade_distribution": {
+        "A": 136,
+        "B": 31,
+        "C": 9,
+        "D": 3
+      },
+      "harvest_timestamp": "2025-09-17 12:54:04.486251",
+      "errors": []
+    },
+    {
+      "outcome_token": "STROKE",
+      "population": "adult",
+      "query_used": "(\"stroke/tia\" OR \"stroke\" OR \"cva\" OR \"tia\" OR \"transient ischemic attack\") AND (\"anesthesia\" OR \"anaesthesia\" OR \"perioperative\" OR \"intraoperative\" OR \"surgical\" OR \"operation\" OR \"surgery\" OR \"general anesthesia\" OR \"regional anesthesia\" OR \"epidural\" OR \"spinal\") AND (adult OR elderly OR geriatric) AND (\"randomized controlled trial\" OR \"systematic review\" OR \"meta-analysis\" OR \"cohort study\" OR \"case-control\" OR \"prospective study\") AND 2004:3000[dp] AND english[la]",
+      "papers_found": 200,
+      "papers_processed": 178,
+      "effects_extracted": 117,
+      "quality_grade_distribution": {
+        "A": 116,
+        "B": 47,
+        "C": 13,
+        "D": 2
+      },
+      "harvest_timestamp": "2025-09-17 12:54:09.881582",
+      "errors": []
+    },
+    {
+      "outcome_token": "STROKE",
+      "population": "pediatric",
+      "query_used": "(\"stroke/tia\" OR \"stroke\" OR \"cva\" OR \"tia\" OR \"transient ischemic attack\") AND (\"anesthesia\" OR \"anaesthesia\" OR \"perioperative\" OR \"intraoperative\" OR \"surgical\" OR \"operation\" OR \"surgery\" OR \"general anesthesia\" OR \"regional anesthesia\" OR \"epidural\" OR \"spinal\") AND (pediatric OR paediatric OR child OR infant OR neonate OR adolescent) AND (\"randomized controlled trial\" OR \"systematic review\" OR \"meta-analysis\" OR \"cohort study\" OR \"case-control\" OR \"prospective study\") AND 2004:3000[dp] AND english[la]",
+      "papers_found": 200,
+      "papers_processed": 161,
+      "effects_extracted": 53,
+      "quality_grade_distribution": {
+        "A": 90,
+        "B": 49,
+        "C": 19,
+        "D": 3
+      },
+      "harvest_timestamp": "2025-09-17 12:54:30.717279",
       "errors": []
     },
     {
@@ -734,23 +713,7 @@
         "C": 9,
         "D": 1
       },
-      "harvest_timestamp": "2025-09-16 08:03:26.888430",
-      "errors": []
-    },
-    {
-      "outcome_token": "STROKE",
-      "population": "pediatric",
-      "query_used": "(\"stroke/tia\" OR \"stroke\" OR \"cva\" OR \"tia\" OR \"transient ischemic attack\") AND (\"anesthesia\" OR \"anaesthesia\" OR \"perioperative\" OR \"intraoperative\" OR \"surgical\" OR \"operation\" OR \"surgery\" OR \"general anesthesia\" OR \"regional anesthesia\" OR \"epidural\" OR \"spinal\") AND (pediatric OR paediatric OR child OR infant OR neonate OR adolescent) AND (\"randomized controlled trial\" OR \"systematic review\" OR \"meta-analysis\" OR \"cohort study\" OR \"case-control\" OR \"prospective study\") AND 2004:3000[dp] AND english[la]",
-      "papers_found": 200,
-      "papers_processed": 161,
-      "effects_extracted": 53,
-      "quality_grade_distribution": {
-        "A": 91,
-        "B": 49,
-        "C": 18,
-        "D": 3
-      },
-      "harvest_timestamp": "2025-09-16 08:03:27.351993",
+      "harvest_timestamp": "2025-09-17 12:54:30.785083",
       "errors": []
     },
     {
@@ -766,23 +729,7 @@
         "C": 18,
         "D": 9
       },
-      "harvest_timestamp": "2025-09-16 08:03:28.076708",
-      "errors": []
-    },
-    {
-      "outcome_token": "VENTRICULAR_ARRHYTHMIA",
-      "population": "pediatric",
-      "query_used": "(\"ventricular tachycardia/fibrillation\" OR \"vt\" OR \"vf\" OR \"ventricular tachycardia\" OR \"ventricular fibrillation\") AND (\"anesthesia\" OR \"anaesthesia\" OR \"perioperative\" OR \"intraoperative\" OR \"surgical\" OR \"operation\" OR \"surgery\" OR \"general anesthesia\" OR \"regional anesthesia\" OR \"epidural\" OR \"spinal\") AND (pediatric OR paediatric OR child OR infant OR neonate OR adolescent) AND (\"randomized controlled trial\" OR \"systematic review\" OR \"meta-analysis\" OR \"cohort study\" OR \"case-control\" OR \"prospective study\") AND 2004:3000[dp] AND english[la]",
-      "papers_found": 200,
-      "papers_processed": 153,
-      "effects_extracted": 21,
-      "quality_grade_distribution": {
-        "A": 74,
-        "B": 52,
-        "C": 23,
-        "D": 4
-      },
-      "harvest_timestamp": "2025-09-16 08:03:31.212357",
+      "harvest_timestamp": "2025-09-17 12:54:31.552184",
       "errors": []
     },
     {
@@ -798,7 +745,23 @@
         "C": 7,
         "D": 2
       },
-      "harvest_timestamp": "2025-09-16 08:03:31.243672",
+      "harvest_timestamp": "2025-09-17 12:54:44.787838",
+      "errors": []
+    },
+    {
+      "outcome_token": "VENTRICULAR_ARRHYTHMIA",
+      "population": "pediatric",
+      "query_used": "(\"ventricular tachycardia/fibrillation\" OR \"vt\" OR \"vf\" OR \"ventricular tachycardia\" OR \"ventricular fibrillation\") AND (\"anesthesia\" OR \"anaesthesia\" OR \"perioperative\" OR \"intraoperative\" OR \"surgical\" OR \"operation\" OR \"surgery\" OR \"general anesthesia\" OR \"regional anesthesia\" OR \"epidural\" OR \"spinal\") AND (pediatric OR paediatric OR child OR infant OR neonate OR adolescent) AND (\"randomized controlled trial\" OR \"systematic review\" OR \"meta-analysis\" OR \"cohort study\" OR \"case-control\" OR \"prospective study\") AND 2004:3000[dp] AND english[la]",
+      "papers_found": 200,
+      "papers_processed": 153,
+      "effects_extracted": 21,
+      "quality_grade_distribution": {
+        "A": 74,
+        "B": 52,
+        "C": 23,
+        "D": 4
+      },
+      "harvest_timestamp": "2025-09-17 12:54:50.950334",
       "errors": []
     }
   ]

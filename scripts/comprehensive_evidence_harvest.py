@@ -10,6 +10,9 @@ import json
 import logging
 import time
 from pathlib import Path
+
+# Set NCBI API key for enhanced rate limits
+os.environ['NCBI_API_KEY'] = '75080d5c230ad16abe97b1b3a27051e02908'
 from datetime import datetime, timedelta
 from typing import Dict, List, Set, Tuple, Optional
 from dataclasses import dataclass, asdict
