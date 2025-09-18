@@ -66,12 +66,30 @@ def create_baseline_risks_table(conn):
             )
         """)
 
-        # Add essential baseline risks
+        # Add essential baseline risks with comprehensive coverage
         baseline_data = [
-            ("baseline_laryngospasm_ped", "LARYNGOSPASM", "pediatric", "tonsillectomy", 0.015, 0.012, 0.019, 12, "B"),
+            # Pediatric dental procedures
+            ("baseline_laryngospasm_ped_dental", "LARYNGOSPASM", "pediatric", "pediatric_dental", 0.008, 0.005, 0.012, 8, "B"),
+            ("baseline_bronchospasm_ped_dental", "BRONCHOSPASM", "pediatric", "pediatric_dental", 0.005, 0.003, 0.008, 6, "B"),
+            ("baseline_dental_injury_ped_dental", "DENTAL_INJURY", "pediatric", "pediatric_dental", 0.002, 0.001, 0.004, 5, "C"),
+            ("baseline_emergence_agitation_ped_dental", "EMERGENCE_AGITATION", "pediatric", "pediatric_dental", 0.15, 0.12, 0.18, 10, "B"),
+
+            # Pediatric tonsillectomy (original)
+            ("baseline_laryngospasm_ped_tonsi", "LARYNGOSPASM", "pediatric", "tonsillectomy", 0.015, 0.012, 0.019, 12, "B"),
+            ("baseline_post_tonsil_bleeding", "POST_TONSILLECTOMY_BLEEDING", "pediatric", "tonsillectomy", 0.05, 0.03, 0.08, 15, "A"),
+
+            # General pediatric
             ("baseline_bronchospasm_ped", "BRONCHOSPASM", "pediatric", "general", 0.008, 0.006, 0.011, 8, "B"),
+            ("baseline_ponv_ped", "PONV", "pediatric", "general", 0.25, 0.20, 0.30, 12, "A"),
+
+            # General population
             ("baseline_mortality_24h", "MORTALITY_24H", "mixed", "general", 0.0001, 0.00005, 0.0002, 15, "A"),
             ("baseline_mortality_30d", "MORTALITY_30D", "mixed", "general", 0.0008, 0.0005, 0.0012, 20, "A"),
+            ("baseline_mortality_inhospital", "MORTALITY_INHOSPITAL", "mixed", "general", 0.0005, 0.0003, 0.0008, 18, "A"),
+
+            # Common adult baselines
+            ("baseline_ponv_adult", "PONV", "adult", "general", 0.20, 0.15, 0.25, 25, "A"),
+            ("baseline_hypotension_adult", "INTRAOP_HYPOTENSION", "adult", "general", 0.15, 0.12, 0.18, 20, "B"),
         ]
 
         for row in baseline_data:

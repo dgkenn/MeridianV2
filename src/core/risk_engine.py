@@ -662,8 +662,14 @@ class RiskEngine:
         all_citations = []
 
         for modifier in modifier_results:
-            or_value = modifier['or']
-            or_ci = modifier['ci']
+            # Handle both field name formats for compatibility
+            or_value = modifier.get('or') or modifier.get('or_value')
+            or_ci = modifier.get('ci') or (modifier.get('ci_low'), modifier.get('ci_high'))
+
+            # Validate we have a numeric OR value
+            if or_value is None or not isinstance(or_value, (int, float)):
+                logger.warning(f"Invalid OR value for modifier {modifier}: {or_value}")
+                continue
 
             # Validate OR
             if self.min_or <= or_value <= self.max_or:
