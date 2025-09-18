@@ -40,17 +40,21 @@ app = Flask(__name__)
 CORS(app)
 app.config['SECRET_KEY'] = 'codex-demo-key'
 
-# Database connection - try production first, fallback to development
+# Database connection - try minimal production first, then regular production, then development
+MINIMAL_PRODUCTION_DB_PATH = "database/minimal_production.duckdb"
 PRODUCTION_DB_PATH = "database/production.duckdb"
 DEVELOPMENT_DB_PATH = "database/codex.duckdb"
 
-# Use production database if available, otherwise fall back to development
-if Path(PRODUCTION_DB_PATH).exists():
+# Use minimal production database if available (smallest and fastest)
+if Path(MINIMAL_PRODUCTION_DB_PATH).exists():
+    DB_PATH = MINIMAL_PRODUCTION_DB_PATH
+    logger.info(f"Using minimal production database: {DB_PATH}")
+elif Path(PRODUCTION_DB_PATH).exists():
     DB_PATH = PRODUCTION_DB_PATH
-    logger.info(f"Using production database: {DB_PATH}")
+    logger.info(f"Using full production database: {DB_PATH}")
 else:
     DB_PATH = DEVELOPMENT_DB_PATH
-    logger.info(f"Production database not found, using development database: {DB_PATH}")
+    logger.info(f"No production database found, using development database: {DB_PATH}")
 
 def get_db():
     """Get database connection."""
