@@ -96,6 +96,38 @@ conn.execute("""
     )
 """)
 
+# Create baseline_risks table (required by risk engine)
+conn.execute("""
+    CREATE TABLE IF NOT EXISTS baseline_risks (
+        id TEXT PRIMARY KEY,
+        outcome_token TEXT NOT NULL,
+        population TEXT NOT NULL,
+        context_label TEXT,
+        baseline_risk REAL NOT NULL,
+        confidence_interval_lower REAL,
+        confidence_interval_upper REAL,
+        studies_count INTEGER,
+        evidence_grade TEXT,
+        last_updated TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    )
+""")
+
+# Create risk_modifiers table (required by risk engine)
+conn.execute("""
+    CREATE TABLE IF NOT EXISTS risk_modifiers (
+        id TEXT PRIMARY KEY,
+        outcome_token TEXT NOT NULL,
+        modifier_token TEXT NOT NULL,
+        population TEXT,
+        odds_ratio REAL NOT NULL,
+        confidence_interval_lower REAL,
+        confidence_interval_upper REAL,
+        studies_count INTEGER,
+        evidence_grade TEXT,
+        last_updated TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    )
+""")
+
 # Create evidence_based_adjusted_risks table (required by risk engine)
 conn.execute("""
     CREATE TABLE IF NOT EXISTS evidence_based_adjusted_risks (

@@ -52,6 +52,8 @@ bug_reports.txt
 database/*.db
 database/*.duckdb
 !database/.gitkeep
+# Exception: Include production database for deployment
+!database/production.duckdb
 
 # Temporary files
 tmp/
