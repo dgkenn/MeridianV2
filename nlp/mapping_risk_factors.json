@@ -1,0 +1,218 @@
+{
+  "RECENT_URI_2W": {
+    "label": "Recent upper respiratory infection (≤2 weeks)",
+    "category": "respiratory",
+    "severity": 2.5,
+    "synonyms": ["recent URI", "recent cold", "upper respiratory infection", "recent respiratory infection"]
+  },
+  "URI_LAST_4W": {
+    "label": "Upper respiratory infection (2-4 weeks ago)",
+    "category": "respiratory",
+    "severity": 1.8,
+    "synonyms": ["URI within 4 weeks", "recent cold", "respiratory infection last month"]
+  },
+  "ASTHMA": {
+    "label": "Asthma",
+    "category": "respiratory",
+    "severity": 2.0,
+    "synonyms": ["asthmatic", "reactive airway disease", "RAD", "bronchial asthma"]
+  },
+  "OSA": {
+    "label": "Obstructive sleep apnea",
+    "category": "airway",
+    "severity": 2.8,
+    "synonyms": ["sleep apnea", "OSA", "CPAP", "BiPAP", "sleep study abnormal"]
+  },
+  "CF": {
+    "label": "Cystic fibrosis",
+    "category": "respiratory",
+    "severity": 3.5,
+    "synonyms": ["cystic fibrosis", "CF"]
+  },
+  "BRONCHOPULMONARY_DYSPLASIA": {
+    "label": "Bronchopulmonary dysplasia",
+    "category": "respiratory",
+    "severity": 3.2,
+    "synonyms": ["BPD", "chronic lung disease", "bronchopulmonary dysplasia"]
+  },
+  "PREMATURITY_LESSTHAN_37W": {
+    "label": "Prematurity (<37 weeks)",
+    "category": "demographics",
+    "severity": 2.2,
+    "synonyms": ["premature", "preterm", "NICU graduate", "born early"]
+  },
+  "SMOKING_ACTIVE": {
+    "label": "Active smoking",
+    "category": "respiratory",
+    "severity": 2.0,
+    "synonyms": ["smoker", "tobacco use", "cigarettes", "pack years"]
+  },
+  "CHD": {
+    "label": "Congenital heart disease",
+    "category": "cardiac",
+    "severity": 3.8,
+    "synonyms": ["congenital heart defect", "CHD", "heart anomaly", "cardiac malformation"]
+  },
+  "PULM_HTN": {
+    "label": "Pulmonary hypertension",
+    "category": "cardiac",
+    "severity": 3.5,
+    "synonyms": ["pulmonary HTN", "elevated PA pressures", "pulm hypertension"]
+  },
+  "ARRHYTHMIA": {
+    "label": "Cardiac arrhythmia",
+    "category": "cardiac",
+    "severity": 2.8,
+    "synonyms": ["dysrhythmia", "atrial fibrillation", "a-fib", "SVT", "heart block"]
+  },
+  "CHF": {
+    "label": "Congestive heart failure",
+    "category": "cardiac",
+    "severity": 4.0,
+    "synonyms": ["heart failure", "CHF", "reduced ejection fraction", "cardiomyopathy"]
+  },
+  "SEIZURE_DISORDER": {
+    "label": "Seizure disorder",
+    "category": "neurologic",
+    "severity": 2.5,
+    "synonyms": ["epilepsy", "seizures", "anticonvulsants"]
+  },
+  "CP": {
+    "label": "Cerebral palsy",
+    "category": "neurologic",
+    "severity": 2.8,
+    "synonyms": ["cerebral palsy", "CP", "spastic diplegia"]
+  },
+  "MH_HISTORY": {
+    "label": "Malignant hyperthermia susceptibility",
+    "category": "anesthetic",
+    "severity": 4.5,
+    "synonyms": ["malignant hyperthermia", "MH", "MH susceptible", "family history MH"]
+  },
+  "GERD": {
+    "label": "Gastroesophageal reflux disease",
+    "category": "gastrointestinal",
+    "severity": 1.8,
+    "synonyms": ["GERD", "reflux", "heartburn", "aspiration risk"]
+  },
+  "FULL_STOMACH": {
+    "label": "Full stomach/aspiration risk",
+    "category": "gastrointestinal",
+    "severity": 3.2,
+    "synonyms": ["recent meal", "NPO violated", "ate recently", "full stomach"]
+  },
+  "ANESTHETIC_ALLERGY": {
+    "label": "Anesthetic drug allergy",
+    "category": "allergic",
+    "severity": 3.8,
+    "synonyms": ["propofol allergy", "succinylcholine allergy", "anesthetic reaction"]
+  },
+  "LATEX_ALLERGY": {
+    "label": "Latex allergy",
+    "category": "allergic",
+    "severity": 2.5,
+    "synonyms": ["latex sensitivity", "rubber allergy"]
+  },
+  "EGG_SOY_ALLERGY": {
+    "label": "Egg or soy allergy",
+    "category": "allergic",
+    "severity": 2.0,
+    "synonyms": ["egg allergy", "soy allergy", "propofol caution"]
+  },
+  "PENICILLIN_ALLERGY": {
+    "label": "Penicillin allergy",
+    "category": "allergic",
+    "severity": 1.5,
+    "synonyms": ["PCN allergy", "beta-lactam allergy", "penicillin reaction"]
+  },
+  "ENT_CASE": {
+    "label": "ENT procedure",
+    "category": "procedural",
+    "severity": 1.2,
+    "synonyms": ["ear nose throat", "ENT surgery", "otolaryngology"]
+  },
+  "T_AND_A": {
+    "label": "Tonsillectomy and adenoidectomy",
+    "category": "procedural",
+    "severity": 1.8,
+    "synonyms": ["T&A", "tonsillectomy", "adenoidectomy"]
+  },
+  "DENTAL_ORAL": {
+    "label": "Dental/oral surgery",
+    "category": "procedural",
+    "severity": 1.0,
+    "synonyms": ["dental work", "oral surgery", "tooth extraction", "dental rehabilitation"]
+  },
+  "LAPAROSCOPY": {
+    "label": "Laparoscopic surgery",
+    "category": "procedural",
+    "severity": 1.3,
+    "synonyms": ["minimally invasive", "robotic surgery", "lap surgery"]
+  },
+  "FEVER_CURRENT": {
+    "label": "Current fever",
+    "category": "infectious",
+    "severity": 2.2,
+    "synonyms": ["febrile", "elevated temperature", "hyperthermia"]
+  },
+  "AGE_1_5": {
+    "label": "Age 1-5 years",
+    "category": "demographics",
+    "severity": 1.5,
+    "synonyms": ["toddler", "preschooler", "young child"]
+  },
+  "AGE_6_12": {
+    "label": "Age 6-12 years",
+    "category": "demographics",
+    "severity": 1.2,
+    "synonyms": ["school age", "elementary age", "child"]
+  },
+  "AGE_13_17": {
+    "label": "Age 13-17 years",
+    "category": "demographics",
+    "severity": 1.0,
+    "synonyms": ["adolescent", "teenager", "teen"]
+  },
+  "AGE_ELDERLY": {
+    "label": "Elderly (65-80 years)",
+    "category": "demographics",
+    "severity": 1.8,
+    "synonyms": ["elderly", "senior", "geriatric"]
+  },
+  "AGE_VERY_ELDERLY": {
+    "label": "Very elderly (>80 years)",
+    "category": "demographics",
+    "severity": 2.5,
+    "synonyms": ["very elderly", "octogenarian", "nonagenarian"]
+  },
+  "SEX_MALE": {
+    "label": "Male sex",
+    "category": "demographics",
+    "severity": 1.0,
+    "synonyms": ["male", "boy", "M"]
+  },
+  "SEX_FEMALE": {
+    "label": "Female sex",
+    "category": "demographics",
+    "severity": 1.0,
+    "synonyms": ["female", "girl", "F"]
+  },
+  "ASA_2": {
+    "label": "ASA II - Mild systemic disease",
+    "category": "classification",
+    "severity": 1.3,
+    "synonyms": ["ASA II", "ASA 2", "mild systemic disease"]
+  },
+  "ASA_3": {
+    "label": "ASA III - Severe systemic disease",
+    "category": "classification",
+    "severity": 2.5,
+    "synonyms": ["ASA III", "ASA 3", "severe systemic disease"]
+  },
+  "ASA_4": {
+    "label": "ASA IV - Life-threatening systemic disease",
+    "category": "classification",
+    "severity": 4.0,
+    "synonyms": ["ASA IV", "ASA 4", "life-threatening disease"]
+  }
+}

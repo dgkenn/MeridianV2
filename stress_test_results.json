@@ -1,0 +1,221 @@
+{
+  "total_cases": 101,
+  "passed": 93,
+  "failed": 8,
+  "parser_errors": 0,
+  "risk_errors": 0,
+  "category_results": {
+    "healthy_baseline": {
+      "passed": 10,
+      "failed": 0
+    },
+    "single_factor": {
+      "passed": 20,
+      "failed": 0
+    },
+    "multiple_factors": {
+      "passed": 20,
+      "failed": 0
+    },
+    "complex_medical": {
+      "passed": 15,
+      "failed": 0
+    },
+    "negation_test": {
+      "passed": 10,
+      "failed": 0
+    },
+    "edge_case": {
+      "passed": 1,
+      "failed": 4
+    },
+    "urgent_emergency": {
+      "passed": 0,
+      "failed": 4
+    },
+    "noise_test": {
+      "passed": 12,
+      "failed": 0
+    },
+    "subspecialty_coverage": {
+      "passed": 5,
+      "failed": 0
+    }
+  },
+  "subspecialty_results": {
+    "ENT": {
+      "passed": 31,
+      "failed": 1
+    },
+    "Cardiac": {
+      "passed": 11,
+      "failed": 2
+    },
+    "OB": {
+      "passed": 2,
+      "failed": 0
+    },
+    "Neurosurgery": {
+      "passed": 8,
+      "failed": 1
+    },
+    "Vascular": {
+      "passed": 2,
+      "failed": 1
+    },
+    "General": {
+      "passed": 13,
+      "failed": 1
+    },
+    "Dental": {
+      "passed": 2,
+      "failed": 1
+    },
+    "Plastics": {
+      "passed": 2,
+      "failed": 0
+    },
+    "Thoracic": {
+      "passed": 16,
+      "failed": 0
+    },
+    "Ophthalmology": {
+      "passed": 3,
+      "failed": 0
+    },
+    "Orthopedic": {
+      "passed": 2,
+      "failed": 1
+    },
+    "Urology": {
+      "passed": 1,
+      "failed": 0
+    }
+  },
+  "age_band_results": {},
+  "noise_tolerance": {
+    "clean": {
+      "passed": 81,
+      "failed": 8
+    },
+    "abbreviations": {
+      "passed": 6,
+      "failed": 0
+    },
+    "awkward": {
+      "passed": 1,
+      "failed": 0
+    },
+    "typos": {
+      "passed": 1,
+      "failed": 0
+    },
+    "garbled": {
+      "passed": 4,
+      "failed": 0
+    }
+  },
+  "detailed_failures": [
+    {
+      "case_id": "edge_extreme_premature",
+      "category": "edge_case",
+      "issue": "parsing_validation_failed",
+      "expected_factors": [
+        "PREMATURITY",
+        "BRONCHOPULMONARY_DYSPLASIA"
+      ],
+      "extracted_factors": [
+        "PREVIOUS_SURGERY",
+        "MULTIPLE_COMORBIDITIES"
+      ]
+    },
+    {
+      "case_id": "edge_morbid_obesity",
+      "category": "edge_case",
+      "issue": "parsing_validation_failed",
+      "expected_factors": [
+        "OBESITY",
+        "OSA",
+        "DIABETES"
+      ],
+      "extracted_factors": [
+        "PREVIOUS_SURGERY",
+        "MULTIPLE_COMORBIDITIES"
+      ]
+    },
+    {
+      "case_id": "edge_organ_transplant",
+      "category": "edge_case",
+      "issue": "parsing_validation_failed",
+      "expected_factors": [
+        "IMMUNOSUPPRESSION",
+        "CHF"
+      ],
+      "extracted_factors": [
+        "PREVIOUS_SURGERY",
+        "MULTIPLE_COMORBIDITIES",
+        "IMMUNOSUPPRESSION"
+      ]
+    },
+    {
+      "case_id": "edge_genetic_syndrome",
+      "category": "edge_case",
+      "issue": "parsing_validation_failed",
+      "expected_factors": [
+        "CHD",
+        "OSA",
+        "DEVELOPMENTAL_DELAY"
+      ],
+      "extracted_factors": [
+        "PREVIOUS_SURGERY",
+        "MULTIPLE_COMORBIDITIES"
+      ]
+    },
+    {
+      "case_id": "urgent_appendicitis",
+      "category": "urgent_emergency",
+      "issue": "parsing_validation_failed",
+      "expected_factors": [
+        "FULL_STOMACH",
+        "SEPSIS_RISK"
+      ],
+      "extracted_factors": []
+    },
+    {
+      "case_id": "urgent_trauma",
+      "category": "urgent_emergency",
+      "issue": "parsing_validation_failed",
+      "expected_factors": [
+        "HYPOVOLEMIA",
+        "FULL_STOMACH"
+      ],
+      "extracted_factors": [
+        "FULL_STOMACH"
+      ]
+    },
+    {
+      "case_id": "urgent_airway_obstruction",
+      "category": "urgent_emergency",
+      "issue": "parsing_validation_failed",
+      "expected_factors": [
+        "DIFFICULT_AIRWAY",
+        "HYPOXEMIA"
+      ],
+      "extracted_factors": [
+        "FULL_STOMACH"
+      ]
+    },
+    {
+      "case_id": "urgent_cardiac_arrest",
+      "category": "urgent_emergency",
+      "issue": "parsing_validation_failed",
+      "expected_factors": [
+        "CARDIAC_ARREST",
+        "CPR"
+      ],
+      "extracted_factors": [
+        "FULL_STOMACH"
+      ]
+    }
+  ]
+}

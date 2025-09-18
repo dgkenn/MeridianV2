@@ -1,0 +1,466 @@
+# Clinical NLP Rules and Patterns for Meridian
+
+# Sectionizer patterns - identify document sections
+sectionizer_patterns:
+  hpi:
+    - "history of present illness"
+    - "hpi:"
+    - "present illness"
+    - "chief complaint"
+    - "cc:"
+
+  pmh:
+    - "past medical history"
+    - "pmh:"
+    - "medical history"
+    - "history:"
+
+  medications:
+    - "medications:"
+    - "meds:"
+    - "current medications"
+    - "home medications"
+
+  allergies:
+    - "allergies:"
+    - "drug allergies"
+    - "known allergies"
+    - "nkda"
+    - "no known drug allergies"
+
+# ConText rules for negation detection
+negation_patterns:
+  - "no"
+  - "not"
+  - "denies"
+  - "negative for"
+  - "without"
+  - "absence of"
+  - "free of"
+  - "clear of"
+  - "ruled out"
+  - "r/o"
+  - "afebrile"
+  - "non-smoker"
+
+# Temporality patterns
+temporality_patterns:
+  recent:
+    - "recent"
+    - "current"
+    - "active"
+    - "ongoing"
+    - "this week"
+    - "last week"
+    - "days ago"
+    - "week ago"
+    - "within \\d+ days?"
+    - "< \\d+ weeks?"
+    - "less than \\d+ weeks?"
+
+  historical:
+    - "history of"
+    - "past"
+    - "prior"
+    - "previous"
+    - "remote"
+    - "years ago"
+    - "months ago"
+    - "childhood"
+    - "as a child"
+    - "h/o"
+    - "hx"
+
+# High-precision rule patterns for risk factors
+risk_factor_patterns:
+  # Airway/Respiratory
+  ASTHMA:
+    - "asthma"
+    - "asthmatic"
+    - "reactive airway disease"
+    - "RAD"
+    - "bronchial asthma"
+    - "wheezing"
+    - "exercise-induced asthma"
+    - "bronchospasm"
+
+  RECENT_URI_2W:
+    - "recent (?:upper respiratory infection|URI|cold)"
+    - "URI (?:within|<|less than) (?:2 weeks?|14 days?)"
+    - "cold (?:1-2|10-14) days? ago"
+    - "cold (?:1|2) weeks? ago"
+    - "upper respiratory infection.*(?:1|2) weeks? ago"
+    - "upper respiratory infection \\d+ days ago"
+    - "recent cold"
+    - "recent runny nose"
+    - "recent cough"
+
+  URI_LAST_4W:
+    - "URI (?:within|<|less than) (?:4 weeks?|1 month)"
+    - "cold (?:2-4|15-28) days? ago"
+    - "upper respiratory infection.*(?:3|4) weeks? ago"
+
+  OSA:
+    - "(?:obstructive )?sleep apnea"
+    - "OSA"
+    - "AHI (?:of )?\\d+"
+    - "sleep study"
+    - "sleep disorder"
+    - "CPAP"
+    - "BiPAP"
+
+  CF:
+    - "cystic fibrosis"
+    - "CF"
+
+  BRONCHOPULMONARY_DYSPLASIA:
+    - "bronchopulmonary dysplasia"
+    - "BPD"
+    - "chronic lung disease"
+
+  PREMATURITY_LESSTHAN_37W:
+    - "born at (?:2[0-9]|3[0-6]) weeks"
+    - "premature"
+    - "preterm"
+    - "NICU"
+
+  PREMATURITY:
+    - "born at (?:2[0-9]|3[0-6]) weeks"
+    - "premature"
+    - "preterm"
+    - "prematurity"
+    - "NICU"
+    - "preterm birth"
+    - "premature infant"
+    - "\\d{2} week gestation"
+
+  SMOKING_ACTIVE:
+    - "smoker"
+    - "smoking"
+    - "pack years?"
+    - "cigarettes? per day"
+    - "tobacco use"
+
+  # Cardiac
+  CHD:
+    - "congenital heart disease"
+    - "CHD"
+    - "heart defect"
+    - "cardiac anomaly"
+
+  PULM_HTN:
+    - "pulmonary hypertension"
+    - "pulm HTN"
+    - "elevated PA pressures"
+
+  ARRHYTHMIA:
+    - "arrhythmia"
+    - "dysrhythmia"
+    - "atrial fibrillation"
+    - "a-fib"
+    - "SVT"
+    - "heart block"
+
+  CHF:
+    - "heart failure"
+    - "CHF"
+    - "congestive heart failure"
+    - "reduced ejection fraction"
+    - "EF (?:of )?\\d+%"
+
+  # Neurologic
+  SEIZURE_DISORDER:
+    - "seizure disorder"
+    - "epilepsy"
+    - "seizures"
+    - "anticonvulsants"
+
+  CP:
+    - "cerebral palsy"
+    - "CP"
+
+  MH_HISTORY:
+    - "malignant hyperthermia"
+    - "MH"
+    - "family history.*hyperthermia"
+
+  # GI
+  GERD:
+    - "gastroesophageal reflux"
+    - "GERD"
+    - "reflux disease"
+    - "heartburn"
+    - "aspiration risk"
+
+  DIABETES:
+    - "diabetes mellitus"
+    - "diabetes"
+    - "diabetic"
+    - "Type 1 diabetes"
+    - "Type 2 diabetes"
+    - "T1DM"
+    - "T2DM"
+    - "insulin dependent"
+    - "IDDM"
+    - "NIDDM"
+
+  FULL_STOMACH:
+    - "full stomach"
+    - "recent meal"
+    - "NPO violated"
+    - "ate recently"
+
+  # Additional Medical Conditions
+  OBESITY:
+    - "obesity"
+    - "BMI >30"
+    - "BMI over 30"
+    - "obese"
+    - "morbid obesity"
+    - "significantly overweight"
+
+  CHRONIC_KIDNEY_DISEASE:
+    - "chronic kidney disease"
+    - "CKD"
+    - "renal failure"
+    - "chronic renal insufficiency"
+    - "kidney disease"
+    - "dialysis"
+    - "hemodialysis"
+
+  DEVELOPMENTAL_DELAY:
+    - "developmental delay"
+    - "global developmental delay"
+    - "intellectual disability"
+    - "cognitive delay"
+    - "delayed development"
+    - "special needs"
+
+  INCREASED_ICP:
+    - "increased intracranial pressure"
+    - "increased ICP"
+    - "elevated ICP"
+    - "intracranial hypertension"
+    - "hydrocephalus"
+
+  PREVIOUS_SURGERY:
+    - "previous surgery"
+    - "prior surgery"
+    - "history of surgery"
+    - "surgical history"
+    - "previous anesthesia"
+    - "prior anesthetic"
+
+  AUTISM_SPECTRUM_DISORDER:
+    - "autism spectrum disorder"
+    - "autism"
+    - "ASD"
+    - "autistic"
+    - "pervasive developmental disorder"
+
+  MUSCULAR_DYSTROPHY:
+    - "muscular dystrophy"
+    - "Duchenne muscular dystrophy"
+    - "DMD"
+    - "muscle weakness"
+    - "progressive muscle disease"
+
+  CHRONIC_PAIN:
+    - "chronic pain"
+    - "chronic pain syndrome"
+    - "persistent pain"
+    - "long-term pain"
+    - "pain management"
+
+  MULTIPLE_COMORBIDITIES:
+    - "multiple medical conditions"
+    - "complex medical history"
+    - "multiple comorbidities"
+    - "numerous medical problems"
+    - "extensive medical history"
+
+  IMMUNOSUPPRESSION:
+    - "immunosuppression"
+    - "immunocompromised"
+    - "immune suppression"
+    - "on immunosuppressive therapy"
+    - "transplant recipient"
+
+  DENTAL_ANXIETY:
+    - "dental anxiety"
+    - "dental phobia"
+    - "anxiety about dental procedures"
+    - "fear of dental work"
+    - "dental treatment anxiety"
+
+  # Emergency/Critical Factors
+  SEPSIS_RISK:
+    - "sepsis risk"
+    - "risk of sepsis"
+    - "septic"
+    - "infection"
+    - "systemic infection"
+
+  HYPOVOLEMIA:
+    - "hypovolemia"
+    - "volume depletion"
+    - "dehydration"
+    - "blood loss"
+    - "hemorrhage"
+
+  CARDIAC_ARREST:
+    - "cardiac arrest"
+    - "heart stopped"
+    - "cardiopulmonary arrest"
+    - "resuscitation"
+
+  CPR:
+    - "CPR"
+    - "cardiopulmonary resuscitation"
+    - "chest compressions"
+    - "resuscitation"
+
+  # Allergies
+  ANESTHETIC_ALLERGY:
+    - "anesthetic allergy"
+    - "propofol allergy"
+    - "succinylcholine allergy"
+
+  LATEX_ALLERGY:
+    - "latex allergy"
+    - "latex sensitivity"
+
+  EGG_SOY_ALLERGY:
+    - "egg allergy"
+    - "soy allergy"
+
+  PENICILLIN_ALLERGY:
+    - "penicillin allergy"
+    - "PCN allergy"
+    - "beta-lactam allergy"
+
+  # Procedures
+  ENT_CASE:
+    - "tonsillectomy"
+    - "adenoidectomy"
+    - "T&A"
+    - "myringotomy"
+    - "ear tubes"
+    - "PE tubes"
+
+  T_AND_A:
+    - "tonsillectomy and adenoidectomy"
+    - "T&A"
+    - "tonsillectomy/adenoidectomy"
+
+  DENTAL_ORAL:
+    - "dental"
+    - "oral surgery"
+    - "tooth extraction"
+    - "dental rehabilitation"
+
+  LAPAROSCOPY:
+    - "laparoscopic"
+    - "minimally invasive"
+    - "robotic"
+    - "lap"
+
+  # Vital Signs/Status
+  FEVER_CURRENT:
+    - "fever"
+    - "febrile"
+    - "temperature.*(?:10[0-9]|1[1-9][0-9])"
+    - "temp.*(?:10[0-9]|1[1-9][0-9])"
+
+  # ASA Classifications
+  ASA_2:
+    - "ASA (?:II|2)"
+    - "ASA II"
+
+  ASA_3:
+    - "ASA (?:III|3)"
+    - "ASA III"
+
+  ASA_4:
+    - "ASA (?:IV|4)"
+    - "ASA IV"
+
+# Urgency classification patterns
+urgency_patterns:
+  emergency:
+    - "emergency"
+    - "emergent"
+    - "stat"
+    - "urgent"
+    - "acute"
+
+  urgent:
+    - "urgent"
+    - "semi-urgent"
+
+  elective:
+    - "elective"
+    - "scheduled"
+    - "routine"
+
+# Case type classification
+case_type_patterns:
+  ENT:
+    - "tonsillectomy"
+    - "adenoidectomy"
+    - "myringotomy"
+    - "ear tubes"
+    - "sinus surgery"
+
+  DENTAL:
+    - "dental"
+    - "oral surgery"
+    - "tooth"
+    - "extraction"
+
+  CARDIAC:
+    - "cardiac surgery"
+    - "heart surgery"
+    - "bypass"
+    - "valve"
+
+  NEURO:
+    - "neurosurgery"
+    - "craniotomy"
+    - "brain surgery"
+
+  ORTHO:
+    - "orthopedic"
+    - "fracture"
+    - "bone"
+    - "joint"
+
+  GENERAL:
+    - "laparoscopic"
+    - "cholecystectomy"
+    - "appendectomy"
+    - "hernia"
+
+# Medication patterns
+medication_patterns:
+  INHALED_STEROIDS:
+    - "fluticasone"
+    - "budesonide"
+    - "beclomethasone"
+    - "ICS"
+    - "inhaled steroid"
+
+  BRONCHODILATORS:
+    - "albuterol"
+    - "levalbuterol"
+    - "salmeterol"
+    - "formoterol"
+    - "beta-2 agonist"
+
+  ANTICOAGULANTS:
+    - "warfarin"
+    - "coumadin"
+    - "heparin"
+    - "DOAC"
+    - "rivaroxaban"
+    - "apixaban"

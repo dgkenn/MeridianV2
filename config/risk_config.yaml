@@ -1,0 +1,134 @@
+# Meridian Risk Engine Configuration
+# All tunables for meta-analysis, confidence scoring, and risk conversion
+
+# Temporal weighting - recent studies weighted more heavily
+temporal_tau: 7.0  # years - weight = exp(-(current_year - pub_year)/tau)
+
+# Study design quality weights
+design_weights:
+  RCT: 1.0           # Randomized controlled trials (highest quality)
+  prospective: 0.7   # Prospective cohorts
+  retrospective: 0.5 # Retrospective studies
+
+# Risk of bias penalties
+bias_penalty:
+  low: 1.0    # Low risk of bias
+  some: 0.8   # Some concerns
+  high: 0.5   # High risk of bias
+
+# Window matching weights (outcome window alignment)
+window_match_weight:
+  exact: 1.0  # Exact window match (intraop, periop, 30d)
+  near: 0.7   # Near match (e.g., periop for intraop)
+
+# Small study effects
+small_study_threshold: 200  # Studies with n < 200 get penalty
+small_study_penalty: 0.7
+
+# Meta-analysis method settings
+use_hk_sj: true              # Use Knapp-Hartung adjustment by default
+hk_sj_threshold_k: 10        # Use HK-SJ when k < 10 studies
+hk_sj_threshold_i2: 40.0     # Use HK-SJ when I² > 40%
+
+# Bayesian shrinkage for extreme estimates
+skeptical_prior_sd: 0.4      # Standard deviation of skeptical prior
+
+# Baseline high-risk flag thresholds
+baseline_high_thresholds:
+  T_abs: 0.08     # 8% absolute risk threshold
+  T_delta: 0.03   # 3 percentage points above reference
+  T_rel: 1.8      # 1.8x fold increase over reference
+
+# Mutually exclusive risk factor groups
+# Only strongest/most specific factor from each group is used
+mutex_groups:
+  - ["ASTHMA", "RAD", "REACTIVE_AIRWAY_DISEASE"]
+  - ["OSA", "SLEEP_APNEA", "OBSTRUCTIVE_SLEEP_APNEA"]
+  - ["DIABETES_TYPE1", "DIABETES_TYPE2", "DIABETES"]
+  - ["CHF", "HEART_FAILURE", "CONGESTIVE_HEART_FAILURE"]
+
+# Known factor interactions (apply discount to avoid double-counting)
+interaction_pairs:
+  - ["ASTHMA", "RECENT_URI_2W"]      # Asthma + recent URI interaction
+  - ["OSA", "OBESITY"]               # OSA often correlated with obesity
+  - ["DIABETES", "OBESITY"]          # Diabetes-obesity interaction
+
+# Interaction discount factor (0.8 = 20% discount for known interactions)
+interaction_discount: 0.8
+
+# Calibration settings (optional)
+calibration_method: null  # "isotonic" or "platt" or null to disable
+
+# Confidence scoring component weights (must sum to 1.0)
+confidence_weights:
+  k_studies: 0.25        # Number of studies available
+  design_mix: 0.15       # Quality of study designs
+  bias: 0.15             # Risk of bias assessment
+  temporal: 0.15         # Recency of evidence
+  window_match: 0.10     # Outcome window alignment
+  heterogeneity: 0.10    # Between-study consistency (I²)
+  publication_bias: 0.05 # Egger test results
+  loo_stability: 0.05    # Leave-one-out stability
+
+# Confidence level thresholds (0-100 score)
+confidence_thresholds:
+  A: 70  # High confidence (≥70)
+  B: 50  # Moderate confidence (50-69)
+  C: 30  # Low confidence (30-49)
+  D: 0   # Very low confidence (<30)
+
+# Monte Carlo simulation settings
+monte_carlo:
+  n_draws: 5000    # Number of simulation draws for CI
+  seed: 42         # Random seed for reproducibility
+
+# Reference populations for baseline comparison
+reference_populations:
+  default: "elective_general_adult"  # Default reference
+  pediatric: "elective_general_pediatric"
+  adult: "elective_general_adult"
+
+# Outcome severity weights (for ordering when risks are similar)
+outcome_severity:
+  MORTALITY_24H: 10.0
+  MORTALITY_30D: 10.0
+  CARDIAC_ARREST: 9.5
+  RESPIRATORY_FAILURE: 9.0
+  STROKE: 8.5
+  MI: 8.0
+  LARYNGOSPASM: 7.5
+  DIFFICULT_INTUBATION: 7.0
+  BRONCHOSPASM: 6.5
+  ARRHYTHMIA: 6.0
+  HYPOTENSION: 5.0
+  PONV: 3.0
+  EMERGENCE_AGITATION: 2.0
+
+# Export settings
+export:
+  include_diagnostics: true
+  include_study_details: true
+  compress_parquet: true
+  cache_ttl_hours: 24
+
+# Validation settings
+validation:
+  min_studies_per_factor: 2     # Minimum studies required for pooling
+  max_heterogeneity_i2: 90.0    # Maximum I² before excluding outcome
+  min_baseline_sample_size: 50  # Minimum n for baseline risk estimates
+  max_baseline_risk: 0.8        # Maximum plausible baseline risk
+
+# Debug and development settings
+debug:
+  log_level: "INFO"
+  save_intermediate_results: false
+  validate_conversions: true
+  check_math_invariants: true
+
+# Feature flags
+features:
+  enable_bayesian_shrinkage: true
+  enable_publication_bias_tests: true
+  enable_loo_diagnostics: true
+  enable_interaction_detection: true
+  enable_temporal_weighting: true
