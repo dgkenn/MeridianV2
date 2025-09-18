@@ -404,8 +404,352 @@ class MedicalTextProcessor:
                 re.compile(r"\bhernia repair\b", re.I),
                 re.compile(r"\binguinal hernia\b", re.I),
                 re.compile(r"\bumbilical hernia\b", re.I)
+            ],
+
+            # Additional Complex Medical Conditions
+            "STROKE": [
+                re.compile(r"\bstroke\b", re.I),
+                re.compile(r"\bCVA\b"),
+                re.compile(r"\bcerebrovascular accident\b", re.I),
+                re.compile(r"\bTIA\b"),
+                re.compile(r"\btransient ischemic attack\b", re.I),
+                re.compile(r"\bhemiplegia\b", re.I),
+                re.compile(r"\bhemiparesis\b", re.I)
+            ],
+
+            "LIVER_DISEASE": [
+                re.compile(r"\bliver disease\b", re.I),
+                re.compile(r"\bcirrhosis\b", re.I),
+                re.compile(r"\bhepatitis\b", re.I),
+                re.compile(r"\bchild.pugh\b", re.I),
+                re.compile(r"\bascites\b", re.I),
+                re.compile(r"\bvarices\b", re.I),
+                re.compile(r"\bjaundice\b", re.I),
+                re.compile(r"\bhepatic encephalopathy\b", re.I)
+            ],
+
+            "THYROID_DISEASE": [
+                re.compile(r"\bthyroid\b", re.I),
+                re.compile(r"\bhyperthyroid\b", re.I),
+                re.compile(r"\bhypothyroid\b", re.I),
+                re.compile(r"\blevothyroxine\b", re.I),
+                re.compile(r"\bsynthroid\b", re.I),
+                re.compile(r"\bmethimazole\b", re.I),
+                re.compile(r"\bTSH\b")
+            ],
+
+            "PSYCHIATRIC_DISORDER": [
+                re.compile(r"\bdepression\b", re.I),
+                re.compile(r"\banxiety\b", re.I),
+                re.compile(r"\bbipolar\b", re.I),
+                re.compile(r"\bschizophrenia\b", re.I),
+                re.compile(r"\bPTSD\b"),
+                re.compile(r"\bantidepressant\b", re.I),
+                re.compile(r"\bantipsychotic\b", re.I),
+                re.compile(r"\bSSRI\b")
+            ],
+
+            "INFLAMMATORY_BOWEL_DISEASE": [
+                re.compile(r"\bCrohn.s disease\b", re.I),
+                re.compile(r"\bulcerative colitis\b", re.I),
+                re.compile(r"\bIBD\b"),
+                re.compile(r"\binflammatory bowel\b", re.I),
+                re.compile(r"\bremicade\b", re.I),
+                re.compile(r"\bhumira\b", re.I)
+            ],
+
+            "RHEUMATOID_ARTHRITIS": [
+                re.compile(r"\brheumatoid arthritis\b", re.I),
+                re.compile(r"\bRA\b"),
+                re.compile(r"\bmethotrexate\b", re.I),
+                re.compile(r"\bbiologic therapy\b", re.I),
+                re.compile(r"\banti-TNF\b", re.I)
+            ],
+
+            "CONNECTIVE_TISSUE_DISORDER": [
+                re.compile(r"\blupus\b", re.I),
+                re.compile(r"\bSLE\b"),
+                re.compile(r"\bscleroderma\b", re.I),
+                re.compile(r"\bsjögren\b", re.I),
+                re.compile(r"\bconnective tissue\b", re.I),
+                re.compile(r"\bprednisone\b", re.I),
+                re.compile(r"\bsteroid therapy\b", re.I)
+            ],
+
+            "CHRONIC_PAIN": [
+                re.compile(r"\bchronic pain\b", re.I),
+                re.compile(r"\bfibromyalgia\b", re.I),
+                re.compile(r"\bopioid therapy\b", re.I),
+                re.compile(r"\bpain management\b", re.I),
+                re.compile(r"\bneuropathic pain\b", re.I),
+                re.compile(r"\bgabapentin\b", re.I),
+                re.compile(r"\blyrica\b", re.I)
+            ],
+
+            "PULMONARY_HYPERTENSION": [
+                re.compile(r"\bpulmonary hypertension\b", re.I),
+                re.compile(r"\bPH\b"),
+                re.compile(r"\bright heart failure\b", re.I),
+                re.compile(r"\bsildenafil\b", re.I),
+                re.compile(r"\bbosentan\b", re.I)
+            ],
+
+            "ADRENAL_INSUFFICIENCY": [
+                re.compile(r"\badrenal insufficiency\b", re.I),
+                re.compile(r"\bAddison.s disease\b", re.I),
+                re.compile(r"\bsteroid dependence\b", re.I),
+                re.compile(r"\bhydrocortisone\b", re.I),
+                re.compile(r"\bfludrocortisone\b", re.I)
+            ],
+
+            "MALIGNANCY": [
+                re.compile(r"\bcancer\b", re.I),
+                re.compile(r"\bmalignancy\b", re.I),
+                re.compile(r"\btumor\b", re.I),
+                re.compile(r"\bneoplasm\b", re.I),
+                re.compile(r"\bchemothe rapy\b", re.I),
+                re.compile(r"\bradiation\b", re.I),
+                re.compile(r"\boncology\b", re.I),
+                re.compile(r"\bmetastatic\b", re.I)
+            ],
+
+            "BLEEDING_DISORDER": [
+                re.compile(r"\bbleeding disorder\b", re.I),
+                re.compile(r"\bhemophilia\b", re.I),
+                re.compile(r"\bvon Willebrand\b", re.I),
+                re.compile(r"\bcoagulopathy\b", re.I),
+                re.compile(r"\bwarfarin\b", re.I),
+                re.compile(r"\banticoagulant\b", re.I),
+                re.compile(r"\bINR\b")
+            ],
+
+            "GASTROESOPHAGEAL_REFLUX": [
+                re.compile(r"\bGERD\b"),
+                re.compile(r"\bgastroesophageal reflux\b", re.I),
+                re.compile(r"\bacid reflux\b", re.I),
+                re.compile(r"\bheartburn\b", re.I),
+                re.compile(r"\bomeprazole\b", re.I),
+                re.compile(r"\bproton pump inhibitor\b", re.I),
+                re.compile(r"\bPPI\b")
             ]
         }
+
+    def _build_medication_patterns(self) -> Dict[str, List[re.Pattern]]:
+        """Build medication extraction patterns with drug interaction considerations."""
+        return {
+            # Cardiovascular Medications
+            "ACE_INHIBITORS": [
+                re.compile(r"\blisinopril\b", re.I),
+                re.compile(r"\benalapril\b", re.I),
+                re.compile(r"\bcaptopril\b", re.I),
+                re.compile(r"\bACE inhibitor\b", re.I)
+            ],
+
+            "BETA_BLOCKERS": [
+                re.compile(r"\bmetoprolol\b", re.I),
+                re.compile(r"\batenolol\b", re.I),
+                re.compile(r"\bpropranolol\b", re.I),
+                re.compile(r"\bbeta.?blocker\b", re.I),
+                re.compile(r"\btoprol\b", re.I)
+            ],
+
+            "ANTICOAGULANTS": [
+                re.compile(r"\bwarfarin\b", re.I),
+                re.compile(r"\bcoumadin\b", re.I),
+                re.compile(r"\bheparin\b", re.I),
+                re.compile(r"\benoxaparin\b", re.I),
+                re.compile(r"\blovenox\b", re.I),
+                re.compile(r"\brivaroxaban\b", re.I),
+                re.compile(r"\bxarelto\b", re.I),
+                re.compile(r"\bapixaban\b", re.I),
+                re.compile(r"\beliquis\b", re.I)
+            ],
+
+            "ANTIPLATELETS": [
+                re.compile(r"\baspirin\b", re.I),
+                re.compile(r"\bclopidogrel\b", re.I),
+                re.compile(r"\bplavix\b", re.I),
+                re.compile(r"\bprasugrel\b", re.I),
+                re.compile(r"\bticagrelor\b", re.I)
+            ],
+
+            # Diabetes Medications
+            "DIABETES_MEDICATIONS": [
+                re.compile(r"\bmetformin\b", re.I),
+                re.compile(r"\binsulin\b", re.I),
+                re.compile(r"\bglipizide\b", re.I),
+                re.compile(r"\bglyburide\b", re.I),
+                re.compile(r"\bsitagliptin\b", re.I),
+                re.compile(r"\bpioglitazone\b", re.I)
+            ],
+
+            # Psychiatric Medications
+            "ANTIDEPRESSANTS": [
+                re.compile(r"\bsertraline\b", re.I),
+                re.compile(r"\bzoloft\b", re.I),
+                re.compile(r"\bfluoxetine\b", re.I),
+                re.compile(r"\bprozac\b", re.I),
+                re.compile(r"\bescitalopram\b", re.I),
+                re.compile(r"\blexapro\b", re.I),
+                re.compile(r"\bvenlafaxine\b", re.I),
+                re.compile(r"\beffexor\b", re.I)
+            ],
+
+            "BENZODIAZEPINES": [
+                re.compile(r"\blorazepam\b", re.I),
+                re.compile(r"\bativan\b", re.I),
+                re.compile(r"\bclonazepam\b", re.I),
+                re.compile(r"\bklonopin\b", re.I),
+                re.compile(r"\balprazolam\b", re.I),
+                re.compile(r"\bxanax\b", re.I),
+                re.compile(r"\bdiazepam\b", re.I),
+                re.compile(r"\bvalium\b", re.I)
+            ],
+
+            # Pain Medications
+            "OPIOIDS": [
+                re.compile(r"\boxycodone\b", re.I),
+                re.compile(r"\bpercocet\b", re.I),
+                re.compile(r"\bhydrocodone\b", re.I),
+                re.compile(r"\bvicodin\b", re.I),
+                re.compile(r"\bmorphine\b", re.I),
+                re.compile(r"\bfentanyl\b", re.I),
+                re.compile(r"\btramadol\b", re.I),
+                re.compile(r"\bcodeine\b", re.I)
+            ],
+
+            # Respiratory Medications
+            "BRONCHODILATORS": [
+                re.compile(r"\balbuterol\b", re.I),
+                re.compile(r"\bproventil\b", re.I),
+                re.compile(r"\bventolin\b", re.I),
+                re.compile(r"\bipratropium\b", re.I),
+                re.compile(r"\batrovent\b", re.I),
+                re.compile(r"\btiotropium\b", re.I),
+                re.compile(r"\bspirива\b", re.I)
+            ],
+
+            "INHALED_STEROIDS": [
+                re.compile(r"\bfluticasone\b", re.I),
+                re.compile(r"\bflonase\b", re.I),
+                re.compile(r"\bbudesonide\b", re.I),
+                re.compile(r"\bpulmicort\b", re.I),
+                re.compile(r"\bbeclomethasone\b", re.I)
+            ],
+
+            # Anesthesia-Relevant Medications
+            "MAOI": [
+                re.compile(r"\bphenelzine\b", re.I),
+                re.compile(r"\btranylcypromine\b", re.I),
+                re.compile(r"\bMAOI\b"),
+                re.compile(r"\bmonoamine oxidase inhibitor\b", re.I)
+            ],
+
+            "STEROIDS": [
+                re.compile(r"\bprednisone\b", re.I),
+                re.compile(r"\bprednisolone\b", re.I),
+                re.compile(r"\bhydrocortisone\b", re.I),
+                re.compile(r"\bmethylprednisolone\b", re.I),
+                re.compile(r"\bdexamethasone\b", re.I)
+            ],
+
+            "ANTICONVULSANTS": [
+                re.compile(r"\bphenytoin\b", re.I),
+                re.compile(r"\bdilantin\b", re.I),
+                re.compile(r"\bcarbamazepine\b", re.I),
+                re.compile(r"\btegretol\b", re.I),
+                re.compile(r"\bvalproic acid\b", re.I),
+                re.compile(r"\bdepakote\b", re.I),
+                re.compile(r"\blevetiracetam\b", re.I),
+                re.compile(r"\bkeppra\b", re.I)
+            ]
+        }
+
+    def _extract_medications(self, text: str) -> List[ExtractedFactor]:
+        """Extract medications and assess anesthetic implications."""
+        medications = []
+        medication_patterns = self._build_medication_patterns()
+
+        for med_class, patterns in medication_patterns.items():
+            for pattern in patterns:
+                matches = pattern.finditer(text)
+                for match in matches:
+                    # Determine anesthetic implications
+                    implications = self._get_medication_implications(med_class, match.group())
+
+                    medications.append(ExtractedFactor(
+                        token=med_class,
+                        plain_label=implications['label'],
+                        confidence=0.85,
+                        evidence_text=match.group(),
+                        factor_type="medication",
+                        category="pharmacological",
+                        severity_weight=1.2 if implications['significance'].startswith('High') else 1.0,
+                        context=implications['recommendations']
+                    ))
+
+        return medications
+
+    def _get_medication_implications(self, med_class: str, medication: str) -> Dict[str, str]:
+        """Get anesthetic implications for specific medication classes."""
+        implications = {
+            "ACE_INHIBITORS": {
+                "label": f"ACE Inhibitor ({medication})",
+                "significance": "Moderate - may cause intraoperative hypotension",
+                "recommendations": "Consider holding morning dose for major surgery; monitor BP closely"
+            },
+            "BETA_BLOCKERS": {
+                "label": f"Beta Blocker ({medication})",
+                "significance": "High - continue perioperatively to prevent rebound",
+                "recommendations": "Continue unless contraindicated; may blunt response to hypotension"
+            },
+            "ANTICOAGULANTS": {
+                "label": f"Anticoagulant ({medication})",
+                "significance": "High - bleeding risk",
+                "recommendations": "Check coagulation studies; consider bridging protocols"
+            },
+            "ANTIPLATELETS": {
+                "label": f"Antiplatelet ({medication})",
+                "significance": "Moderate - bleeding risk",
+                "recommendations": "Hold per surgical requirements; consider bleeding risk vs thrombotic risk"
+            },
+            "DIABETES_MEDICATIONS": {
+                "label": f"Diabetes Medication ({medication})",
+                "significance": "Moderate - glucose management",
+                "recommendations": "Hold metformin; adjust insulin per protocol; monitor glucose"
+            },
+            "MAOI": {
+                "label": f"MAOI ({medication})",
+                "significance": "Critical - drug interactions",
+                "recommendations": "Avoid meperidine, tramadol, dextromethorphan; caution with vasopressors"
+            },
+            "BENZODIAZEPINES": {
+                "label": f"Benzodiazepine ({medication})",
+                "significance": "Moderate - sedation potentiation",
+                "recommendations": "Reduce anesthetic requirements; monitor for prolonged sedation"
+            },
+            "OPIOIDS": {
+                "label": f"Chronic Opioid ({medication})",
+                "significance": "High - tolerance and dependence",
+                "recommendations": "Increased analgesic requirements; prevent withdrawal; multimodal analgesia"
+            },
+            "STEROIDS": {
+                "label": f"Chronic Steroid ({medication})",
+                "significance": "High - adrenal suppression",
+                "recommendations": "Stress dose steroids perioperatively; monitor for adrenal insufficiency"
+            },
+            "ANTICONVULSANTS": {
+                "label": f"Anticonvulsant ({medication})",
+                "significance": "Moderate - drug interactions",
+                "recommendations": "Continue to prevent seizures; may alter drug metabolism"
+            }
+        }
+
+        return implications.get(med_class, {
+            "label": f"Medication ({medication})",
+            "significance": "Low - review for interactions",
+            "recommendations": "Review for potential anesthetic interactions"
+        })
 
     def parse_hpi(self, hpi_text: str, session_id: str = None) -> ParsedHPI:
         """
@@ -628,6 +972,10 @@ class MedicalTextProcessor:
         if self.nlp:
             nlp_factors = self._extract_nlp_factors(text)
             factors.extend(nlp_factors)
+
+        # Medication extraction with anesthetic implications
+        medication_factors = self._extract_medications(text)
+        factors.extend(medication_factors)
 
         # Deduplicate factors
         factors = self._deduplicate_factors(factors)
