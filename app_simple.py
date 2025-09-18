@@ -25,7 +25,7 @@ from src.core.error_codes import CodexError, ErrorCode, ErrorLogger, handle_risk
 # Import the database-driven risk engine
 sys.path.append(os.path.join(os.path.dirname(__file__)))
 from src.core.risk_engine import RiskEngine
-from src.core.hpi_parser import ExtractedFactor
+from src.core.hpi_parser import ExtractedFactor, MedicalTextProcessor
 
 # Set NCBI API key for evidence harvesting
 os.environ['NCBI_API_KEY'] = '75080d5c230ad16abe97b1b3a27051e02908'
@@ -88,6 +88,10 @@ verify_database_tables()
 from src.core.database import init_database
 logger.info(f"Initializing risk engine with database: {DB_PATH}")
 init_database(DB_PATH)
+
+# Initialize the NLP-based medical text processor
+logger.info("Initializing NLP-based medical text processor...")
+medical_text_processor = MedicalTextProcessor()
 
 # Comprehensive ontology mapping based on clinical risk factors
 ONTOLOGY_MAP = {
@@ -253,8 +257,8 @@ EXTRACTION_PATTERNS = {
     "DYSPHAGIA": [r"dysphagia", r"swallowing difficulty", r"aspiration", r"choking"],
 
     # Infectious
-    "SEPSIS": [r"sepsis", r"septic", r"bacteremia", r"SIRS", r"infection"],
-    "FEVER": [r"fever", r"febrile", r"temperature.*\d+", r"hyperthermia"],
+    "SEPSIS": [r"\bsepsis\b", r"\bseptic\b", r"\bbacteremia\b", r"\bSIRS\b"],
+    "FEVER": [r"\bfever\b", r"\bfebrile\b", r"temperature.*(?:10[0-9]|1[1-9][0-9])", r"temp.*(?:10[0-9]|1[1-9][0-9])"],
 
     # Case Context/ASA
     "ASA_3": [r"ASA.*3", r"ASA.*III", r"ASA\s*III"],
@@ -274,7 +278,7 @@ EXTRACTION_PATTERNS = {
     # Vital Signs/Clinical Status
     "HYPOTENSION": [r"hypotension", r"low blood pressure", r"BP.*\d+/\d+", r"systolic.*\d+"],
     "TACHYCARDIA": [r"tachycardia", r"HR.*\d+", r"heart rate.*\d+"],
-    "HYPOXEMIA": [r"hypoxemia", r"SpO2?\s*\d+%", r"oxygen.*sat", r"desaturation"],
+    "HYPOXEMIA": [r"\bhypoxemia\b", r"SpO2?\s*(?:[0-8]\d|9[0-5])%", r"oxygen.*saturation.*(?:[0-8]\d|9[0-5])%", r"\bdesaturation\b"],
 
     # Additional patterns for complex HPIs
     "MULTIPLE_COMORBIDITIES": [r"multiple.*comorbidities", r"complex.*medical", r"multiple.*conditions"],
@@ -363,6 +367,35 @@ def simple_hpi_parser(hpi_text):
         "session_id": f"demo_{datetime.now().isoformat()}",
         "confidence_score": 0.8 if extracted_factors else 0.3
     }
+
+def advanced_hpi_parser(hpi_text):
+    """Advanced NLP-based HPI parser using MedicalTextProcessor."""
+    try:
+        # Use the global medical text processor instance
+        parsed_hpi = medical_text_processor.parse_hpi(hpi_text)
+
+        # Convert ExtractedFactor objects to dictionaries for compatibility with existing code
+        extracted_factors = []
+        for factor in parsed_hpi.extracted_factors:
+            extracted_factors.append({
+                "token": factor.token,
+                "plain_label": factor.plain_label,
+                "confidence": factor.confidence,
+                "evidence_text": factor.evidence_text,
+                "category": factor.category,
+                "severity_weight": factor.severity_weight
+            })
+
+        return {
+            "extracted_factors": extracted_factors,
+            "demographics": parsed_hpi.demographics,
+            "session_id": parsed_hpi.session_id,
+            "confidence_score": parsed_hpi.confidence_score
+        }
+    except Exception as e:
+        logger.error(f"Error in NLP-based HPI parsing: {e}")
+        # Fallback to simple rule-based parsing if NLP fails
+        return simple_hpi_parser(hpi_text)
 
 def calculate_airway_risks(factor_tokens):
     """Calculate specific airway outcome risks."""
@@ -2329,8 +2362,8 @@ def analyze():
         if not hpi_text:
             return jsonify({"error": "HPI text required"}), 400
 
-        # Parse HPI
-        parsed = simple_hpi_parser(hpi_text)
+        # Parse HPI using advanced NLP-based parser
+        parsed = advanced_hpi_parser(hpi_text)
 
         # Convert factors to ExtractedFactor objects for the risk engine
         extracted_factors = []
