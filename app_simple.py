@@ -26,6 +26,7 @@ from src.core.error_codes import CodexError, ErrorCode, ErrorLogger, handle_risk
 sys.path.append(os.path.join(os.path.dirname(__file__)))
 from src.core.risk_engine import RiskEngine
 from src.core.hpi_parser import ExtractedFactor, MedicalTextProcessor
+from src.core.baseline_initializer import ensure_baselines_available
 
 # Set NCBI API key for evidence harvesting
 os.environ['NCBI_API_KEY'] = '75080d5c230ad16abe97b1b3a27051e02908'
@@ -2740,6 +2741,10 @@ if __name__ == '__main__':
     if not check_and_repair_database():
         print("[ERROR] Database initialization failed!")
         sys.exit(1)
+
+    # Initialize comprehensive baselines to fix baseline warnings
+    logger.info("📊 Ensuring comprehensive baseline database coverage...")
+    ensure_baselines_available()
 
     print("[STARTING] Codex v2 Demo...")
     print("[INFO] Open browser to: http://localhost:8084")

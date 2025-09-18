@@ -23,8 +23,8 @@ try:
 except ImportError:
     NLTK_AVAILABLE = False
 
-from ..ontology.core_ontology import AnesthesiaOntology
-from ..core.database import get_database
+from src.ontology.core_ontology import AnesthesiaOntology
+from src.core.database import get_database
 
 logger = logging.getLogger(__name__)
 
@@ -140,6 +140,33 @@ class MedicalTextProcessor:
                 [{"LOWER": {"IN": ["premature", "preterm", "born"]}},
                  {"LIKE_NUM": True, "OP": "?"}, {"LOWER": {"IN": ["weeks", "wks"]}}],
                 [{"LOWER": "nicu"}, {"IS_ALPHA": True, "OP": "*"}]
+            ]),
+
+            # CAD patterns
+            ("CORONARY_ARTERY_DISEASE", [
+                [{"LOWER": "coronary"}, {"LOWER": "artery"}, {"LOWER": "disease"}],
+                [{"UPPER": "CAD"}],
+                [{"LOWER": {"IN": ["cardiac", "heart"]}}, {"LOWER": {"IN": ["cath", "catheterization"]}}],
+                [{"LOWER": {"IN": ["stent", "stents"]}}],
+                [{"LOWER": {"IN": ["angina", "chest"]}}, {"LOWER": "pain", "OP": "?"}],
+                [{"LOWER": "myocardial"}, {"LOWER": "infarction"}],
+                [{"UPPER": "MI"}],
+                [{"LOWER": "heart"}, {"LOWER": "attack"}],
+                [{"LOWER": "coronary"}, {"LOWER": "bypass"}],
+                [{"UPPER": "CABG"}]
+            ]),
+
+            # Additional medical conditions
+            ("DIABETES", [
+                [{"LOWER": {"IN": ["diabetes", "diabetic"]}}],
+                [{"UPPER": {"IN": ["DM", "T1DM", "T2DM"]}}],
+                [{"LOWER": "blood"}, {"LOWER": "sugar"}]
+            ]),
+
+            ("COPD", [
+                [{"LOWER": "chronic"}, {"LOWER": "obstructive"}, {"LOWER": "pulmonary"}, {"LOWER": "disease"}],
+                [{"UPPER": "COPD"}],
+                [{"LOWER": {"IN": ["emphysema", "bronchitis"]}}]
             ])
         ]
 
@@ -238,6 +265,108 @@ class MedicalTextProcessor:
                 re.compile(r"\bCHF\b"),
                 re.compile(r"\bcongestive heart failure\b", re.I),
                 re.compile(r"\bNYHA (?:class )?([I-IV]+)\b", re.I)
+            ],
+
+            "CORONARY_ARTERY_DISEASE": [
+                re.compile(r"\bcoronary artery disease\b", re.I),
+                re.compile(r"\bCAD\b"),
+                re.compile(r"\bcardiac cath\b", re.I),
+                re.compile(r"\bcardiac catheterization\b", re.I),
+                re.compile(r"\bstent\b", re.I),
+                re.compile(r"\bangina\b", re.I),
+                re.compile(r"\bmyocardial infarction\b", re.I),
+                re.compile(r"\bMI\b"),
+                re.compile(r"\bheart attack\b", re.I),
+                re.compile(r"\bpercutaneous coronary intervention\b", re.I),
+                re.compile(r"\bPCI\b"),
+                re.compile(r"\bcoronary bypass\b", re.I),
+                re.compile(r"\bCABG\b")
+            ],
+
+            "CHRONIC_KIDNEY_DISEASE": [
+                re.compile(r"\bchronic kidney disease\b", re.I),
+                re.compile(r"\bCKD\b"),
+                re.compile(r"\brenal failure\b", re.I),
+                re.compile(r"\brenal insufficiency\b", re.I),
+                re.compile(r"\bcreatinine\b", re.I),
+                re.compile(r"\bdialysis\b", re.I),
+                re.compile(r"\bhemodialysis\b", re.I)
+            ],
+
+            "COPD": [
+                re.compile(r"\bchronic obstructive pulmonary disease\b", re.I),
+                re.compile(r"\bCOPD\b"),
+                re.compile(r"\bemphysema\b", re.I),
+                re.compile(r"\bchronic bronchitis\b", re.I),
+                re.compile(r"\binhaler\b", re.I),
+                re.compile(r"\balbuterol\b", re.I),
+                re.compile(r"\bipratropium\b", re.I)
+            ],
+
+            "OBESITY": [
+                re.compile(r"\bobese\b", re.I),
+                re.compile(r"\bobesity\b", re.I),
+                re.compile(r"\bBMI (?:>|greater than|over) ?(\d+)\b", re.I),
+                re.compile(r"\bmorbidly obese\b", re.I)
+            ],
+
+            "SMOKING": [
+                re.compile(r"\bsmok(?:ing|er)\b", re.I),
+                re.compile(r"\btobacco\b", re.I),
+                re.compile(r"\bcigarette\b", re.I),
+                re.compile(r"\bnicotine\b", re.I),
+                re.compile(r"\bpack years?\b", re.I)
+            ],
+
+            "SEIZURE_DISORDER": [
+                re.compile(r"\bseizure\b", re.I),
+                re.compile(r"\bepilepsy\b", re.I),
+                re.compile(r"\banticonvulsant\b", re.I),
+                re.compile(r"\bkeppra\b", re.I),
+                re.compile(r"\bdilantin\b", re.I),
+                re.compile(r"\btegretol\b", re.I)
+            ],
+
+            "GERD": [
+                re.compile(r"\bGERD\b"),
+                re.compile(r"\bgastroesophageal reflux\b", re.I),
+                re.compile(r"\breflux\b", re.I),
+                re.compile(r"\bheartburn\b", re.I),
+                re.compile(r"\bomeprazole\b", re.I),
+                re.compile(r"\bprotonix\b", re.I)
+            ],
+
+            "AUTISM": [
+                re.compile(r"\bautism\b", re.I),
+                re.compile(r"\bautistic\b", re.I),
+                re.compile(r"\bASD\b"),
+                re.compile(r"\bautism spectrum\b", re.I),
+                re.compile(r"\bdevelopmental delay\b", re.I)
+            ],
+
+            "PREGNANCY": [
+                re.compile(r"\bpregnant\b", re.I),
+                re.compile(r"\bpregnancy\b", re.I),
+                re.compile(r"\bgestational\b", re.I),
+                re.compile(r"\bweeks gestation\b", re.I),
+                re.compile(r"\bgravida\b", re.I),
+                re.compile(r"\bpara\b", re.I)
+            ],
+
+            "TRAUMA": [
+                re.compile(r"\btrauma\b", re.I),
+                re.compile(r"\binjury\b", re.I),
+                re.compile(r"\baccident\b", re.I),
+                re.compile(r"\bmulti-trauma\b", re.I),
+                re.compile(r"\bblunt force\b", re.I)
+            ],
+
+            "FULL_STOMACH": [
+                re.compile(r"\bfull stomach\b", re.I),
+                re.compile(r"\bate recently\b", re.I),
+                re.compile(r"\blast meal\b", re.I),
+                re.compile(r"\bnot NPO\b", re.I),
+                re.compile(r"\baspiration risk\b", re.I)
             ]
         }
 

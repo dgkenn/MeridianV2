@@ -422,11 +422,52 @@ class AnesthesiaOntology:
                         ["high blood pressure"], "cardiac"),
         ]
 
-        # Add all risk factor categories
-        all_risk_factors = demographics + lifestyle + airway_factors + pulmonary_factors + cardiac_factors
+        # Endocrine/Metabolic
+        endocrine_factors = [
+            OntologyTerm("DIABETES", "risk_factor", "Diabetes mellitus",
+                        ["diabetes", "DM", "T1DM", "T2DM"], "endocrine"),
+            OntologyTerm("DIABETES_UNCONTROLLED", "risk_factor", "Uncontrolled diabetes",
+                        ["uncontrolled diabetes"], "endocrine"),
+            OntologyTerm("DIABETIC_NEUROPATHY", "risk_factor", "Diabetic neuropathy",
+                        ["diabetic neuropathy"], "endocrine"),
+            OntologyTerm("THYROID_DISEASE", "risk_factor", "Thyroid disease",
+                        ["hypothyroid", "hyperthyroid"], "endocrine"),
+            OntologyTerm("ADRENAL_INSUFFICIENCY", "risk_factor", "Adrenal insufficiency",
+                        ["adrenal insufficiency"], "endocrine"),
+        ]
 
-        # Continue with remaining categories...
-        # (I'll continue with the next batch to stay within response limits)
+        # Renal/Hepatic
+        renal_hepatic_factors = [
+            OntologyTerm("CHRONIC_KIDNEY_DISEASE", "risk_factor", "Chronic kidney disease",
+                        ["CKD", "renal failure"], "renal"),
+            OntologyTerm("END_STAGE_RENAL_DISEASE", "risk_factor", "End-stage renal disease",
+                        ["ESRD", "dialysis"], "renal"),
+            OntologyTerm("LIVER_DISEASE", "risk_factor", "Liver disease",
+                        ["hepatitis", "cirrhosis"], "hepatic"),
+        ]
+
+        # Neurological
+        neuro_factors = [
+            OntologyTerm("SEIZURE_DISORDER", "risk_factor", "Seizure disorder",
+                        ["epilepsy", "seizures"], "neurological"),
+            OntologyTerm("STROKE", "risk_factor", "Prior stroke",
+                        ["CVA", "cerebrovascular accident"], "neurological"),
+            OntologyTerm("DEMENTIA", "risk_factor", "Dementia",
+                        ["Alzheimer's", "cognitive impairment"], "neurological"),
+        ]
+
+        # Gastrointestinal
+        gi_factors = [
+            OntologyTerm("GERD", "risk_factor", "Gastroesophageal reflux disease",
+                        ["GERD", "reflux"], "gastrointestinal"),
+            OntologyTerm("HIATAL_HERNIA", "risk_factor", "Hiatal hernia",
+                        ["hiatal hernia"], "gastrointestinal"),
+        ]
+
+        # Add all risk factor categories
+        all_risk_factors = (demographics + lifestyle + airway_factors + pulmonary_factors +
+                           cardiac_factors + endocrine_factors + renal_hepatic_factors +
+                           neuro_factors + gi_factors)
 
         for factor in all_risk_factors:
             self.terms[factor.token] = factor
