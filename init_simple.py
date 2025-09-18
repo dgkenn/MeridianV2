@@ -96,6 +96,42 @@ conn.execute("""
     )
 """)
 
+# Create evidence_based_adjusted_risks table (required by risk engine)
+conn.execute("""
+    CREATE TABLE IF NOT EXISTS evidence_based_adjusted_risks (
+        id TEXT PRIMARY KEY,
+        outcome_token TEXT NOT NULL,
+        adjustment_category TEXT NOT NULL,
+        adjustment_type TEXT,
+        baseline_risk REAL,
+        adjustment_multiplier REAL,
+        adjusted_risk REAL NOT NULL,
+        confidence_interval_lower REAL,
+        confidence_interval_upper REAL,
+        studies_count INTEGER,
+        evidence_grade TEXT,
+        evidence_source TEXT,
+        last_updated TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    )
+""")
+
+# Add sample evidence-based adjusted risks
+sample_adjusted_risks = [
+    ("adj_baseline_laryngospasm_ped", "LARYNGOSPASM", "baseline", None, None, None, 0.015, 0.012, 0.019, 12, "B", "PubMed meta-analysis"),
+    ("adj_baseline_bronchospasm_ped", "BRONCHOSPASM", "baseline", None, None, None, 0.008, 0.006, 0.011, 8, "B", "PubMed meta-analysis"),
+    ("adj_mod_laryngospasm_asthma", "LARYNGOSPASM", "modifier", "ASTHMA", 0.015, 2.1, 0.032, 0.021, 0.048, 6, "B", "PubMed meta-analysis"),
+    ("adj_mod_laryngospasm_uri", "LARYNGOSPASM", "modifier", "RECENT_URI_2W", 0.015, 3.2, 0.048, 0.032, 0.072, 4, "B", "PubMed meta-analysis")
+]
+
+for risk in sample_adjusted_risks:
+    conn.execute("""
+        INSERT OR REPLACE INTO evidence_based_adjusted_risks
+        (id, outcome_token, adjustment_category, adjustment_type, baseline_risk,
+         adjustment_multiplier, adjusted_risk, confidence_interval_lower,
+         confidence_interval_upper, studies_count, evidence_grade, evidence_source)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    """, risk)
+
 print("Loading sample ontology...")
 
 # Sample ontology terms

@@ -9,8 +9,10 @@ RUN pip install --no-cache-dir -r requirements-minimal.txt
 # Copy application code
 COPY . .
 
-# Initialize comprehensive production database for deployment
-RUN python scripts/create_comprehensive_production_db.py
+# Initialize database with required tables and sample data
+RUN python init_simple.py && \
+    # Create production database from initialized database
+    cp database/codex.duckdb database/production.duckdb
 
 # Expose port
 EXPOSE 8084
