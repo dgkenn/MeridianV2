@@ -1,0 +1,118 @@
+{
+  "calculation_summary": {
+    "timestamp": "2025-09-18T06:17:54.587971",
+    "total_calculations": 126,
+    "baseline_risks": 18,
+    "modifier_effects": 108,
+    "database_path": "database/codex.duckdb"
+  },
+  "baseline_risk_examples": {
+    "CARDIAC_ARREST": {
+      "outcome_token": "CARDIAC_ARREST",
+      "risk_type": "baseline",
+      "estimate": 12.168497280324312,
+      "standard_error": 0.02057831926962092,
+      "ci_lower": 12.128163774555855,
+      "ci_upper": 12.208830786092769,
+      "studies_count": 130,
+      "total_weight": 2361.4578494241823
+    },
+    "CARDIOGENIC_SHOCK": {
+      "outcome_token": "CARDIOGENIC_SHOCK",
+      "risk_type": "baseline",
+      "estimate": 9.875298720982968,
+      "standard_error": 0.013605604755495201,
+      "ci_lower": 9.848631735662197,
+      "ci_upper": 9.90196570630374,
+      "studies_count": 249,
+      "total_weight": 5402.120893629175
+    },
+    "ASPIRATION": {
+      "outcome_token": "ASPIRATION",
+      "risk_type": "baseline",
+      "estimate": 2.337570152582495,
+      "standard_error": 0.026976806451003976,
+      "ci_lower": 2.284695611938527,
+      "ci_upper": 2.390444693226463,
+      "studies_count": 56,
+      "total_weight": 1374.1018613888
+    },
+    "ARDS": {
+      "outcome_token": "ARDS",
+      "risk_type": "baseline",
+      "estimate": 16.265888972332732,
+      "standard_error": 0.016543644296660647,
+      "ci_lower": 16.23346342951128,
+      "ci_upper": 16.298314515154186,
+      "studies_count": 132,
+      "total_weight": 3653.739938449768
+    },
+    "MORTALITY_INHOSPITAL": {
+      "outcome_token": "MORTALITY_INHOSPITAL",
+      "risk_type": "baseline",
+      "estimate": 5.2788600961587,
+      "standard_error": 0.009244080658875433,
+      "ci_lower": 5.260741698067305,
+      "ci_upper": 5.296978494250096,
+      "studies_count": 475,
+      "total_weight": 11702.335568923356
+    }
+  },
+  "modifier_effect_examples": {
+    "BRONCHOSPASM_OSA": {
+      "outcome_token": "BRONCHOSPASM",
+      "modifier_token": "OSA",
+      "effect_type": "modifier",
+      "estimate": 4.0,
+      "standard_error": 0.3391586494262679,
+      "ci_lower": 3.335249047124515,
+      "ci_upper": 4.664750952875485,
+      "studies_count": 1,
+      "total_weight": 8.693490935731402
+    },
+    "AWARENESS_UNDER_ANESTHESIA_PREMATURITY": {
+      "outcome_token": "AWARENESS_UNDER_ANESTHESIA",
+      "modifier_token": "PREMATURITY",
+      "effect_type": "modifier",
+      "estimate": 8.0,
+      "standard_error": 0.22751453858224652,
+      "ci_lower": 7.554071504378797,
+      "ci_upper": 8.445928495621203,
+      "studies_count": 1,
+      "total_weight": 19.318868746069782
+    },
+    "PULMONARY_EMBOLISM_HEART_FAILURE": {
+      "outcome_token": "PULMONARY_EMBOLISM",
+      "modifier_token": "HEART_FAILURE",
+      "effect_type": "modifier",
+      "estimate": 0.5287338249389529,
+      "standard_error": 0.061768245980603875,
+      "ci_lower": 0.4076680628169693,
+      "ci_upper": 0.6497995870609365,
+      "studies_count": 12,
+      "total_weight": 262.1014732620299
+    },
+    "SEPSIS_FRAILTY": {
+      "outcome_token": "SEPSIS",
+      "modifier_token": "FRAILTY",
+      "effect_type": "modifier",
+      "estimate": 0.001132727257608008,
+      "standard_error": 0.1743392838715804,
+      "ci_lower": -0.3405722691306896,
+      "ci_upper": 0.3428377236459056,
+      "studies_count": 3,
+      "total_weight": 32.901029271254586
+    },
+    "SEPSIS_COPD": {
+      "outcome_token": "SEPSIS",
+      "modifier_token": "COPD",
+      "effect_type": "modifier",
+      "estimate": 46.19500148296356,
+      "standard_error": 0.2354152459441154,
+      "ci_lower": 45.7335876009131,
+      "ci_upper": 46.65641536501403,
+      "studies_count": 2,
+      "total_weight": 18.04391737174687
+    }
+  }
+}

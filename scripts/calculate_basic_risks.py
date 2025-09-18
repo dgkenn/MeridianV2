@@ -42,6 +42,41 @@ class BasicRiskCalculator:
         self.db = init_database(db_path)
         logger.info(f"Initialized BasicRiskCalculator with database: {db_path}")
 
+    def normalize_outcome_temporal(self, outcome_token: str, estimate: float) -> float:
+        """Normalize outcome estimates to 30-day standard timeframe"""
+
+        # Temporal conversion factors based on clinical evidence
+        # These convert shorter timeframes to approximate 30-day risk
+        temporal_factors = {
+            # Mortality timeframes
+            'MORTALITY_24H': 1.5,    # 24h mortality is typically ~67% of 30-day
+            'MORTALITY_7D': 1.2,     # 7-day mortality is typically ~83% of 30-day
+            'MORTALITY_30D': 1.0,    # Already 30-day standard
+            'MORTALITY_90D': 0.9,    # 90-day mortality higher, adjust down to 30-day
+
+            # Cardiac events (typically occur early)
+            'CARDIAC_ARREST': 1.1,   # Most occur within first few days
+            'CARDIOGENIC_SHOCK': 1.2, # Often early complication
+
+            # Other complications (vary by timing)
+            'ASPIRATION': 1.0,       # Usually immediate/early
+            'BRONCHOSPASM': 1.0,     # Usually immediate
+            'FAILED_INTUBATION': 1.0, # Immediate event
+            'AMNIOTIC_FLUID_EMBOLISM': 1.0, # Immediate event
+
+            # Default for unspecified outcomes
+            'DEFAULT': 1.0
+        }
+
+        # Apply temporal normalization
+        factor = temporal_factors.get(outcome_token, temporal_factors['DEFAULT'])
+
+        # For very small estimates, be more conservative with adjustment
+        if estimate < 0.001:  # < 0.1%
+            factor = min(factor, 1.1)  # Limit adjustment for rare events
+
+        return estimate * factor
+
     def calculate_pooled_estimate(self, estimates: List[float], weights: List[float]) -> Dict:
         """Calculate simple pooled estimate using inverse variance weighting"""
         if not estimates or not weights:
@@ -92,8 +127,9 @@ class BasicRiskCalculator:
             try:
                 # Get all baseline estimates for this outcome
                 evidence_query = """
-                    SELECT e.estimate, e.quality_weight, e.evidence_grade, e.n_group
+                    SELECT e.estimate, e.quality_weight, e.evidence_grade, e.n_group, p.year
                     FROM estimates e
+                    LEFT JOIN papers p ON e.pmid = p.pmid
                     WHERE e.outcome_token = ?
                     AND (e.modifier_token IS NULL OR e.modifier_token = '')
                     AND e.estimate IS NOT NULL
@@ -105,8 +141,10 @@ class BasicRiskCalculator:
                     estimates = []
                     weights = []
 
-                    for est, quality_weight, evidence_grade, n_group in evidence:
-                        estimates.append(est)
+                    for est, quality_weight, evidence_grade, n_group, pub_year in evidence:
+                        # Apply temporal outcome normalization
+                        normalized_est = self.normalize_outcome_temporal(outcome_token, est)
+                        estimates.append(normalized_est)
 
                         # Calculate weight based on quality and sample size
                         weight = quality_weight or 1.0
@@ -118,6 +156,16 @@ class BasicRiskCalculator:
                         # Add sample size weight if available
                         if n_group and n_group > 0:
                             weight *= min(math.sqrt(n_group), 10.0)  # Cap at 10x weight
+
+                        # Add temporal weighting - favor recent publications
+                        if pub_year and pub_year > 0:
+                            current_year = datetime.now().year
+                            years_old = current_year - pub_year
+
+                            # Exponential decay: recent papers get higher weight
+                            # Half-life of 10 years, minimum weight of 0.1
+                            temporal_weight = max(0.1, math.exp(-0.0693 * years_old / 10))
+                            weight *= temporal_weight
 
                         weights.append(weight)
 
@@ -162,8 +210,9 @@ class BasicRiskCalculator:
             try:
                 # Get all estimates for this combination
                 evidence_query = """
-                    SELECT e.estimate, e.quality_weight, e.evidence_grade, e.n_group
+                    SELECT e.estimate, e.quality_weight, e.evidence_grade, e.n_group, p.year
                     FROM estimates e
+                    LEFT JOIN papers p ON e.pmid = p.pmid
                     WHERE e.outcome_token = ?
                     AND e.modifier_token = ?
                     AND e.estimate IS NOT NULL
@@ -175,8 +224,10 @@ class BasicRiskCalculator:
                     estimates = []
                     weights = []
 
-                    for est, quality_weight, evidence_grade, n_group in evidence:
-                        estimates.append(est)
+                    for est, quality_weight, evidence_grade, n_group, pub_year in evidence:
+                        # Apply temporal outcome normalization
+                        normalized_est = self.normalize_outcome_temporal(outcome_token, est)
+                        estimates.append(normalized_est)
 
                         # Calculate weight
                         weight = quality_weight or 1.0
@@ -185,6 +236,16 @@ class BasicRiskCalculator:
 
                         if n_group and n_group > 0:
                             weight *= min(math.sqrt(n_group), 10.0)
+
+                        # Add temporal weighting - favor recent publications
+                        if pub_year and pub_year > 0:
+                            current_year = datetime.now().year
+                            years_old = current_year - pub_year
+
+                            # Exponential decay: recent papers get higher weight
+                            # Half-life of 10 years, minimum weight of 0.1
+                            temporal_weight = max(0.1, math.exp(-0.0693 * years_old / 10))
+                            weight *= temporal_weight
 
                         weights.append(weight)
 
