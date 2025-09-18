@@ -19,6 +19,7 @@ from flask_cors import CORS
 from core.database import get_database
 from core.hpi_parser import MedicalTextProcessor
 from core.risk_engine import RiskEngine
+from core.baseline_initializer import ensure_baselines_available
 from api.medication_engine import MedicationEngine
 from ontology.core_ontology import AnesthesiaOntology
 
@@ -34,12 +35,19 @@ CORS(app)
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'codex-dev-key-change-in-production')
 app.config['DATABASE_PATH'] = os.environ.get('DATABASE_PATH', 'database/codex.duckdb')
 
+# Initialize baseline database first
+logger.info("🚀 Initializing Meridian application...")
+logger.info("📊 Ensuring comprehensive baseline database coverage...")
+ensure_baselines_available()
+
 # Initialize core components
 db = get_database()
 text_processor = MedicalTextProcessor()
 risk_engine = RiskEngine()
 medication_engine = MedicationEngine()
 ontology = AnesthesiaOntology()
+
+logger.info("✅ Meridian application initialization complete")
 
 # Sample HPIs for demo
 SAMPLE_HPIS = [
