@@ -100,6 +100,10 @@ from src.core.database import init_database
 logger.info(f"Initializing risk engine with database: {DB_PATH}")
 init_database(DB_PATH)
 
+# Initialize comprehensive baselines to fix baseline warnings
+logger.info("Ensuring comprehensive baseline database coverage...")
+ensure_baselines_available()
+
 # Initialize the NLP-based medical text processor
 logger.info("Initializing NLP-based medical text processor...")
 medical_text_processor = MedicalTextProcessor()
