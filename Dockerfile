@@ -9,8 +9,8 @@ RUN pip install --no-cache-dir -r requirements-minimal.txt
 # Copy application code
 COPY . .
 
-# Initialize database
-RUN python init_simple.py
+# Initialize database only if production database doesn't exist
+RUN test -f database/production.duckdb || python init_simple.py
 
 # Expose port
 EXPOSE 8084
