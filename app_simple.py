@@ -2369,9 +2369,18 @@ def analyze():
     except Exception as e:
         # Handle specific error types with detailed codes
         if "max() arg is an empty sequence" in str(e):
+            # Determine population from demographics
+            population = "mixed"  # Default
+            if parsed.get('demographics', {}).get('age_category'):
+                age_cat = parsed['demographics']['age_category']
+                if age_cat in ["AGE_INFANT", "AGE_TODDLER", "AGE_CHILD", "AGE_ADOLESCENT"]:
+                    population = "pediatric"
+                elif age_cat in ["AGE_ADULT_YOUNG", "AGE_ADULT_MIDDLE", "AGE_ELDERLY", "AGE_VERY_ELDERLY"]:
+                    population = "adult"
+
             codex_error = handle_risk_empty_sequence_error(
                 outcome_token="unknown",
-                population="pediatric_general"
+                population=population
             )
             error_logger.log_error(codex_error)
             return jsonify({
