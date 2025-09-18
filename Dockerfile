@@ -9,8 +9,8 @@ RUN pip install --no-cache-dir -r requirements-minimal.txt
 # Copy application code
 COPY . .
 
-# Initialize fallback database only if production database doesn't exist
-RUN test -f database/production.duckdb || python init_simple.py
+# Ensure database exists and repair any missing tables
+RUN python database_repair.py
 
 # Expose port
 EXPOSE 8084

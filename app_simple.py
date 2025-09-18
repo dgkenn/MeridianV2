@@ -60,6 +60,30 @@ def get_db():
     """Get database connection."""
     return duckdb.connect(DB_PATH)
 
+def verify_database_tables():
+    """Verify all required tables exist, repair if needed"""
+    required_tables = ["baseline_risks", "risk_modifiers", "evidence_based_adjusted_risks"]
+
+    try:
+        db = get_db()
+        for table in required_tables:
+            try:
+                count = db.execute(f"SELECT COUNT(*) FROM {table}").fetchone()[0]
+                logger.info(f"✓ Database table {table}: {count} records")
+            except Exception as e:
+                logger.error(f"✗ Database table {table} missing: {e}")
+                # Run repair script
+                logger.info("Running database repair...")
+                import subprocess
+                subprocess.run(["python", "database_repair.py"], check=True)
+                break
+        db.close()
+    except Exception as e:
+        logger.error(f"Database verification failed: {e}")
+
+# Verify database on startup
+verify_database_tables()
+
 # Comprehensive ontology mapping based on clinical risk factors
 ONTOLOGY_MAP = {
     # Demographics
