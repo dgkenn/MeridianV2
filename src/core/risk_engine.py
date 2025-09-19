@@ -286,7 +286,12 @@ class RiskEngine:
             LIMIT 1
         """
 
-        evidence_result = self.db.conn.execute(evidence_based_query, [outcome_token]).fetchone()
+        evidence_result = None
+        try:
+            evidence_result = self.db.conn.execute(evidence_based_query, [outcome_token]).fetchone()
+        except Exception as e:
+            # Table may not exist yet, fall back to baseline_risks table
+            logger.debug(f"evidence_based_adjusted_risks table not available for {outcome_token}: {e}")
 
         if evidence_result:
             baseline_risk = evidence_result[0]
@@ -457,7 +462,12 @@ class RiskEngine:
             LIMIT 1
         """
 
-        evidence_result = self.db.conn.execute(evidence_based_query, [outcome_token, modifier_token]).fetchone()
+        evidence_result = None
+        try:
+            evidence_result = self.db.conn.execute(evidence_based_query, [outcome_token, modifier_token]).fetchone()
+        except Exception as e:
+            # Table may not exist yet, fall back to risk_modifiers table
+            logger.debug(f"evidence_based_adjusted_risks table not available for {outcome_token}, {modifier_token}: {e}")
 
         if evidence_result:
             or_value = evidence_result[0]
