@@ -2563,12 +2563,21 @@ def health():
         papers_count = db.execute("SELECT COUNT(*) FROM papers").fetchone()[0]
         db.close()
 
+        # Get deployment version
+        deployment_version = 1
+        try:
+            with open('deployment_version.txt', 'r') as f:
+                deployment_version = int(f.read().strip())
+        except (FileNotFoundError, ValueError):
+            deployment_version = 1
+
         return jsonify({
             "status": "healthy",
-            "version": "2.0.1-auto-repair",
+            "version": f"2.0.1-auto-repair.{deployment_version}",
             "papers": papers_count,
             "timestamp": datetime.now().isoformat(),
-            "database_schema": "auto-repair-enabled"
+            "database_schema": "auto-repair-enabled",
+            "deployment_version": deployment_version
         })
     except Exception as e:
         return jsonify({"status": "error", "error": str(e)}), 500
