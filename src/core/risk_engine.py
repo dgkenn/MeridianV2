@@ -465,7 +465,8 @@ class RiskEngine:
                     'evidence_grade': evidence_grade,
                     'pmids': [],
                     'heterogeneity_i2': 0.0,
-                    'factor_token': modifier_token,
+                    'factor': modifier_token,
+                    'factor_label': modifier_token,
                     'factor_type': 'evidence_based_adjustment'
                 }
 
@@ -508,7 +509,8 @@ class RiskEngine:
                     'evidence_grade': evidence_grade,
                     'pmids': [],
                     'heterogeneity_i2': 0.0,
-                    'factor_token': modifier_token,
+                    'factor': modifier_token,
+                    'factor_label': factor_label,
                     'factor_type': 'risk_modifier'
                 }
 
