@@ -689,8 +689,15 @@ class RiskEngine:
             or_value = modifier.get('or') or modifier.get('or_value')
             or_ci = modifier.get('ci') or (modifier.get('ci_low'), modifier.get('ci_high'))
 
-            # Validate we have a numeric OR value
-            if or_value is None or not isinstance(or_value, (int, float)):
+            # Validate we have a numeric OR value and convert Decimal to float
+            if or_value is None:
+                logger.warning(f"Invalid OR value for modifier {modifier}: {or_value}")
+                continue
+
+            # Convert Decimal to float for math operations
+            try:
+                or_value = float(or_value)
+            except (ValueError, TypeError):
                 logger.warning(f"Invalid OR value for modifier {modifier}: {or_value}")
                 continue
 
@@ -699,11 +706,18 @@ class RiskEngine:
                 combined_or *= or_value
 
                 # Estimate log OR variance from CI
-                if or_ci and len(or_ci) == 2 and or_ci[0] > 0 and or_ci[1] > 0:
-                    log_or_low = math.log(or_ci[0])
-                    log_or_high = math.log(or_ci[1])
-                    se_log_or = (log_or_high - log_or_low) / (2 * 1.96)
-                    log_or_variance += se_log_or ** 2
+                if or_ci and len(or_ci) == 2 and or_ci[0] is not None and or_ci[1] is not None:
+                    try:
+                        ci_low = float(or_ci[0])
+                        ci_high = float(or_ci[1])
+                        if ci_low > 0 and ci_high > 0:
+                            log_or_low = math.log(ci_low)
+                            log_or_high = math.log(ci_high)
+                            se_log_or = (log_or_high - log_or_low) / (2 * 1.96)
+                            log_or_variance += se_log_or ** 2
+                    except (ValueError, TypeError, ZeroDivisionError):
+                        # Skip CI calculation if values are invalid
+                        pass
 
                 # Add to contributing factors
                 contributing_factors.append({
