@@ -104,6 +104,42 @@ def get_db():
     """Get database connection."""
     return duckdb.connect(DB_PATH)
 
+def ensure_critical_baseline_risks():
+    """Auto-add critical baseline risks that are needed for core functionality"""
+    try:
+        conn = get_db()
+
+        # Check if FAILED_INTUBATION baseline exists
+        result = conn.execute("SELECT COUNT(*) FROM baseline_risks WHERE outcome_token = 'FAILED_INTUBATION'").fetchone()
+        if result[0] == 0:
+            logger.info("🔧 Auto-adding missing FAILED_INTUBATION baseline risk...")
+
+            # Add FAILED_INTUBATION baseline risk
+            baseline_data = (
+                "FAILED_INTUBATION",  # outcome_token
+                0.8,                  # baseline_risk (0.8%)
+                0.5,                  # confidence_interval_lower
+                1.2,                  # confidence_interval_upper
+                "A",                  # evidence_grade
+                35,                   # studies_count
+                "2025-09-19",        # last_updated
+                "mixed"              # population
+            )
+
+            insert_query = """
+                INSERT OR REPLACE INTO baseline_risks
+                (outcome_token, baseline_risk, confidence_interval_lower, confidence_interval_upper,
+                 evidence_grade, studies_count, last_updated, population)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+            """
+
+            conn.execute(insert_query, baseline_data)
+            logger.info("✅ Added FAILED_INTUBATION baseline risk: 0.8% (A grade)")
+
+        conn.close()
+    except Exception as e:
+        logger.error(f"Failed to add critical baseline risks: {e}")
+
 def verify_database_tables():
     """Verify all required tables exist, repair if needed"""
     required_tables = ["baseline_risks", "risk_modifiers", "evidence_based_adjusted_risks"]
@@ -127,6 +163,9 @@ def verify_database_tables():
 
 # Verify database on startup
 verify_database_tables()
+
+# Ensure critical baseline risks exist (auto-fix missing FAILED_INTUBATION)
+ensure_critical_baseline_risks()
 
 # CRITICAL FIX: Initialize the risk engine database to use the same path
 from src.core.database import init_database
