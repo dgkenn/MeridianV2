@@ -2503,8 +2503,20 @@ def analyze():
                 elif age_cat in ["AGE_ADULT_YOUNG", "AGE_ADULT_MIDDLE", "AGE_ELDERLY", "AGE_VERY_ELDERLY"]:
                     population = "adult"
 
+            # CRITICAL FIX: Extract the actual medical outcome instead of hardcoding "unknown"
+            # Look for the key airway outcomes that OSA should map to
+            extracted_outcomes = []
+            for factor in parsed.get('extracted_factors', []):
+                if factor.get('token') == 'OSA':
+                    # OSA should trigger failed intubation risk calculations
+                    extracted_outcomes.extend(['FAILED_INTUBATION', 'DIFFICULT_INTUBATION', 'DIFFICULT_MASK_VENTILATION'])
+                    break
+
+            # Use the first extracted outcome or fallback to a general airway outcome
+            outcome_token = extracted_outcomes[0] if extracted_outcomes else "FAILED_INTUBATION"
+
             codex_error = handle_risk_empty_sequence_error(
-                outcome_token="unknown",
+                outcome_token=outcome_token,
                 population=population
             )
             error_logger.log_error(codex_error)
