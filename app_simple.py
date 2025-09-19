@@ -18,6 +18,39 @@ from email.mime.multipart import MIMEMultipart as MimeMultipart
 
 from flask import Flask, render_template_string, request, jsonify
 from flask_cors import CORS
+import signal
+from functools import wraps
+
+# Timeout protection for production API
+class TimeoutError(Exception):
+    pass
+
+def timeout(seconds=30):
+    """Timeout decorator to prevent hanging requests."""
+    def decorator(func):
+        @wraps(func)
+        def wrapper(*args, **kwargs):
+            def timeout_handler(signum, frame):
+                raise TimeoutError(f"Request timed out after {seconds} seconds")
+
+            # Set the signal handler and alarm (Linux/Unix only)
+            try:
+                old_handler = signal.signal(signal.SIGALRM, timeout_handler)
+                signal.alarm(seconds)
+
+                try:
+                    result = func(*args, **kwargs)
+                finally:
+                    # Reset the alarm and handler
+                    signal.alarm(0)
+                    signal.signal(signal.SIGALRM, old_handler)
+
+                return result
+            except AttributeError:
+                # Windows doesn't have SIGALRM, fallback to no timeout
+                return func(*args, **kwargs)
+        return wrapper
+    return decorator
 
 # Import error handling system
 from src.core.error_codes import CodexError, ErrorCode, ErrorLogger, handle_risk_empty_sequence_error, handle_hpi_parse_error
@@ -2369,6 +2402,7 @@ def example():
     return jsonify({"hpi": random.choice(SAMPLE_HPIS)})
 
 @app.route('/api/analyze', methods=['POST'])
+@timeout(30)  # 30 second timeout to prevent hanging
 def analyze():
     try:
         data = request.get_json()
@@ -2443,9 +2477,23 @@ def analyze():
             "recommendations_html": recommendations_html
         })
 
+    except TimeoutError as e:
+        logger.error(f"Request timed out: {e}")
+        return jsonify({
+            'error': 'Request timed out - please try again',
+            'error_code': 'TIMEOUT',
+            'status': 'error'
+        }), 504
     except Exception as e:
         # Handle specific error types with detailed codes
-        if "max() arg is an empty sequence" in str(e):
+        if "No risk estimates available" in str(e):
+            return jsonify({
+                'error': 'Risk calculation temporarily unavailable - missing baseline data',
+                'error_code': 'MISSING_BASELINE',
+                'status': 'error',
+                'fallback_available': True
+            }), 500
+        elif "max() arg is an empty sequence" in str(e):
             # Determine population from demographics
             population = "mixed"  # Default
             if parsed.get('demographics', {}).get('age_category'):
