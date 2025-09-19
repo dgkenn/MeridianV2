@@ -2849,6 +2849,15 @@ if __name__ == '__main__':
     logger.info("📊 Ensuring comprehensive baseline database coverage...")
     ensure_baselines_available()
 
+    # PRODUCTION FIX: Ensure FAILED_INTUBATION baseline exists
+    try:
+        from database_fix_production import fix_production_database
+        logger.info("🔧 Running production database fix...")
+        fix_production_database()
+    except Exception as e:
+        logger.error(f"⚠️ Production database fix failed: {e}")
+        # Don't exit - continue with app startup
+
     print("[STARTING] Codex v2 Demo...")
     print("[INFO] Open browser to: http://localhost:8084")
 
