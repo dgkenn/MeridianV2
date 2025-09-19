@@ -444,7 +444,7 @@ class RiskEngine:
                    n_studies, evidence_grade
             FROM evidence_based_adjusted_risks
             WHERE outcome_token = ?
-            AND modifier_token = ?
+            AND factor_token = ?
             LIMIT 1
         """
 
