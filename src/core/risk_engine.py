@@ -100,6 +100,9 @@ class RiskEngine:
         if not context_label:
             context_label = self._determine_context(demographics, factors)
 
+        # Extract explicit population from demographics
+        explicit_population = demographics.get('population', None)
+
         # Get all assessable outcomes
         outcome_tokens = self._get_assessable_outcomes()
 
@@ -187,14 +190,14 @@ class RiskEngine:
 
         try:
             # Get baseline risk
-            baseline_result = self._get_baseline_risk(outcome_token, context_label)
+            baseline_result = self._get_baseline_risk(outcome_token, context_label, explicit_population)
             if not baseline_result:
                 return None
 
             baseline_risk, baseline_context, baseline_citations = baseline_result
 
             # Calculate effect modifiers
-            modifier_results = self._calculate_modifiers(outcome_token, factors, context_label, mode)
+            modifier_results = self._calculate_modifiers(outcome_token, factors, context_label, mode, explicit_population)
 
             if not modifier_results:
                 # No modifiers found - return baseline only
@@ -258,17 +261,20 @@ class RiskEngine:
             logger.error(f"Error calculating risk for {outcome_token}: {e}")
             return None
 
-    def _get_baseline_risk(self, outcome_token: str, context_label: str) -> Optional[Tuple[float, str, List[str]]]:
+    def _get_baseline_risk(self, outcome_token: str, context_label: str, explicit_population: str = None) -> Optional[Tuple[float, str, List[str]]]:
         """Get baseline risk for outcome in given context using comprehensive evidence database."""
 
-        # Determine population from context
-        population = "mixed"
-        if "pediatric" in context_label.lower():
-            population = "pediatric"
-        elif "adult" in context_label.lower():
-            population = "adult"
-        elif "obstetric" in context_label.lower():
-            population = "obstetric"
+        # Use explicit population if provided, otherwise determine from context
+        if explicit_population:
+            population = explicit_population
+        else:
+            population = "mixed"
+            if "pediatric" in context_label.lower():
+                population = "pediatric"
+            elif "adult" in context_label.lower():
+                population = "adult"
+            elif "obstetric" in context_label.lower():
+                population = "obstetric"
 
         # First try to get baseline from evidence_based_adjusted_risks table (most specific)
         evidence_based_query = """
@@ -405,19 +411,22 @@ class RiskEngine:
         return variations
 
     def _calculate_modifiers(self, outcome_token: str, factors: List[ExtractedFactor],
-                           context_label: str, mode: str) -> List[Dict[str, Any]]:
+                           context_label: str, mode: str, explicit_population: str = None) -> List[Dict[str, Any]]:
         """Calculate effect modifiers for an outcome using comprehensive evidence database."""
 
         modifier_results = []
 
-        # Determine population from context
-        population = "mixed"
-        if "pediatric" in context_label.lower():
-            population = "pediatric"
-        elif "adult" in context_label.lower():
-            population = "adult"
-        elif "obstetric" in context_label.lower():
-            population = "obstetric"
+        # Use explicit population if provided, otherwise determine from context
+        if explicit_population:
+            population = explicit_population
+        else:
+            population = "mixed"
+            if "pediatric" in context_label.lower():
+                population = "pediatric"
+            elif "adult" in context_label.lower():
+                population = "adult"
+            elif "obstetric" in context_label.lower():
+                population = "obstetric"
 
         for factor in factors:
             if mode == "model_based":
