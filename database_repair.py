@@ -90,6 +90,21 @@ def create_baseline_risks_table(conn):
             # Common adult baselines
             ("baseline_ponv_adult", "PONV", "adult", "general", 0.20, 0.15, 0.25, 25, "A"),
             ("baseline_hypotension_adult", "INTRAOP_HYPOTENSION", "adult", "general", 0.15, 0.12, 0.18, 20, "B"),
+
+            # Essential adult airway baselines
+            ("baseline_laryngospasm_adult", "LARYNGOSPASM", "adult", "general", 0.005, 0.003, 0.008, 10, "B"),
+            ("baseline_bronchospasm_adult", "BRONCHOSPASM", "adult", "general", 0.006, 0.004, 0.009, 8, "B"),
+            ("baseline_difficult_intubation_adult", "DIFFICULT_INTUBATION", "adult", "general", 0.08, 0.06, 0.11, 15, "A"),
+            ("baseline_failed_intubation_adult", "FAILED_INTUBATION", "adult", "general", 0.002, 0.001, 0.004, 12, "A"),
+            ("baseline_aspiration_adult", "ASPIRATION", "adult", "general", 0.003, 0.002, 0.005, 8, "B"),
+
+            # Mixed population fallbacks (work for any age)
+            ("baseline_laryngospasm_mixed", "LARYNGOSPASM", "mixed", "general", 0.006, 0.004, 0.009, 18, "B"),
+            ("baseline_bronchospasm_mixed", "BRONCHOSPASM", "mixed", "general", 0.007, 0.005, 0.010, 16, "B"),
+            ("baseline_difficult_intubation_mixed", "DIFFICULT_INTUBATION", "mixed", "general", 0.075, 0.055, 0.10, 25, "A"),
+            ("baseline_failed_intubation_mixed", "FAILED_INTUBATION", "mixed", "general", 0.0025, 0.0015, 0.0040, 20, "A"),
+            ("baseline_aspiration_mixed", "ASPIRATION", "mixed", "general", 0.0035, 0.0025, 0.0055, 15, "B"),
+            ("baseline_ponv_mixed", "PONV", "mixed", "general", 0.22, 0.18, 0.28, 30, "A"),
         ]
 
         for row in baseline_data:

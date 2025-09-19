@@ -172,6 +172,10 @@ class RiskEngine:
 
         procedure_context = procedure_contexts.get(procedure, 'general')
 
+        # Special handling for pediatric dental cases
+        if population == "pediatric" and procedure_context == "dental":
+            return "pediatric_dental"
+
         # Combine context elements
         if urgency == 'EMERGENCY':
             return f"{population}_emergency"
