@@ -2467,11 +2467,18 @@ def analyze():
                 context='perioperative'  # Default context
             ))
 
+        # Extract demographics from request data if provided, otherwise use parsed demographics
+        demographics = {
+            'age': data.get('patient_age', parsed['demographics'].get('age')),
+            'sex': data.get('patient_sex', parsed['demographics'].get('sex')),
+            'population': data.get('population', parsed['demographics'].get('population', 'adult'))
+        }
+
         # Use the database-driven risk engine instead of hardcoded calculations
         risk_engine = RiskEngine()
         risk_summary = risk_engine.calculate_risks(
             factors=extracted_factors,
-            demographics=parsed['demographics'],
+            demographics=demographics,
             mode="model_based",
             session_id=f"api_{datetime.now().isoformat()}"
         )
