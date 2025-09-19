@@ -382,7 +382,7 @@ class AnesthesiaOntology:
                         ["CF"], "pulmonary"),
             OntologyTerm("PULMONARY_HYPERTENSION", "risk_factor", "Pulmonary hypertension",
                         ["pulmonary HTN"], "pulmonary"),
-            OntologyTerm("RECENT_URI_2W", "risk_factor", "Recent upper respiratory infection (≤2 weeks)",
+            OntologyTerm("RECENT_URI_2W", "risk_factor", "Recent upper respiratory infection (<=2 weeks)",
                         ["recent URI", "recent cold"], "pulmonary"),
             OntologyTerm("RECENT_URI_2_4W", "risk_factor", "Recent upper respiratory infection (2-4 weeks)",
                         ["URI 2-4 weeks"], "pulmonary"),

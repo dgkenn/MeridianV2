@@ -49,7 +49,33 @@
 - This confirms deployment v4 changes are NOT actually live
 - Need to investigate why deployment counter is not displaying
 
-## NEXT STEPS:
-- Check health endpoint to verify deployment version in API
-- Investigate frontend code for status bar implementation
-- Try deployment v5 with potential frontend fixes
+## ATTEMPTS MADE:
+6. **Attempt 6**: Deployment v5 - Deployment counter fix
+   - Result: Health endpoint shows deployment_version: 5
+   - Website status bar shows "Deployment: v5" correctly
+   - Status: SUCCESS - deployment counter now working
+   - BUT: API still returns population: "mixed" instead of "adult"
+   - Status: PARTIAL SUCCESS - counter works but population fix missing
+
+## CURRENT CRITICAL ISSUE:
+- Deployment counter system is now working (v5 visible on website)
+- BUT population classification fix is STILL NOT DEPLOYED
+- API returns population: "mixed" when it should return "adult"
+- This means the risk_engine.py population fixes never actually went live
+
+## ROOT CAUSE ANALYSIS:
+The deployment counter system works, proving deployments ARE happening.
+The population fix in risk_engine.py is NOT live, meaning either:
+1. The code wasn't actually committed/pushed properly
+2. There's a deployment caching issue preventing new code from loading
+3. The fixes were overwritten by another deployment
+
+## SOLUTION APPROACH:
+Need to re-implement and force-deploy the population classification fix
+
+## HOW WE FIXED THE DEPLOYMENT COUNTER ISSUE:
+**Problem**: Deployment counter not visible on website status bar
+**Solution**: Modified JavaScript in app_simple.py to fetch /api/health and display deployment version prominently
+**Key Code Change**: Added prominent blue "Deployment: vX" display in status panel
+**Success Criteria**: Deployment number visible on right side of status bar
+**Verification**: Browser shows "Deployment: v5" after deployment v5 goes live

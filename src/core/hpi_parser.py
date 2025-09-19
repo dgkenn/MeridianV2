@@ -145,27 +145,27 @@ class MedicalTextProcessor:
             # CAD patterns
             ("CORONARY_ARTERY_DISEASE", [
                 [{"LOWER": "coronary"}, {"LOWER": "artery"}, {"LOWER": "disease"}],
-                [{"UPPER": "CAD"}],
+                [{"TEXT": "CAD"}],
                 [{"LOWER": {"IN": ["cardiac", "heart"]}}, {"LOWER": {"IN": ["cath", "catheterization"]}}],
                 [{"LOWER": {"IN": ["stent", "stents"]}}],
                 [{"LOWER": {"IN": ["angina", "chest"]}}, {"LOWER": "pain", "OP": "?"}],
                 [{"LOWER": "myocardial"}, {"LOWER": "infarction"}],
-                [{"UPPER": "MI"}],
+                [{"TEXT": "MI"}],
                 [{"LOWER": "heart"}, {"LOWER": "attack"}],
                 [{"LOWER": "coronary"}, {"LOWER": "bypass"}],
-                [{"UPPER": "CABG"}]
+                [{"TEXT": "CABG"}]
             ]),
 
             # Additional medical conditions
             ("DIABETES", [
                 [{"LOWER": {"IN": ["diabetes", "diabetic"]}}],
-                [{"UPPER": {"IN": ["DM", "T1DM", "T2DM"]}}],
+                [{"TEXT": {"IN": ["DM", "T1DM", "T2DM"]}}],
                 [{"LOWER": "blood"}, {"LOWER": "sugar"}]
             ]),
 
             ("COPD", [
                 [{"LOWER": "chronic"}, {"LOWER": "obstructive"}, {"LOWER": "pulmonary"}, {"LOWER": "disease"}],
-                [{"UPPER": "COPD"}],
+                [{"TEXT": "COPD"}],
                 [{"LOWER": {"IN": ["emphysema", "bronchitis"]}}]
             ])
         ]
@@ -663,7 +663,7 @@ class MedicalTextProcessor:
                 re.compile(r"\blupus\b", re.I),
                 re.compile(r"\bSLE\b"),
                 re.compile(r"\bscleroderma\b", re.I),
-                re.compile(r"\bsjögren\b", re.I),
+                re.compile(r"\bsjogren\b", re.I),
                 re.compile(r"\bconnective tissue\b", re.I),
                 re.compile(r"\bprednisone\b", re.I),
                 re.compile(r"\bsteroid therapy\b", re.I)
@@ -819,7 +819,7 @@ class MedicalTextProcessor:
                 re.compile(r"\bipratropium\b", re.I),
                 re.compile(r"\batrovent\b", re.I),
                 re.compile(r"\btiotropium\b", re.I),
-                re.compile(r"\bspirива\b", re.I)
+                re.compile(r"\bspiriva\b", re.I)
             ],
 
             "INHALED_STEROIDS": [
