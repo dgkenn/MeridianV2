@@ -110,7 +110,7 @@ class RiskEngine:
         risk_assessments = []
         for outcome_token in outcome_tokens:
             assessment = self._calculate_outcome_risk(
-                outcome_token, factors, demographics, context_label, mode
+                outcome_token, factors, demographics, context_label, mode, explicit_population
             )
             if assessment:
                 risk_assessments.append(assessment)
@@ -185,7 +185,7 @@ class RiskEngine:
 
     def _calculate_outcome_risk(self, outcome_token: str, factors: List[ExtractedFactor],
                               demographics: Dict[str, Any], context_label: str,
-                              mode: str) -> Optional[RiskAssessment]:
+                              mode: str, explicit_population: str = None) -> Optional[RiskAssessment]:
         """Calculate risk for a specific outcome."""
 
         try:
