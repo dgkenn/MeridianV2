@@ -2538,6 +2538,9 @@ HTML_TEMPLATE = """
                     <div class="small">
                         <div><strong>Status:</strong> ${data.status}</div>
                         <div><strong>Version:</strong> ${data.version}</div>
+                        <div style="color: #007bff; font-weight: bold; margin-top: 5px;">
+                            <strong>Deployment:</strong> v${data.deployment_version}
+                        </div>
                     </div>
                 `;
             });
