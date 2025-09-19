@@ -45,26 +45,24 @@ def repair_database(db_path="database/production.duckdb"):
         conn.close()
 
 def create_baseline_risks_table(conn):
-    """Create baseline_risks table if it doesn't exist"""
-    try:
-        count = conn.execute("SELECT COUNT(*) FROM baseline_risks").fetchone()[0]
-        logger.info(f"baseline_risks table exists with {count} records")
-    except:
-        logger.info("Creating baseline_risks table...")
-        conn.execute("""
-            CREATE TABLE IF NOT EXISTS baseline_risks (
-                id TEXT PRIMARY KEY,
-                outcome_token TEXT NOT NULL,
-                population TEXT NOT NULL,
-                context_label TEXT,
-                baseline_risk REAL NOT NULL,
-                confidence_interval_lower REAL,
-                confidence_interval_upper REAL,
-                studies_count INTEGER,
-                evidence_grade TEXT,
-                last_updated TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-            )
-        """)
+    """Create baseline_risks table if it doesn't exist and add/update baseline data"""
+    conn.execute("""
+        CREATE TABLE IF NOT EXISTS baseline_risks (
+            id TEXT PRIMARY KEY,
+            outcome_token TEXT NOT NULL,
+            population TEXT NOT NULL,
+            context_label TEXT,
+            baseline_risk REAL NOT NULL,
+            confidence_interval_lower REAL,
+            confidence_interval_upper REAL,
+            studies_count INTEGER,
+            evidence_grade TEXT,
+            last_updated TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        )
+    """)
+
+    initial_count = conn.execute("SELECT COUNT(*) FROM baseline_risks").fetchone()[0]
+    logger.info(f"baseline_risks table exists with {initial_count} records")
 
         # Add essential baseline risks with comprehensive coverage
         baseline_data = [
@@ -115,7 +113,8 @@ def create_baseline_risks_table(conn):
                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
             """, row)
 
-        logger.info("baseline_risks table created with sample data")
+    final_count = conn.execute("SELECT COUNT(*) FROM baseline_risks").fetchone()[0]
+    logger.info(f"baseline_risks table updated: {initial_count} -> {final_count} records")
 
 def create_risk_modifiers_table(conn):
     """Create risk_modifiers table if it doesn't exist"""
