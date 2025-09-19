@@ -494,19 +494,23 @@ class LearningInterface:
 
         # Domain performance chart
         st.markdown("### 🎯 Domain Performance")
-        import pandas as pd
 
-        domain_performance = pd.DataFrame({
+        if PANDAS_AVAILABLE:
+            domain_performance = pd.DataFrame({
             'Domain': ['Anatomy/Airway', 'Hemodynamics', 'Pharmacology', 'Regional', 'Pediatric'],
             'Score': [85, 72, 90, 68, 78],
             'Questions': [25, 18, 30, 15, 20]
         })
 
-        st.bar_chart(domain_performance.set_index('Domain')['Score'])
+            st.bar_chart(domain_performance.set_index('Domain')['Score'])
+        else:
+            st.info("Chart functionality requires pandas. Showing simplified view.")
+            st.write("Domain Performance: Anatomy/Airway (85%), Hemodynamics (72%), Pharmacology (90%)")
 
         # Recent sessions
         st.markdown("### 📅 Recent Sessions")
-        recent_sessions = pd.DataFrame({
+        if PANDAS_AVAILABLE:
+            recent_sessions = pd.DataFrame({
             'Date': ['2025-09-19', '2025-09-18', '2025-09-17'],
             'Mode': ['Board', 'Basics', 'Board'],
             'Questions': [20, 15, 25],
@@ -514,7 +518,9 @@ class LearningInterface:
             'Time': ['28m', '18m', '35m']
         })
 
-        st.dataframe(recent_sessions, use_container_width=True)
+            st.dataframe(recent_sessions, use_container_width=True)
+        else:
+            st.info("Recent sessions view requires pandas.")
 
     def _render_cme_tab(self):
         """Render CME certificate interface"""
@@ -535,7 +541,8 @@ class LearningInterface:
         # Eligible sessions
         st.markdown("### ✅ Eligible Sessions")
 
-        eligible_sessions = pd.DataFrame({
+        if PANDAS_AVAILABLE:
+            eligible_sessions = pd.DataFrame({
             'Date': ['2025-09-19', '2025-09-18', '2025-09-16'],
             'Mode': ['Board', 'Board', 'Basics'],
             'Score': ['82%', '85%', '90%'],
@@ -544,7 +551,9 @@ class LearningInterface:
             'Status': ['Available', 'Available', 'Generated']
         })
 
-        st.dataframe(eligible_sessions, use_container_width=True)
+            st.dataframe(eligible_sessions, use_container_width=True)
+        else:
+            st.info("CME sessions view requires pandas.")
 
         # Generate certificate
         if st.button("📜 Generate Certificate", type="primary"):
