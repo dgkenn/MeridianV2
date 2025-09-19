@@ -1,0 +1,1309 @@
+{
+  "target_reached": false,
+  "final_accuracy": 0.8974358974358975,
+  "best_accuracy": 0.8974358974358975,
+  "iterations_completed": 20,
+  "final_patterns": {
+    "CORONARY_ARTERY_DISEASE": {
+      "condition": "CORONARY_ARTERY_DISEASE",
+      "primary_keywords": [
+        "coronary artery disease",
+        "cad",
+        "coronary disease",
+        "heart disease"
+      ],
+      "synonym_groups": [
+        [
+          "cabg",
+          "coronary bypass",
+          "bypass surgery",
+          "cardiac bypass"
+        ],
+        [
+          "myocardial infarction",
+          "mi",
+          "heart attack",
+          "cardiac arrest"
+        ],
+        [
+          "stent",
+          "stenting",
+          "angioplasty",
+          "pci",
+          "cardiac catheterization"
+        ],
+        [
+          "angina",
+          "chest pain",
+          "cardiac pain"
+        ],
+        [
+          "ischemic heart",
+          "ischemic cardiomyopathy",
+          "coronary ischemia"
+        ],
+        [
+          "cardiac",
+          "heart condition",
+          "cardiac disease"
+        ],
+        [
+          "cardiac",
+          "heart condition",
+          "cardiac disease"
+        ],
+        [
+          "cardiac",
+          "heart condition",
+          "cardiac disease"
+        ],
+        [
+          "cardiac",
+          "heart condition",
+          "cardiac disease"
+        ],
+        [
+          "cardiac",
+          "heart condition",
+          "cardiac disease"
+        ],
+        [
+          "cardiac",
+          "heart condition",
+          "cardiac disease"
+        ],
+        [
+          "cardiac",
+          "heart condition",
+          "cardiac disease"
+        ],
+        [
+          "cardiac",
+          "heart condition",
+          "cardiac disease"
+        ],
+        [
+          "cardiac",
+          "heart condition",
+          "cardiac disease"
+        ],
+        [
+          "cardiac",
+          "heart condition",
+          "cardiac disease"
+        ],
+        [
+          "cardiac",
+          "heart condition",
+          "cardiac disease"
+        ]
+      ],
+      "medication_indicators": [
+        "plavix",
+        "clopidogrel",
+        "aspirin",
+        "metoprolol",
+        "atorvastatin",
+        "lipitor"
+      ],
+      "procedure_indicators": [
+        "cabg",
+        "bypass",
+        "stent",
+        "catheterization",
+        "angiogram"
+      ],
+      "negation_patterns": [
+        "no known",
+        "denies",
+        "negative for",
+        "without"
+      ],
+      "context_clues": [
+        "status post",
+        "s/p",
+        "history of",
+        "known",
+        "documented",
+        "chest pain",
+        "cardiac",
+        "heart",
+        "chest pain",
+        "cardiac",
+        "heart",
+        "chest pain",
+        "cardiac",
+        "heart",
+        "chest pain",
+        "cardiac",
+        "heart",
+        "chest pain",
+        "cardiac",
+        "heart",
+        "chest pain",
+        "cardiac",
+        "heart",
+        "chest pain",
+        "cardiac",
+        "heart",
+        "chest pain",
+        "cardiac",
+        "heart",
+        "chest pain",
+        "cardiac",
+        "heart",
+        "chest pain",
+        "cardiac",
+        "heart",
+        "chest pain",
+        "cardiac",
+        "heart"
+      ],
+      "confidence_boost": 1.0,
+      "safety_validated": true
+    },
+    "DIABETES": {
+      "condition": "DIABETES",
+      "primary_keywords": [
+        "diabetes",
+        "diabetic",
+        "dm",
+        "diabetes mellitus"
+      ],
+      "synonym_groups": [
+        [
+          "type 1",
+          "t1dm",
+          "type one",
+          "insulin dependent",
+          "iddm"
+        ],
+        [
+          "type 2",
+          "t2dm",
+          "type two",
+          "adult onset",
+          "niddm"
+        ],
+        [
+          "glucose",
+          "sugar",
+          "glycemic",
+          "hyperglycemia",
+          "hypoglycemia"
+        ],
+        [
+          "hemoglobin a1c",
+          "hba1c",
+          "glycosylated hemoglobin"
+        ],
+        [
+          "blood sugar",
+          "glucose",
+          "diabetic condition"
+        ],
+        [
+          "blood sugar",
+          "glucose",
+          "diabetic condition"
+        ],
+        [
+          "blood sugar",
+          "glucose",
+          "diabetic condition"
+        ],
+        [
+          "blood sugar",
+          "glucose",
+          "diabetic condition"
+        ],
+        [
+          "blood sugar",
+          "glucose",
+          "diabetic condition"
+        ],
+        [
+          "blood sugar",
+          "glucose",
+          "diabetic condition"
+        ],
+        [
+          "blood sugar",
+          "glucose",
+          "diabetic condition"
+        ],
+        [
+          "blood sugar",
+          "glucose",
+          "diabetic condition"
+        ],
+        [
+          "blood sugar",
+          "glucose",
+          "diabetic condition"
+        ],
+        [
+          "blood sugar",
+          "glucose",
+          "diabetic condition"
+        ],
+        [
+          "blood sugar",
+          "glucose",
+          "diabetic condition"
+        ]
+      ],
+      "medication_indicators": [
+        "metformin",
+        "insulin",
+        "glipizide",
+        "glyburide",
+        "lantus",
+        "humalog"
+      ],
+      "procedure_indicators": [
+        "glucose monitoring",
+        "finger stick",
+        "blood sugar"
+      ],
+      "negation_patterns": [
+        "no diabetes",
+        "non-diabetic",
+        "negative for diabetes"
+      ],
+      "context_clues": [
+        "controlled",
+        "uncontrolled",
+        "well controlled",
+        "poorly controlled",
+        "sugar",
+        "glucose",
+        "hemoglobin",
+        "sugar",
+        "glucose",
+        "hemoglobin",
+        "sugar",
+        "glucose",
+        "hemoglobin",
+        "sugar",
+        "glucose",
+        "hemoglobin",
+        "sugar",
+        "glucose",
+        "hemoglobin",
+        "sugar",
+        "glucose",
+        "hemoglobin",
+        "sugar",
+        "glucose",
+        "hemoglobin",
+        "sugar",
+        "glucose",
+        "hemoglobin",
+        "sugar",
+        "glucose",
+        "hemoglobin",
+        "sugar",
+        "glucose",
+        "hemoglobin",
+        "sugar",
+        "glucose",
+        "hemoglobin"
+      ],
+      "confidence_boost": 1.0,
+      "safety_validated": true
+    },
+    "HYPERTENSION": {
+      "condition": "HYPERTENSION",
+      "primary_keywords": [
+        "hypertension",
+        "hypertensive",
+        "htn",
+        "high blood pressure"
+      ],
+      "synonym_groups": [
+        [
+          "blood pressure",
+          "bp",
+          "systolic",
+          "diastolic"
+        ],
+        [
+          "elevated pressure",
+          "high bp",
+          "raised pressure"
+        ],
+        [
+          "essential hypertension",
+          "primary hypertension",
+          "secondary hypertension"
+        ],
+        [
+          "bp",
+          "pressure",
+          "hypertensive condition"
+        ],
+        [
+          "bp",
+          "pressure",
+          "hypertensive condition"
+        ],
+        [
+          "bp",
+          "pressure",
+          "hypertensive condition"
+        ],
+        [
+          "bp",
+          "pressure",
+          "hypertensive condition"
+        ],
+        [
+          "bp",
+          "pressure",
+          "hypertensive condition"
+        ],
+        [
+          "bp",
+          "pressure",
+          "hypertensive condition"
+        ],
+        [
+          "bp",
+          "pressure",
+          "hypertensive condition"
+        ],
+        [
+          "bp",
+          "pressure",
+          "hypertensive condition"
+        ],
+        [
+          "bp",
+          "pressure",
+          "hypertensive condition"
+        ],
+        [
+          "bp",
+          "pressure",
+          "hypertensive condition"
+        ],
+        [
+          "bp",
+          "pressure",
+          "hypertensive condition"
+        ]
+      ],
+      "medication_indicators": [
+        "lisinopril",
+        "amlodipine",
+        "losartan",
+        "metoprolol",
+        "hydrochlorothiazide",
+        "ace inhibitor"
+      ],
+      "procedure_indicators": [
+        "blood pressure monitoring",
+        "bp check"
+      ],
+      "negation_patterns": [
+        "normotensive",
+        "normal blood pressure",
+        "no hypertension"
+      ],
+      "context_clues": [
+        "controlled",
+        "uncontrolled",
+        "managed",
+        "treated",
+        "pressure",
+        "systolic",
+        "diastolic",
+        "pressure",
+        "systolic",
+        "diastolic",
+        "pressure",
+        "systolic",
+        "diastolic",
+        "pressure",
+        "systolic",
+        "diastolic",
+        "pressure",
+        "systolic",
+        "diastolic",
+        "pressure",
+        "systolic",
+        "diastolic",
+        "pressure",
+        "systolic",
+        "diastolic",
+        "pressure",
+        "systolic",
+        "diastolic",
+        "pressure",
+        "systolic",
+        "diastolic",
+        "pressure",
+        "systolic",
+        "diastolic",
+        "pressure",
+        "systolic",
+        "diastolic"
+      ],
+      "confidence_boost": 1.0,
+      "safety_validated": true
+    },
+    "CHRONIC_KIDNEY_DISEASE": {
+      "condition": "CHRONIC_KIDNEY_DISEASE",
+      "primary_keywords": [
+        "chronic kidney disease",
+        "ckd",
+        "renal insufficiency",
+        "kidney disease"
+      ],
+      "synonym_groups": [
+        [
+          "chronic renal failure",
+          "crf",
+          "renal failure"
+        ],
+        [
+          "end stage renal",
+          "esrd",
+          "kidney failure"
+        ],
+        [
+          "stage 3",
+          "stage 4",
+          "stage 5",
+          "stage iii",
+          "stage iv",
+          "stage v"
+        ],
+        [
+          "dialysis",
+          "hemodialysis",
+          "peritoneal dialysis"
+        ]
+      ],
+      "medication_indicators": [
+        "phosphate binder",
+        "epoetin",
+        "calcitriol"
+      ],
+      "procedure_indicators": [
+        "dialysis",
+        "fistula",
+        "catheter",
+        "transplant"
+      ],
+      "negation_patterns": [
+        "normal kidney",
+        "normal renal"
+      ],
+      "context_clues": [
+        "creatinine",
+        "egfr",
+        "bun",
+        "kidney function"
+      ],
+      "confidence_boost": 1.0,
+      "safety_validated": true
+    },
+    "ASTHMA": {
+      "condition": "ASTHMA",
+      "primary_keywords": [
+        "asthma",
+        "asthmatic",
+        "reactive airway"
+      ],
+      "synonym_groups": [
+        [
+          "bronchial asthma",
+          "allergic asthma",
+          "exercise induced asthma"
+        ],
+        [
+          "wheeze",
+          "wheezing",
+          "bronchospasm"
+        ],
+        [
+          "reactive airway disease",
+          "rad",
+          "airway hyperresponsiveness"
+        ]
+      ],
+      "medication_indicators": [
+        "albuterol",
+        "fluticasone",
+        "inhaler",
+        "bronchodilator",
+        "steroid inhaler"
+      ],
+      "procedure_indicators": [
+        "peak flow",
+        "spirometry",
+        "nebulizer"
+      ],
+      "negation_patterns": [
+        "no asthma",
+        "no wheeze"
+      ],
+      "context_clues": [
+        "well controlled",
+        "exacerbation",
+        "attack",
+        "trigger"
+      ],
+      "confidence_boost": 1.0,
+      "safety_validated": true
+    },
+    "OSA": {
+      "condition": "OSA",
+      "primary_keywords": [
+        "sleep apnea",
+        "osa",
+        "obstructive sleep"
+      ],
+      "synonym_groups": [
+        [
+          "obstructive sleep apnea",
+          "sleep disordered breathing"
+        ],
+        [
+          "sleep study",
+          "polysomnography",
+          "ahi",
+          "apnea hypopnea index"
+        ],
+        [
+          "cpap",
+          "bipap",
+          "sleep machine"
+        ]
+      ],
+      "medication_indicators": [],
+      "procedure_indicators": [
+        "sleep study",
+        "cpap",
+        "uvulopalatopharyngoplasty"
+      ],
+      "negation_patterns": [
+        "no sleep apnea",
+        "normal sleep"
+      ],
+      "context_clues": [
+        "snoring",
+        "daytime fatigue",
+        "restless sleep",
+        "witnessed apnea"
+      ],
+      "confidence_boost": 1.0,
+      "safety_validated": true
+    },
+    "RECENT_URI_2W": {
+      "condition": "RECENT_URI_2W",
+      "primary_keywords": [
+        "upper respiratory infection",
+        "uri",
+        "recent cold"
+      ],
+      "synonym_groups": [
+        [
+          "recent infection",
+          "recent illness",
+          "recent cold"
+        ],
+        [
+          "upper respiratory",
+          "viral infection",
+          "rhinitis"
+        ],
+        [
+          "cough",
+          "congestion",
+          "runny nose",
+          "sore throat"
+        ]
+      ],
+      "medication_indicators": [
+        "decongestant",
+        "cough syrup",
+        "antihistamine"
+      ],
+      "procedure_indicators": [],
+      "negation_patterns": [
+        "no recent illness",
+        "no recent infection"
+      ],
+      "context_clues": [
+        "weeks ago",
+        "days ago",
+        "recently",
+        "persistent",
+        "ongoing"
+      ],
+      "confidence_boost": 1.0,
+      "safety_validated": true
+    },
+    "HEART_FAILURE": {
+      "condition": "HEART_FAILURE",
+      "primary_keywords": [
+        "heart failure",
+        "chf",
+        "congestive heart failure"
+      ],
+      "synonym_groups": [
+        [
+          "congestive heart failure",
+          "cardiac failure"
+        ],
+        [
+          "cardiomyopathy",
+          "dilated cardiomyopathy",
+          "ischemic cardiomyopathy"
+        ],
+        [
+          "reduced ejection fraction",
+          "systolic dysfunction",
+          "diastolic dysfunction"
+        ],
+        [
+          "nyha class",
+          "functional class"
+        ]
+      ],
+      "medication_indicators": [
+        "furosemide",
+        "lasix",
+        "ace inhibitor",
+        "beta blocker"
+      ],
+      "procedure_indicators": [
+        "echocardiogram",
+        "echo",
+        "ejection fraction"
+      ],
+      "negation_patterns": [
+        "no heart failure",
+        "normal heart function"
+      ],
+      "context_clues": [
+        "ejection fraction",
+        "shortness of breath",
+        "edema",
+        "fluid retention"
+      ],
+      "confidence_boost": 1.0,
+      "safety_validated": true
+    },
+    "TRAUMA": {
+      "condition": "TRAUMA",
+      "primary_keywords": [
+        "trauma",
+        "accident",
+        "injury"
+      ],
+      "synonym_groups": [
+        [
+          "motor vehicle accident",
+          "mva",
+          "car accident"
+        ],
+        [
+          "motorcycle accident",
+          "bike accident"
+        ],
+        [
+          "fall",
+          "fell",
+          "falling"
+        ],
+        [
+          "blunt trauma",
+          "penetrating trauma"
+        ],
+        [
+          "polytrauma",
+          "multiple trauma"
+        ]
+      ],
+      "medication_indicators": [],
+      "procedure_indicators": [
+        "ct scan",
+        "x-ray",
+        "trauma survey"
+      ],
+      "negation_patterns": [
+        "no trauma",
+        "no injury"
+      ],
+      "context_clues": [
+        "victim",
+        "injured",
+        "emergency",
+        "urgent"
+      ],
+      "confidence_boost": 1.0,
+      "safety_validated": true
+    },
+    "PREECLAMPSIA": {
+      "condition": "PREECLAMPSIA",
+      "primary_keywords": [
+        "preeclampsia",
+        "pre-eclampsia",
+        "severe preeclampsia"
+      ],
+      "synonym_groups": [
+        [
+          "pregnancy induced hypertension",
+          "pih"
+        ],
+        [
+          "gestational hypertension",
+          "pregnancy hypertension"
+        ],
+        [
+          "eclampsia",
+          "hellp syndrome"
+        ]
+      ],
+      "medication_indicators": [
+        "magnesium sulfate",
+        "labetalol",
+        "hydralazine"
+      ],
+      "procedure_indicators": [
+        "delivery",
+        "cesarean",
+        "induction"
+      ],
+      "negation_patterns": [
+        "no preeclampsia",
+        "normotensive pregnancy"
+      ],
+      "context_clues": [
+        "proteinuria",
+        "visual changes",
+        "headache",
+        "elevated bp"
+      ],
+      "confidence_boost": 1.0,
+      "safety_validated": true
+    },
+    "HEAD_INJURY": {
+      "condition": "HEAD_INJURY",
+      "primary_keywords": [
+        "head",
+        "brain"
+      ],
+      "synonym_groups": [
+        [
+          "head trauma",
+          "brain injury"
+        ],
+        [
+          "concussion",
+          "contusion"
+        ]
+      ],
+      "medication_indicators": [],
+      "procedure_indicators": [],
+      "negation_patterns": [
+        "no",
+        "not",
+        "denies",
+        "without"
+      ],
+      "context_clues": [],
+      "confidence_boost": 1.0,
+      "safety_validated": true
+    },
+    "FULL_STOMACH": {
+      "condition": "FULL_STOMACH",
+      "primary_keywords": [
+        "meal",
+        "hours ago"
+      ],
+      "synonym_groups": [
+        [
+          "recent meal",
+          "last meal"
+        ],
+        [
+          "full stomach",
+          "non-fasting"
+        ]
+      ],
+      "medication_indicators": [],
+      "procedure_indicators": [],
+      "negation_patterns": [
+        "no",
+        "not",
+        "denies",
+        "without"
+      ],
+      "context_clues": [],
+      "confidence_boost": 0.9,
+      "safety_validated": true
+    },
+    "DEMENTIA": {
+      "condition": "DEMENTIA",
+      "primary_keywords": [
+        "dementia"
+      ],
+      "synonym_groups": [
+        [
+          "memory problems",
+          "forgetfulness"
+        ],
+        [
+          "confusion",
+          "disorientation"
+        ]
+      ],
+      "medication_indicators": [],
+      "procedure_indicators": [],
+      "negation_patterns": [
+        "no",
+        "not",
+        "denies",
+        "without"
+      ],
+      "context_clues": [],
+      "confidence_boost": 0.9,
+      "safety_validated": true
+    },
+    "ANTICOAGULANTS": {
+      "condition": "ANTICOAGULANTS",
+      "primary_keywords": [
+        "warfarin"
+      ],
+      "synonym_groups": [
+        [
+          "blood thinner",
+          "anticoagulation"
+        ],
+        [
+          "warfarin",
+          "coumadin"
+        ]
+      ],
+      "medication_indicators": [],
+      "procedure_indicators": [],
+      "negation_patterns": [
+        "no",
+        "not",
+        "denies",
+        "without"
+      ],
+      "context_clues": [],
+      "confidence_boost": 0.9,
+      "safety_validated": true
+    },
+    "AGE_VERY_ELDERLY": {
+      "condition": "AGE_VERY_ELDERLY",
+      "primary_keywords": [
+        "89-year-old",
+        "elderly",
+        "very elderly"
+      ],
+      "synonym_groups": [
+        [
+          "octogenarian",
+          "nonagenarian"
+        ],
+        [
+          "advanced age",
+          "geriatric"
+        ],
+        [
+          "80",
+          "81",
+          "82",
+          "83",
+          "84",
+          "85",
+          "86",
+          "87",
+          "88",
+          "89",
+          "90"
+        ]
+      ],
+      "medication_indicators": [],
+      "procedure_indicators": [],
+      "negation_patterns": [],
+      "context_clues": [
+        "frail",
+        "nursing home",
+        "assisted living"
+      ],
+      "confidence_boost": 1.0,
+      "safety_validated": true
+    }
+  },
+  "improvement_history": [
+    {
+      "iteration": 1,
+      "accuracy": 0.7692307692307693,
+      "pattern_count": 15
+    },
+    {
+      "iteration": 2,
+      "accuracy": 0.7948717948717948,
+      "pattern_count": 15
+    },
+    {
+      "iteration": 3,
+      "accuracy": 0.7948717948717948,
+      "pattern_count": 15
+    },
+    {
+      "iteration": 4,
+      "accuracy": 0.7948717948717948,
+      "pattern_count": 15
+    },
+    {
+      "iteration": 5,
+      "accuracy": 0.7948717948717948,
+      "pattern_count": 15
+    },
+    {
+      "iteration": 6,
+      "accuracy": 0.7948717948717948,
+      "pattern_count": 15
+    },
+    {
+      "iteration": 7,
+      "accuracy": 0.8717948717948718,
+      "pattern_count": 15
+    },
+    {
+      "iteration": 8,
+      "accuracy": 0.8717948717948718,
+      "pattern_count": 15
+    },
+    {
+      "iteration": 9,
+      "accuracy": 0.8717948717948718,
+      "pattern_count": 15
+    },
+    {
+      "iteration": 10,
+      "accuracy": 0.8717948717948718,
+      "pattern_count": 15
+    },
+    {
+      "iteration": 11,
+      "accuracy": 0.8974358974358975,
+      "pattern_count": 15
+    },
+    {
+      "iteration": 12,
+      "accuracy": 0.8974358974358975,
+      "pattern_count": 15
+    },
+    {
+      "iteration": 13,
+      "accuracy": 0.8974358974358975,
+      "pattern_count": 15
+    },
+    {
+      "iteration": 14,
+      "accuracy": 0.8974358974358975,
+      "pattern_count": 15
+    },
+    {
+      "iteration": 15,
+      "accuracy": 0.8974358974358975,
+      "pattern_count": 15
+    },
+    {
+      "iteration": 16,
+      "accuracy": 0.8974358974358975,
+      "pattern_count": 15
+    },
+    {
+      "iteration": 17,
+      "accuracy": 0.8974358974358975,
+      "pattern_count": 15
+    },
+    {
+      "iteration": 18,
+      "accuracy": 0.8974358974358975,
+      "pattern_count": 15
+    },
+    {
+      "iteration": 19,
+      "accuracy": 0.8974358974358975,
+      "pattern_count": 15
+    },
+    {
+      "iteration": 20,
+      "accuracy": 0.8974358974358975,
+      "pattern_count": 15
+    }
+  ],
+  "detailed_results": [
+    {
+      "case_id": "AGG001",
+      "expected": [
+        "CHRONIC_KIDNEY_DISEASE",
+        "HYPERTENSION",
+        "DIABETES",
+        "CORONARY_ARTERY_DISEASE"
+      ],
+      "detected": [
+        "CHRONIC_KIDNEY_DISEASE",
+        "HYPERTENSION",
+        "DIABETES",
+        "CORONARY_ARTERY_DISEASE"
+      ],
+      "missed": [],
+      "false_positives": [],
+      "accuracy": 1.0,
+      "correct": 4,
+      "total": 4
+    },
+    {
+      "case_id": "AGG002",
+      "expected": [
+        "ASTHMA",
+        "OSA",
+        "RECENT_URI_2W"
+      ],
+      "detected": [
+        "RECENT_URI_2W",
+        "ASTHMA",
+        "CORONARY_ARTERY_DISEASE",
+        "OSA"
+      ],
+      "missed": [],
+      "false_positives": [
+        "CORONARY_ARTERY_DISEASE"
+      ],
+      "accuracy": 1.0,
+      "correct": 3,
+      "total": 3
+    },
+    {
+      "case_id": "AGG003",
+      "expected": [
+        "PREECLAMPSIA"
+      ],
+      "detected": [
+        "FULL_STOMACH",
+        "HYPERTENSION",
+        "PREECLAMPSIA",
+        "AGE_VERY_ELDERLY",
+        "RECENT_URI_2W"
+      ],
+      "missed": [],
+      "false_positives": [
+        "FULL_STOMACH",
+        "AGE_VERY_ELDERLY",
+        "HYPERTENSION",
+        "RECENT_URI_2W"
+      ],
+      "accuracy": 1.0,
+      "correct": 1,
+      "total": 1
+    },
+    {
+      "case_id": "AGG004",
+      "expected": [
+        "HEAD_INJURY",
+        "FULL_STOMACH",
+        "TRAUMA"
+      ],
+      "detected": [
+        "HEAD_INJURY",
+        "CORONARY_ARTERY_DISEASE",
+        "TRAUMA"
+      ],
+      "missed": [
+        "FULL_STOMACH"
+      ],
+      "false_positives": [
+        "CORONARY_ARTERY_DISEASE"
+      ],
+      "accuracy": 0.6666666666666666,
+      "correct": 2,
+      "total": 3
+    },
+    {
+      "case_id": "AGG005",
+      "expected": [
+        "CHRONIC_KIDNEY_DISEASE",
+        "ANTICOAGULANTS",
+        "DEMENTIA",
+        "AGE_VERY_ELDERLY",
+        "HEART_FAILURE"
+      ],
+      "detected": [
+        "AGE_VERY_ELDERLY",
+        "CHRONIC_KIDNEY_DISEASE",
+        "CORONARY_ARTERY_DISEASE",
+        "HEART_FAILURE"
+      ],
+      "missed": [
+        "ANTICOAGULANTS",
+        "DEMENTIA"
+      ],
+      "false_positives": [
+        "CORONARY_ARTERY_DISEASE"
+      ],
+      "accuracy": 0.6,
+      "correct": 3,
+      "total": 5
+    },
+    {
+      "case_id": "AGG006",
+      "expected": [
+        "CHRONIC_KIDNEY_DISEASE",
+        "HYPERTENSION",
+        "DIABETES",
+        "CORONARY_ARTERY_DISEASE"
+      ],
+      "detected": [
+        "CHRONIC_KIDNEY_DISEASE",
+        "HYPERTENSION",
+        "DIABETES",
+        "CORONARY_ARTERY_DISEASE"
+      ],
+      "missed": [],
+      "false_positives": [],
+      "accuracy": 1.0,
+      "correct": 4,
+      "total": 4
+    },
+    {
+      "case_id": "AGG007",
+      "expected": [
+        "ASTHMA",
+        "OSA",
+        "RECENT_URI_2W"
+      ],
+      "detected": [
+        "RECENT_URI_2W",
+        "ASTHMA",
+        "OSA"
+      ],
+      "missed": [],
+      "false_positives": [],
+      "accuracy": 1.0,
+      "correct": 3,
+      "total": 3
+    },
+    {
+      "case_id": "AGG008",
+      "expected": [
+        "PREECLAMPSIA"
+      ],
+      "detected": [
+        "HEAD_INJURY",
+        "FULL_STOMACH",
+        "HYPERTENSION",
+        "PREECLAMPSIA",
+        "RECENT_URI_2W"
+      ],
+      "missed": [],
+      "false_positives": [
+        "HEAD_INJURY",
+        "FULL_STOMACH",
+        "HYPERTENSION",
+        "RECENT_URI_2W"
+      ],
+      "accuracy": 1.0,
+      "correct": 1,
+      "total": 1
+    },
+    {
+      "case_id": "AGG009",
+      "expected": [
+        "HEAD_INJURY",
+        "FULL_STOMACH",
+        "TRAUMA"
+      ],
+      "detected": [
+        "HEAD_INJURY",
+        "FULL_STOMACH",
+        "TRAUMA",
+        "RECENT_URI_2W"
+      ],
+      "missed": [],
+      "false_positives": [
+        "RECENT_URI_2W"
+      ],
+      "accuracy": 1.0,
+      "correct": 3,
+      "total": 3
+    },
+    {
+      "case_id": "AGG010",
+      "expected": [
+        "CHRONIC_KIDNEY_DISEASE",
+        "ANTICOAGULANTS",
+        "DEMENTIA",
+        "AGE_VERY_ELDERLY",
+        "HEART_FAILURE"
+      ],
+      "detected": [
+        "CHRONIC_KIDNEY_DISEASE",
+        "ANTICOAGULANTS",
+        "DEMENTIA",
+        "AGE_VERY_ELDERLY",
+        "CORONARY_ARTERY_DISEASE",
+        "HEART_FAILURE"
+      ],
+      "missed": [],
+      "false_positives": [
+        "CORONARY_ARTERY_DISEASE"
+      ],
+      "accuracy": 1.0,
+      "correct": 5,
+      "total": 5
+    },
+    {
+      "case_id": "AGG011",
+      "expected": [
+        "CHRONIC_KIDNEY_DISEASE",
+        "HYPERTENSION",
+        "DIABETES",
+        "CORONARY_ARTERY_DISEASE"
+      ],
+      "detected": [
+        "CHRONIC_KIDNEY_DISEASE",
+        "HYPERTENSION",
+        "DIABETES",
+        "CORONARY_ARTERY_DISEASE"
+      ],
+      "missed": [],
+      "false_positives": [],
+      "accuracy": 1.0,
+      "correct": 4,
+      "total": 4
+    },
+    {
+      "case_id": "AGG012",
+      "expected": [
+        "ASTHMA",
+        "OSA",
+        "RECENT_URI_2W"
+      ],
+      "detected": [
+        "ASTHMA",
+        "RECENT_URI_2W"
+      ],
+      "missed": [
+        "OSA"
+      ],
+      "false_positives": [],
+      "accuracy": 0.6666666666666666,
+      "correct": 2,
+      "total": 3
+    }
+  ]
+}

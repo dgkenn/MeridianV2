@@ -1,0 +1,433 @@
+{
+  "target_reached": false,
+  "final_accuracy": 0.6896551724137931,
+  "best_accuracy": 0.6896551724137931,
+  "iterations_completed": 2,
+  "final_patterns": {
+    "CORONARY_ARTERY_DISEASE": {
+      "condition": "CORONARY_ARTERY_DISEASE",
+      "primary_pattern": "\\b(?:coronary artery disease|cad|coronary disease)\\b",
+      "synonym_patterns": [
+        "\\bcabg\\b",
+        "\\bcoronary bypass\\b",
+        "\\bheart attack\\b",
+        "\\bmyocardial infarction\\b",
+        "\\bmi\\b",
+        "\\bangina\\b",
+        "\\bstent(?:s|ed|ing)?\\b",
+        "\\bangioplasty\\b",
+        "\\bischemic heart\\b"
+      ],
+      "context_patterns": [
+        "\\bstatus post cabg\\b",
+        "\\bs/p cabg\\b",
+        "\\bpost cabg\\b",
+        "\\bhistory of cabg\\b",
+        "\\bheart disease\\b"
+      ],
+      "negation_awareness": true,
+      "confidence_score": 0.9,
+      "safety_validated": true
+    },
+    "DIABETES": {
+      "condition": "DIABETES",
+      "primary_pattern": "\\b(?:diabetes|diabetic|dm)\\b",
+      "synonym_patterns": [
+        "\\btype 1 diabetes\\b",
+        "\\btype 2 diabetes\\b",
+        "\\bt1dm\\b",
+        "\\bt2dm\\b",
+        "\\bdiabetes mellitus\\b",
+        "\\binsulin dependent\\b",
+        "\\bniddm\\b",
+        "\\biddm\\b"
+      ],
+      "context_patterns": [
+        "\\bon metformin\\b",
+        "\\bon insulin\\b",
+        "\\bdiabetic on\\b",
+        "\\bglucose control\\b",
+        "\\bhemoglobin a1c\\b",
+        "\\bhba1c\\b"
+      ],
+      "negation_awareness": true,
+      "confidence_score": 0.9,
+      "safety_validated": true
+    },
+    "HYPERTENSION": {
+      "condition": "HYPERTENSION",
+      "primary_pattern": "\\b(?:hypertension|hypertensive|htn)\\b",
+      "synonym_patterns": [
+        "\\bhigh blood pressure\\b",
+        "\\bhbp\\b",
+        "\\bhypertensive disease\\b",
+        "\\belevated blood pressure\\b",
+        "\\bbp elevation\\b"
+      ],
+      "context_patterns": [
+        "\\bon lisinopril\\b",
+        "\\bon amlodipine\\b",
+        "\\bon losartan\\b",
+        "\\bon metoprolol\\b",
+        "\\bblood pressure control\\b",
+        "\\banti-hypertensive\\b"
+      ],
+      "negation_awareness": true,
+      "confidence_score": 0.9,
+      "safety_validated": true
+    },
+    "CHRONIC_KIDNEY_DISEASE": {
+      "condition": "CHRONIC_KIDNEY_DISEASE",
+      "primary_pattern": "\\b(?:chronic kidney disease|ckd|renal insufficiency)\\b",
+      "synonym_patterns": [
+        "\\bchronic renal failure\\b",
+        "\\bkidney disease\\b",
+        "\\brenal disease\\b",
+        "\\besrd\\b",
+        "\\bend stage renal\\b",
+        "\\bstage \\d+ kidney\\b",
+        "\\bstage \\d+ ckd\\b",
+        "\\bkidney\\b"
+      ],
+      "context_patterns": [
+        "\\bon dialysis\\b",
+        "\\bhemodialysis\\b",
+        "\\bperitoneal dialysis\\b",
+        "\\bcreatinine\\b",
+        "\\begfr\\b",
+        "\\bkidney function\\b"
+      ],
+      "negation_awareness": true,
+      "confidence_score": 0.9,
+      "safety_validated": true
+    },
+    "ASTHMA": {
+      "condition": "ASTHMA",
+      "primary_pattern": "\\b(?:asthma|asthmatic)\\b",
+      "synonym_patterns": [
+        "\\breactive airway\\b",
+        "\\bbronchial asthma\\b",
+        "\\bwheez(?:e|ing)\\b",
+        "\\bbronchospasm\\b",
+        "\\bairway hyperresponsiveness\\b"
+      ],
+      "context_patterns": [
+        "\\bon albuterol\\b",
+        "\\bon inhaler\\b",
+        "\\bfluticasone\\b",
+        "\\bbronchodilator\\b",
+        "\\binhaled steroid\\b",
+        "\\bpeak flow\\b"
+      ],
+      "negation_awareness": true,
+      "confidence_score": 0.9,
+      "safety_validated": true
+    },
+    "OSA": {
+      "condition": "OSA",
+      "primary_pattern": "\\b(?:sleep apnea|osa|obstructive sleep)\\b",
+      "synonym_patterns": [
+        "\\bobstructive sleep apnea\\b",
+        "\\bsleep disordered breathing\\b",
+        "\\bsleep study\\b",
+        "\\bahi\\b",
+        "\\bapnea hypopnea index\\b"
+      ],
+      "context_patterns": [
+        "\\bcpap\\b",
+        "\\bbipap\\b",
+        "\\bsnoring\\b",
+        "\\brestless sleep\\b",
+        "\\bdaytime fatigue\\b"
+      ],
+      "negation_awareness": true,
+      "confidence_score": 0.9,
+      "safety_validated": true
+    },
+    "RECENT_URI_2W": {
+      "condition": "RECENT_URI_2W",
+      "primary_pattern": "\\b(?:upper respiratory infection|uri|recent (?:cold|infection))\\b",
+      "synonym_patterns": [
+        "\\bupper respiratory\\b",
+        "\\brecent illness\\b",
+        "\\brecent cold\\b",
+        "\\brecent cough\\b",
+        "\\brecent congestion\\b",
+        "\\brecent runny nose\\b"
+      ],
+      "context_patterns": [
+        "\\b(?:1|2|one|two) weeks? ago\\b",
+        "\\brecent.*(?:weeks?|days?)\\b",
+        "\\bpersistent cough\\b",
+        "\\bclear discharge\\b"
+      ],
+      "negation_awareness": true,
+      "confidence_score": 0.8,
+      "safety_validated": true
+    },
+    "HEART_FAILURE": {
+      "condition": "HEART_FAILURE",
+      "primary_pattern": "\\b(?:heart failure|chf|congestive)\\b",
+      "synonym_patterns": [
+        "\\bcongestive heart failure\\b",
+        "\\bcardiomyopathy\\b",
+        "\\breduced ejection fraction\\b",
+        "\\bsystolic dysfunction\\b",
+        "\\bdiastolic dysfunction\\b",
+        "\\bef \\d+%\\b"
+      ],
+      "context_patterns": [
+        "\\bnyha class\\b",
+        "\\bejection fraction\\b",
+        "\\bshortness of breath\\b",
+        "\\bedema\\b",
+        "\\borthopnea\\b"
+      ],
+      "negation_awareness": true,
+      "confidence_score": 0.9,
+      "safety_validated": true
+    },
+    "TRAUMA": {
+      "condition": "TRAUMA",
+      "primary_pattern": "\\b(?:trauma|accident|injury)\\b",
+      "synonym_patterns": [
+        "\\bmotor vehicle accident\\b",
+        "\\bmva\\b",
+        "\\bfall\\b",
+        "\\binjured\\b",
+        "\\bblunt trauma\\b",
+        "\\bpenetrating trauma\\b",
+        "\\bmotorcycle accident\\b"
+      ],
+      "context_patterns": [
+        "\\bvictim\\b",
+        "\\bemergent\\b",
+        "\\bemergency\\b",
+        "\\btrauma patient\\b"
+      ],
+      "negation_awareness": true,
+      "confidence_score": 0.9,
+      "safety_validated": true
+    },
+    "PREECLAMPSIA": {
+      "condition": "PREECLAMPSIA",
+      "primary_pattern": "\\b(?:preeclampsia|pre-eclampsia)\\b",
+      "synonym_patterns": [
+        "\\bsevere preeclampsia\\b",
+        "\\bpregnancy hypertension\\b",
+        "\\bpregnancy induced hypertension\\b",
+        "\\bpih\\b",
+        "\\beclampsia\\b"
+      ],
+      "context_patterns": [
+        "\\bproteinuria\\b",
+        "\\bvisual changes\\b",
+        "\\bheadache\\b",
+        "\\bblood pressure.*pregnancy\\b"
+      ],
+      "negation_awareness": true,
+      "confidence_score": 0.9,
+      "safety_validated": true
+    }
+  },
+  "improvement_history": [
+    {
+      "iteration": 1,
+      "accuracy": 0.6551724137931034,
+      "patterns_count": 10
+    },
+    {
+      "iteration": 2,
+      "accuracy": 0.6896551724137931,
+      "patterns_count": 10
+    }
+  ],
+  "detailed_final_results": [
+    {
+      "case_id": "EPI001",
+      "expected": [
+        "CHRONIC_KIDNEY_DISEASE",
+        "DIABETES",
+        "CORONARY_ARTERY_DISEASE",
+        "HYPERTENSION"
+      ],
+      "detected": [
+        "DIABETES",
+        "CORONARY_ARTERY_DISEASE",
+        "HYPERTENSION"
+      ],
+      "missed": [
+        "CHRONIC_KIDNEY_DISEASE"
+      ],
+      "false_positives": [],
+      "accuracy": 0.75,
+      "correct": 3,
+      "total": 4
+    },
+    {
+      "case_id": "EPI002",
+      "expected": [
+        "OSA",
+        "ASTHMA",
+        "RECENT_URI_2W"
+      ],
+      "detected": [
+        "OSA",
+        "ASTHMA",
+        "RECENT_URI_2W"
+      ],
+      "missed": [],
+      "false_positives": [],
+      "accuracy": 1.0,
+      "correct": 3,
+      "total": 3
+    },
+    {
+      "case_id": "EPI003",
+      "expected": [
+        "PREECLAMPSIA"
+      ],
+      "detected": [
+        "TRAUMA",
+        "PREECLAMPSIA"
+      ],
+      "missed": [],
+      "false_positives": [
+        "TRAUMA"
+      ],
+      "accuracy": 1.0,
+      "correct": 1,
+      "total": 1
+    },
+    {
+      "case_id": "EPI004",
+      "expected": [
+        "FULL_STOMACH",
+        "TRAUMA",
+        "HEAD_INJURY"
+      ],
+      "detected": [
+        "TRAUMA"
+      ],
+      "missed": [
+        "FULL_STOMACH",
+        "HEAD_INJURY"
+      ],
+      "false_positives": [],
+      "accuracy": 0.3333333333333333,
+      "correct": 1,
+      "total": 3
+    },
+    {
+      "case_id": "EPI005",
+      "expected": [
+        "CHRONIC_KIDNEY_DISEASE",
+        "DEMENTIA",
+        "AGE_VERY_ELDERLY",
+        "HEART_FAILURE",
+        "ANTICOAGULANTS"
+      ],
+      "detected": [
+        "CHRONIC_KIDNEY_DISEASE",
+        "HEART_FAILURE"
+      ],
+      "missed": [
+        "DEMENTIA",
+        "ANTICOAGULANTS",
+        "AGE_VERY_ELDERLY"
+      ],
+      "false_positives": [],
+      "accuracy": 0.4,
+      "correct": 2,
+      "total": 5
+    },
+    {
+      "case_id": "EPI006",
+      "expected": [
+        "DIABETES",
+        "CORONARY_ARTERY_DISEASE",
+        "HYPERTENSION"
+      ],
+      "detected": [
+        "DIABETES",
+        "CORONARY_ARTERY_DISEASE",
+        "HYPERTENSION"
+      ],
+      "missed": [],
+      "false_positives": [],
+      "accuracy": 1.0,
+      "correct": 3,
+      "total": 3
+    },
+    {
+      "case_id": "EPI007",
+      "expected": [
+        "OSA",
+        "ASTHMA",
+        "RECENT_URI_2W"
+      ],
+      "detected": [
+        "OSA",
+        "ASTHMA",
+        "RECENT_URI_2W"
+      ],
+      "missed": [],
+      "false_positives": [],
+      "accuracy": 1.0,
+      "correct": 3,
+      "total": 3
+    },
+    {
+      "case_id": "EPI008",
+      "expected": [
+        "PREECLAMPSIA"
+      ],
+      "detected": [
+        "PREECLAMPSIA"
+      ],
+      "missed": [],
+      "false_positives": [],
+      "accuracy": 1.0,
+      "correct": 1,
+      "total": 1
+    },
+    {
+      "case_id": "EPI009",
+      "expected": [
+        "TRAUMA",
+        "HEAD_INJURY"
+      ],
+      "detected": [
+        "TRAUMA"
+      ],
+      "missed": [
+        "HEAD_INJURY"
+      ],
+      "false_positives": [],
+      "accuracy": 0.5,
+      "correct": 1,
+      "total": 2
+    },
+    {
+      "case_id": "EPI010",
+      "expected": [
+        "DEMENTIA",
+        "ANTICOAGULANTS",
+        "CHRONIC_KIDNEY_DISEASE",
+        "HEART_FAILURE"
+      ],
+      "detected": [
+        "CHRONIC_KIDNEY_DISEASE",
+        "HEART_FAILURE"
+      ],
+      "missed": [
+        "DEMENTIA",
+        "ANTICOAGULANTS"
+      ],
+      "false_positives": [],
+      "accuracy": 0.5,
+      "correct": 2,
+      "total": 4
+    }
+  ]
+}

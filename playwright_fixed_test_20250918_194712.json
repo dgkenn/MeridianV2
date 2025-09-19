@@ -1,0 +1,93 @@
+{
+  "timestamp": "2025-09-18T19:47:12.165944",
+  "overall_accuracy": 0.48333333333333334,
+  "perfect_cases": 1,
+  "total_cases": 4,
+  "target_achieved": false,
+  "detailed_results": [
+    {
+      "case_name": "Comprehensive Cardiac Case",
+      "expected": [
+        "CHRONIC_KIDNEY_DISEASE",
+        "CORONARY_ARTERY_DISEASE",
+        "DIABETES",
+        "HYPERTENSION"
+      ],
+      "detected": [
+        "CHRONIC_KIDNEY_DISEASE",
+        "CORONARY_ARTERY_DISEASE",
+        "DIABETES",
+        "HYPERTENSION"
+      ],
+      "missed": [],
+      "false_positives": [],
+      "accuracy": 1.0,
+      "correct": 4,
+      "total": 4,
+      "result_text": "<!DOCTYPE html><html lang=\"en\"><head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Meridian - Perioperative Intelligence Platform</title>\n    <link href=\"https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap\" rel=\"stylesheet\">\n    <style>\n        * { box-sizing: border-box; margin: 0; padding: 0; }\n        body {\n            font-family: 'Inter', sans-serif;\n            background: linear-gradi"
+    },
+    {
+      "case_name": "Emergency Trauma Case",
+      "expected": [
+        "HEAD_INJURY",
+        "TRAUMA",
+        "FULL_STOMACH"
+      ],
+      "detected": [],
+      "missed": [
+        "HEAD_INJURY",
+        "TRAUMA",
+        "FULL_STOMACH"
+      ],
+      "false_positives": [],
+      "accuracy": 0.0,
+      "correct": 0,
+      "total": 3,
+      "result_text": "<!DOCTYPE html><html lang=\"en\"><head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Meridian - Perioperative Intelligence Platform</title>\n    <link href=\"https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap\" rel=\"stylesheet\">\n    <style>\n        * { box-sizing: border-box; margin: 0; padding: 0; }\n        body {\n            font-family: 'Inter', sans-serif;\n            background: linear-gradi"
+    },
+    {
+      "case_name": "Elderly Complex Case",
+      "expected": [
+        "AGE_VERY_ELDERLY",
+        "ANTICOAGULANTS",
+        "HEART_FAILURE",
+        "DEMENTIA",
+        "CHRONIC_KIDNEY_DISEASE"
+      ],
+      "detected": [
+        "CHRONIC_KIDNEY_DISEASE",
+        "HEART_FAILURE",
+        "DEMENTIA"
+      ],
+      "missed": [
+        "ANTICOAGULANTS",
+        "AGE_VERY_ELDERLY"
+      ],
+      "false_positives": [],
+      "accuracy": 0.6,
+      "correct": 3,
+      "total": 5,
+      "result_text": "<!DOCTYPE html><html lang=\"en\"><head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Meridian - Perioperative Intelligence Platform</title>\n    <link href=\"https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap\" rel=\"stylesheet\">\n    <style>\n        * { box-sizing: border-box; margin: 0; padding: 0; }\n        body {\n            font-family: 'Inter', sans-serif;\n            background: linear-gradi"
+    },
+    {
+      "case_name": "Breakthrough Pattern Test",
+      "expected": [
+        "OSA",
+        "RECENT_URI_2W",
+        "ASTHMA"
+      ],
+      "detected": [
+        "ASTHMA"
+      ],
+      "missed": [
+        "RECENT_URI_2W",
+        "OSA"
+      ],
+      "false_positives": [],
+      "accuracy": 0.3333333333333333,
+      "correct": 1,
+      "total": 3,
+      "result_text": "<!DOCTYPE html><html lang=\"en\"><head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Meridian - Perioperative Intelligence Platform</title>\n    <link href=\"https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap\" rel=\"stylesheet\">\n    <style>\n        * { box-sizing: border-box; margin: 0; padding: 0; }\n        body {\n            font-family: 'Inter', sans-serif;\n            background: linear-gradi"
+    }
+  ]
+}

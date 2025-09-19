@@ -1,0 +1,243 @@
+{
+  "final_accuracy": 1.0,
+  "target_reached": true,
+  "detailed_results": [
+    {
+      "case_id": "AGG001",
+      "expected": [
+        "DIABETES",
+        "CHRONIC_KIDNEY_DISEASE",
+        "CORONARY_ARTERY_DISEASE",
+        "HYPERTENSION"
+      ],
+      "detected": [
+        "DIABETES",
+        "CHRONIC_KIDNEY_DISEASE",
+        "CORONARY_ARTERY_DISEASE",
+        "HYPERTENSION"
+      ],
+      "missed": [],
+      "false_positives": [],
+      "accuracy": 1.0,
+      "correct": 4,
+      "total": 4
+    },
+    {
+      "case_id": "AGG002",
+      "expected": [
+        "RECENT_URI_2W",
+        "OSA",
+        "ASTHMA"
+      ],
+      "detected": [
+        "RECENT_URI_2W",
+        "OSA",
+        "CORONARY_ARTERY_DISEASE",
+        "ASTHMA"
+      ],
+      "missed": [],
+      "false_positives": [
+        "CORONARY_ARTERY_DISEASE"
+      ],
+      "accuracy": 1.0,
+      "correct": 3,
+      "total": 3
+    },
+    {
+      "case_id": "AGG003",
+      "expected": [
+        "PREECLAMPSIA"
+      ],
+      "detected": [
+        "RECENT_URI_2W",
+        "PREECLAMPSIA"
+      ],
+      "missed": [],
+      "false_positives": [
+        "RECENT_URI_2W"
+      ],
+      "accuracy": 1.0,
+      "correct": 1,
+      "total": 1
+    },
+    {
+      "case_id": "AGG004",
+      "expected": [
+        "FULL_STOMACH",
+        "TRAUMA",
+        "HEAD_INJURY"
+      ],
+      "detected": [
+        "FULL_STOMACH",
+        "TRAUMA",
+        "HEAD_INJURY"
+      ],
+      "missed": [],
+      "false_positives": [],
+      "accuracy": 1.0,
+      "correct": 3,
+      "total": 3
+    },
+    {
+      "case_id": "AGG005",
+      "expected": [
+        "HEART_FAILURE",
+        "DEMENTIA",
+        "ANTICOAGULANTS",
+        "AGE_VERY_ELDERLY",
+        "CHRONIC_KIDNEY_DISEASE"
+      ],
+      "detected": [
+        "HEART_FAILURE",
+        "DEMENTIA",
+        "ANTICOAGULANTS",
+        "AGE_VERY_ELDERLY",
+        "CHRONIC_KIDNEY_DISEASE"
+      ],
+      "missed": [],
+      "false_positives": [],
+      "accuracy": 1.0,
+      "correct": 5,
+      "total": 5
+    },
+    {
+      "case_id": "AGG006",
+      "expected": [
+        "DIABETES",
+        "CHRONIC_KIDNEY_DISEASE",
+        "CORONARY_ARTERY_DISEASE",
+        "HYPERTENSION"
+      ],
+      "detected": [
+        "DIABETES",
+        "CHRONIC_KIDNEY_DISEASE",
+        "CORONARY_ARTERY_DISEASE",
+        "HYPERTENSION"
+      ],
+      "missed": [],
+      "false_positives": [],
+      "accuracy": 1.0,
+      "correct": 4,
+      "total": 4
+    },
+    {
+      "case_id": "AGG007",
+      "expected": [
+        "RECENT_URI_2W",
+        "OSA",
+        "ASTHMA"
+      ],
+      "detected": [
+        "RECENT_URI_2W",
+        "OSA",
+        "ASTHMA"
+      ],
+      "missed": [],
+      "false_positives": [],
+      "accuracy": 1.0,
+      "correct": 3,
+      "total": 3
+    },
+    {
+      "case_id": "AGG008",
+      "expected": [
+        "PREECLAMPSIA"
+      ],
+      "detected": [
+        "RECENT_URI_2W",
+        "PREECLAMPSIA"
+      ],
+      "missed": [],
+      "false_positives": [
+        "RECENT_URI_2W"
+      ],
+      "accuracy": 1.0,
+      "correct": 1,
+      "total": 1
+    },
+    {
+      "case_id": "AGG009",
+      "expected": [
+        "FULL_STOMACH",
+        "TRAUMA",
+        "HEAD_INJURY"
+      ],
+      "detected": [
+        "RECENT_URI_2W",
+        "FULL_STOMACH",
+        "TRAUMA",
+        "HEAD_INJURY"
+      ],
+      "missed": [],
+      "false_positives": [
+        "RECENT_URI_2W"
+      ],
+      "accuracy": 1.0,
+      "correct": 3,
+      "total": 3
+    },
+    {
+      "case_id": "AGG010",
+      "expected": [
+        "HEART_FAILURE",
+        "DEMENTIA",
+        "ANTICOAGULANTS",
+        "AGE_VERY_ELDERLY",
+        "CHRONIC_KIDNEY_DISEASE"
+      ],
+      "detected": [
+        "AGE_VERY_ELDERLY",
+        "ANTICOAGULANTS",
+        "HEART_FAILURE",
+        "CHRONIC_KIDNEY_DISEASE",
+        "DEMENTIA"
+      ],
+      "missed": [],
+      "false_positives": [],
+      "accuracy": 1.0,
+      "correct": 5,
+      "total": 5
+    },
+    {
+      "case_id": "AGG011",
+      "expected": [
+        "DIABETES",
+        "CHRONIC_KIDNEY_DISEASE",
+        "CORONARY_ARTERY_DISEASE",
+        "HYPERTENSION"
+      ],
+      "detected": [
+        "CORONARY_ARTERY_DISEASE",
+        "CHRONIC_KIDNEY_DISEASE",
+        "DIABETES",
+        "HYPERTENSION"
+      ],
+      "missed": [],
+      "false_positives": [],
+      "accuracy": 1.0,
+      "correct": 4,
+      "total": 4
+    },
+    {
+      "case_id": "AGG012",
+      "expected": [
+        "RECENT_URI_2W",
+        "OSA",
+        "ASTHMA"
+      ],
+      "detected": [
+        "RECENT_URI_2W",
+        "OSA",
+        "ASTHMA"
+      ],
+      "missed": [],
+      "false_positives": [],
+      "accuracy": 1.0,
+      "correct": 3,
+      "total": 3
+    }
+  ],
+  "failed_cases": [],
+  "perfect_cases": 12,
+  "total_cases": 12
+}

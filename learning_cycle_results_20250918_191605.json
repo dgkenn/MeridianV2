@@ -1,0 +1,331 @@
+{
+  "timestamp": "2025-09-18T19:16:05.270238",
+  "failures_analyzed": 17,
+  "improvement_plan": {
+    "timestamp": "2025-09-18T19:16:05.270238",
+    "total_failures": 17,
+    "safety_critical_count": 6,
+    "priority_order": [
+      "critical_safety",
+      "parsing_accuracy",
+      "medication_accuracy"
+    ],
+    "detailed_improvements": {
+      "critical_safety": {
+        "description": "Address critical safety violations immediately",
+        "failures": [
+          {
+            "case_id": "ATC017",
+            "failure_type": "medication",
+            "expected": [],
+            "actual": [
+              "consider",
+              "contraindicated",
+              "draw_now",
+              "standard"
+            ],
+            "severity": "critical",
+            "safety_impact": true,
+            "improvement_suggestions": [
+              "Improve contraindication detection algorithms",
+              "Enhance specialized medication recommendations",
+              "Validate all medication recommendations against patient conditions",
+              "Ensure drug interaction checking is comprehensive"
+            ]
+          },
+          {
+            "case_id": "ATC017",
+            "failure_type": "safety",
+            "expected": [],
+            "actual": [
+              "Complex case with no drug interaction warnings"
+            ],
+            "severity": "critical",
+            "safety_impact": true,
+            "improvement_suggestions": [
+              "Improve drug interaction detection",
+              "Implement additional safety checkpoints",
+              "Add more comprehensive safety validation rules"
+            ]
+          },
+          {
+            "case_id": "ATC036",
+            "failure_type": "medication",
+            "expected": [],
+            "actual": [
+              "consider",
+              "contraindicated",
+              "draw_now",
+              "standard"
+            ],
+            "severity": "critical",
+            "safety_impact": true,
+            "improvement_suggestions": [
+              "Improve contraindication detection algorithms",
+              "Enhance specialized medication recommendations",
+              "Validate all medication recommendations against patient conditions",
+              "Ensure drug interaction checking is comprehensive"
+            ]
+          },
+          {
+            "case_id": "ATC036",
+            "failure_type": "safety",
+            "expected": [],
+            "actual": [
+              "Complex case with no drug interaction warnings"
+            ],
+            "severity": "critical",
+            "safety_impact": true,
+            "improvement_suggestions": [
+              "Improve drug interaction detection",
+              "Implement additional safety checkpoints",
+              "Add more comprehensive safety validation rules"
+            ]
+          },
+          {
+            "case_id": "ATC051",
+            "failure_type": "medication",
+            "expected": [],
+            "actual": [
+              "consider",
+              "contraindicated",
+              "draw_now",
+              "standard"
+            ],
+            "severity": "critical",
+            "safety_impact": true,
+            "improvement_suggestions": [
+              "Improve contraindication detection algorithms",
+              "Enhance specialized medication recommendations",
+              "Validate all medication recommendations against patient conditions",
+              "Ensure drug interaction checking is comprehensive"
+            ]
+          },
+          {
+            "case_id": "ATC051",
+            "failure_type": "safety",
+            "expected": [],
+            "actual": [
+              "Complex case with no drug interaction warnings"
+            ],
+            "severity": "critical",
+            "safety_impact": true,
+            "improvement_suggestions": [
+              "Improve drug interaction detection",
+              "Implement additional safety checkpoints",
+              "Add more comprehensive safety validation rules"
+            ]
+          }
+        ],
+        "actions": [
+          "Implement additional validation checkpoints",
+          "Add more contraindication rules",
+          "Enhance drug interaction database",
+          "Improve pediatric safety protocols",
+          "Add emergency protocol validation",
+          "Implement safety constraint testing"
+        ],
+        "estimated_effort": "High",
+        "timeline": "Immediate"
+      },
+      "parsing_accuracy": {
+        "description": "Improve medical condition parsing accuracy",
+        "failures": [
+          {
+            "case_id": "ATC036",
+            "failure_type": "parsing",
+            "expected": [],
+            "actual": [
+              "PREMATURITY",
+              "PREGNANCY"
+            ],
+            "severity": "high",
+            "safety_impact": false,
+            "improvement_suggestions": [
+              "Improve specificity to avoid false positives: PREMATURITY, PREGNANCY"
+            ]
+          },
+          {
+            "case_id": "ATC051",
+            "failure_type": "parsing",
+            "expected": [],
+            "actual": [],
+            "severity": "high",
+            "safety_impact": false,
+            "improvement_suggestions": []
+          },
+          {
+            "case_id": "ATC076",
+            "failure_type": "parsing",
+            "expected": [],
+            "actual": [
+              "DIABETES",
+              "HYPERTENSION",
+              "CHRONIC_KIDNEY_DISEASE"
+            ],
+            "severity": "high",
+            "safety_impact": false,
+            "improvement_suggestions": [
+              "Improve specificity to avoid false positives: DIABETES, HYPERTENSION, CHRONIC_KIDNEY_DISEASE"
+            ]
+          }
+        ],
+        "actions": [
+          "Expand medical terminology database",
+          "Improve synonym recognition",
+          "Add context-aware parsing",
+          "Enhance negation detection"
+        ],
+        "estimated_effort": "Medium",
+        "timeline": "1-2 weeks"
+      },
+      "medication_accuracy": {
+        "description": "Enhance medication recommendation engine",
+        "failures": [
+          {
+            "case_id": "ATC001",
+            "failure_type": "medication",
+            "expected": [],
+            "actual": [
+              "consider",
+              "contraindicated",
+              "draw_now",
+              "standard"
+            ],
+            "severity": "high",
+            "safety_impact": false,
+            "improvement_suggestions": [
+              "Enhance specialized medication recommendations",
+              "Validate all medication recommendations against patient conditions",
+              "Ensure drug interaction checking is comprehensive"
+            ]
+          },
+          {
+            "case_id": "ATC002",
+            "failure_type": "medication",
+            "expected": [],
+            "actual": [
+              "consider",
+              "contraindicated",
+              "draw_now",
+              "standard"
+            ],
+            "severity": "high",
+            "safety_impact": false,
+            "improvement_suggestions": [
+              "Validate all medication recommendations against patient conditions",
+              "Ensure drug interaction checking is comprehensive"
+            ]
+          },
+          {
+            "case_id": "ATC017",
+            "failure_type": "medication",
+            "expected": [],
+            "actual": [
+              "consider",
+              "contraindicated",
+              "draw_now",
+              "standard"
+            ],
+            "severity": "critical",
+            "safety_impact": true,
+            "improvement_suggestions": [
+              "Improve contraindication detection algorithms",
+              "Enhance specialized medication recommendations",
+              "Validate all medication recommendations against patient conditions",
+              "Ensure drug interaction checking is comprehensive"
+            ]
+          },
+          {
+            "case_id": "ATC036",
+            "failure_type": "medication",
+            "expected": [],
+            "actual": [
+              "consider",
+              "contraindicated",
+              "draw_now",
+              "standard"
+            ],
+            "severity": "critical",
+            "safety_impact": true,
+            "improvement_suggestions": [
+              "Improve contraindication detection algorithms",
+              "Enhance specialized medication recommendations",
+              "Validate all medication recommendations against patient conditions",
+              "Ensure drug interaction checking is comprehensive"
+            ]
+          },
+          {
+            "case_id": "ATC051",
+            "failure_type": "medication",
+            "expected": [],
+            "actual": [
+              "consider",
+              "contraindicated",
+              "draw_now",
+              "standard"
+            ],
+            "severity": "critical",
+            "safety_impact": true,
+            "improvement_suggestions": [
+              "Improve contraindication detection algorithms",
+              "Enhance specialized medication recommendations",
+              "Validate all medication recommendations against patient conditions",
+              "Ensure drug interaction checking is comprehensive"
+            ]
+          },
+          {
+            "case_id": "ATC061",
+            "failure_type": "medication",
+            "expected": [],
+            "actual": [
+              "consider",
+              "contraindicated",
+              "draw_now",
+              "standard"
+            ],
+            "severity": "high",
+            "safety_impact": false,
+            "improvement_suggestions": [
+              "Validate all medication recommendations against patient conditions",
+              "Ensure drug interaction checking is comprehensive"
+            ]
+          },
+          {
+            "case_id": "ATC076",
+            "failure_type": "medication",
+            "expected": [],
+            "actual": [
+              "consider",
+              "contraindicated",
+              "draw_now",
+              "standard"
+            ],
+            "severity": "high",
+            "safety_impact": false,
+            "improvement_suggestions": [
+              "Validate all medication recommendations against patient conditions",
+              "Ensure drug interaction checking is comprehensive"
+            ]
+          }
+        ],
+        "actions": [
+          "Expand medication knowledge base",
+          "Improve drug interaction detection",
+          "Add more contraindication rules",
+          "Enhance dose calculation algorithms",
+          "Improve specialty-specific recommendations",
+          "Add evidence-based medication protocols"
+        ],
+        "estimated_effort": "Medium",
+        "timeline": "2-3 weeks"
+      }
+    },
+    "safety_validation": {
+      "approved": true,
+      "concerns": [],
+      "requires_review": false
+    }
+  },
+  "safety_approved": true
+}

@@ -112,6 +112,9 @@ class RiskEngine:
             if assessment:
                 risk_assessments.append(assessment)
 
+        # Apply clinical filtering: Only show high-severity outcomes when risk is elevated
+        risk_assessments = self._apply_clinical_filtering(risk_assessments)
+
         # Sort by absolute risk (highest first)
         risk_assessments.sort(key=lambda x: x.adjusted_risk, reverse=True)
 
@@ -924,3 +927,66 @@ class RiskEngine:
         # evidence["guidelines"] = self._get_guidelines(outcome_token)
 
         return evidence
+
+    def _apply_clinical_filtering(self, risk_assessments: List[RiskAssessment]) -> List[RiskAssessment]:
+        """
+        Filter out high-severity outcomes that should only be shown when risk is elevated.
+        Only shows these outcomes when there are contributing factors that increase risk.
+        """
+        # Define outcomes that should only be shown when risk is elevated
+        high_severity_outcomes = {
+            'FAILED_INTUBATION': {
+                'normal_baseline': 0.005,  # 0.5% - normal failed intubation rate
+                'max_baseline_to_show': 0.02,  # Don't show if baseline > 2%
+                'require_risk_factors': True   # Must have contributing factors to show
+            },
+            'VENTRICULAR_ARRHYTHMIA': {
+                'normal_baseline': 0.01,   # 1% - normal VT rate
+                'max_baseline_to_show': 0.03,  # Don't show if baseline > 3%
+                'require_risk_factors': True   # Must have contributing factors to show
+            },
+            'CARDIAC_ARREST': {
+                'normal_baseline': 0.001,  # 0.1% - normal arrest rate
+                'max_baseline_to_show': 0.01,  # Don't show if baseline > 1%
+                'require_risk_factors': True   # Must have contributing factors to show
+            },
+            'ANAPHYLAXIS': {
+                'normal_baseline': 0.001,  # 0.1% - normal anaphylaxis rate
+                'max_baseline_to_show': 0.005,  # Don't show if baseline > 0.5%
+                'require_risk_factors': False   # Can show without risk factors (drug allergies)
+            }
+        }
+
+        filtered_assessments = []
+
+        for assessment in risk_assessments:
+            outcome_config = high_severity_outcomes.get(assessment.outcome)
+
+            if outcome_config:
+                # This is a high-severity outcome - apply filtering
+                max_baseline = outcome_config['max_baseline_to_show']
+                require_risk_factors = outcome_config['require_risk_factors']
+
+                # Don't show if baseline is too high (indicates poor database data)
+                if assessment.baseline_risk > max_baseline:
+                    logger.debug(f"Filtered {assessment.outcome}: baseline {assessment.baseline_risk:.1%} > max {max_baseline:.1%}")
+                    continue
+
+                # If risk factors are required, only show when they exist
+                if require_risk_factors:
+                    has_risk_factors = (
+                        len(assessment.contributing_factors) > 0 or
+                        assessment.risk_ratio > 1.2  # 20% increase from baseline
+                    )
+
+                    if not has_risk_factors:
+                        logger.debug(f"Filtered {assessment.outcome}: no risk factors present")
+                        continue
+
+                # Passed all filters - show this outcome
+                filtered_assessments.append(assessment)
+            else:
+                # Not a high-severity outcome - always show
+                filtered_assessments.append(assessment)
+
+        return filtered_assessments

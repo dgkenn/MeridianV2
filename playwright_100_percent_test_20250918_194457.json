@@ -1,0 +1,49 @@
+{
+  "timestamp": "2025-09-18T19:44:57.214624",
+  "overall_accuracy": 0.0,
+  "perfect_cases": 0,
+  "total_cases": 8,
+  "target_achieved": false,
+  "detailed_results": [
+    {
+      "case_name": "Comprehensive Cardiac Case",
+      "error": "Locator.fill: Error: strict mode violation: locator(\"textarea\") resolved to 3 elements:\n    1) <textarea rows=\"12\" id=\"hpiText\" class=\"form-control\" placeholder=\"Enter patient HPI here...\"></textarea> aka get_by_role(\"textbox\", name=\"Enter patient HPI here...\")\n    2) <textarea rows=\"6\" required=\"\" id=\"issueDescription\" placeholder=\"Please describe the issue in detail:\u21b5\u21b5\u2022 What were you trying to do?\u21b5\u2022 What happened instead?\u21b5\u2022 What did you expect to happen?\u21b5\u2022 Can you reproduce this issue?\u21b5\u2022 Include any error messages if applicable\"></textarea> aka get_by_placeholder(\"Please describe the issue in\")\n    3) <textarea rows=\"3\" id=\"patientCase\" placeholder=\"If relevant, provide anonymized patient details (age, conditions, procedure) that triggered the issue\"></textarea> aka get_by_placeholder(\"If relevant, provide\")\n\nCall log:\n  - waiting for locator(\"textarea\")\n",
+      "accuracy": 0.0
+    },
+    {
+      "case_name": "Pediatric Respiratory Case",
+      "error": "Locator.fill: Error: strict mode violation: locator(\"textarea\") resolved to 3 elements:\n    1) <textarea rows=\"12\" id=\"hpiText\" class=\"form-control\" placeholder=\"Enter patient HPI here...\"></textarea> aka get_by_role(\"textbox\", name=\"Enter patient HPI here...\")\n    2) <textarea rows=\"6\" required=\"\" id=\"issueDescription\" placeholder=\"Please describe the issue in detail:\u21b5\u21b5\u2022 What were you trying to do?\u21b5\u2022 What happened instead?\u21b5\u2022 What did you expect to happen?\u21b5\u2022 Can you reproduce this issue?\u21b5\u2022 Include any error messages if applicable\"></textarea> aka get_by_placeholder(\"Please describe the issue in\")\n    3) <textarea rows=\"3\" id=\"patientCase\" placeholder=\"If relevant, provide anonymized patient details (age, conditions, procedure) that triggered the issue\"></textarea> aka get_by_placeholder(\"If relevant, provide\")\n\nCall log:\n  - waiting for locator(\"textarea\")\n",
+      "accuracy": 0.0
+    },
+    {
+      "case_name": "Emergency Trauma Case",
+      "error": "Locator.fill: Error: strict mode violation: locator(\"textarea\") resolved to 3 elements:\n    1) <textarea rows=\"12\" id=\"hpiText\" class=\"form-control\" placeholder=\"Enter patient HPI here...\"></textarea> aka get_by_role(\"textbox\", name=\"Enter patient HPI here...\")\n    2) <textarea rows=\"6\" required=\"\" id=\"issueDescription\" placeholder=\"Please describe the issue in detail:\u21b5\u21b5\u2022 What were you trying to do?\u21b5\u2022 What happened instead?\u21b5\u2022 What did you expect to happen?\u21b5\u2022 Can you reproduce this issue?\u21b5\u2022 Include any error messages if applicable\"></textarea> aka get_by_placeholder(\"Please describe the issue in\")\n    3) <textarea rows=\"3\" id=\"patientCase\" placeholder=\"If relevant, provide anonymized patient details (age, conditions, procedure) that triggered the issue\"></textarea> aka get_by_placeholder(\"If relevant, provide\")\n\nCall log:\n  - waiting for locator(\"textarea\")\n",
+      "accuracy": 0.0
+    },
+    {
+      "case_name": "Elderly Complex Case",
+      "error": "Locator.fill: Error: strict mode violation: locator(\"textarea\") resolved to 3 elements:\n    1) <textarea rows=\"12\" id=\"hpiText\" class=\"form-control\" placeholder=\"Enter patient HPI here...\"></textarea> aka get_by_role(\"textbox\", name=\"Enter patient HPI here...\")\n    2) <textarea rows=\"6\" required=\"\" id=\"issueDescription\" placeholder=\"Please describe the issue in detail:\u21b5\u21b5\u2022 What were you trying to do?\u21b5\u2022 What happened instead?\u21b5\u2022 What did you expect to happen?\u21b5\u2022 Can you reproduce this issue?\u21b5\u2022 Include any error messages if applicable\"></textarea> aka get_by_placeholder(\"Please describe the issue in\")\n    3) <textarea rows=\"3\" id=\"patientCase\" placeholder=\"If relevant, provide anonymized patient details (age, conditions, procedure) that triggered the issue\"></textarea> aka get_by_placeholder(\"If relevant, provide\")\n\nCall log:\n  - waiting for locator(\"textarea\")\n",
+      "accuracy": 0.0
+    },
+    {
+      "case_name": "Breakthrough Pattern Test 1",
+      "error": "Locator.fill: Error: strict mode violation: locator(\"textarea\") resolved to 3 elements:\n    1) <textarea rows=\"12\" id=\"hpiText\" class=\"form-control\" placeholder=\"Enter patient HPI here...\"></textarea> aka get_by_role(\"textbox\", name=\"Enter patient HPI here...\")\n    2) <textarea rows=\"6\" required=\"\" id=\"issueDescription\" placeholder=\"Please describe the issue in detail:\u21b5\u21b5\u2022 What were you trying to do?\u21b5\u2022 What happened instead?\u21b5\u2022 What did you expect to happen?\u21b5\u2022 Can you reproduce this issue?\u21b5\u2022 Include any error messages if applicable\"></textarea> aka get_by_placeholder(\"Please describe the issue in\")\n    3) <textarea rows=\"3\" id=\"patientCase\" placeholder=\"If relevant, provide anonymized patient details (age, conditions, procedure) that triggered the issue\"></textarea> aka get_by_placeholder(\"If relevant, provide\")\n\nCall log:\n  - waiting for locator(\"textarea\")\n",
+      "accuracy": 0.0
+    },
+    {
+      "case_name": "Breakthrough Pattern Test 2",
+      "error": "Locator.fill: Error: strict mode violation: locator(\"textarea\") resolved to 3 elements:\n    1) <textarea rows=\"12\" id=\"hpiText\" class=\"form-control\" placeholder=\"Enter patient HPI here...\"></textarea> aka get_by_role(\"textbox\", name=\"Enter patient HPI here...\")\n    2) <textarea rows=\"6\" required=\"\" id=\"issueDescription\" placeholder=\"Please describe the issue in detail:\u21b5\u21b5\u2022 What were you trying to do?\u21b5\u2022 What happened instead?\u21b5\u2022 What did you expect to happen?\u21b5\u2022 Can you reproduce this issue?\u21b5\u2022 Include any error messages if applicable\"></textarea> aka get_by_placeholder(\"Please describe the issue in\")\n    3) <textarea rows=\"3\" id=\"patientCase\" placeholder=\"If relevant, provide anonymized patient details (age, conditions, procedure) that triggered the issue\"></textarea> aka get_by_placeholder(\"If relevant, provide\")\n\nCall log:\n  - waiting for locator(\"textarea\")\n",
+      "accuracy": 0.0
+    },
+    {
+      "case_name": "Breakthrough Pattern Test 3",
+      "error": "Locator.fill: Error: strict mode violation: locator(\"textarea\") resolved to 3 elements:\n    1) <textarea rows=\"12\" id=\"hpiText\" class=\"form-control\" placeholder=\"Enter patient HPI here...\"></textarea> aka get_by_role(\"textbox\", name=\"Enter patient HPI here...\")\n    2) <textarea rows=\"6\" required=\"\" id=\"issueDescription\" placeholder=\"Please describe the issue in detail:\u21b5\u21b5\u2022 What were you trying to do?\u21b5\u2022 What happened instead?\u21b5\u2022 What did you expect to happen?\u21b5\u2022 Can you reproduce this issue?\u21b5\u2022 Include any error messages if applicable\"></textarea> aka get_by_placeholder(\"Please describe the issue in\")\n    3) <textarea rows=\"3\" id=\"patientCase\" placeholder=\"If relevant, provide anonymized patient details (age, conditions, procedure) that triggered the issue\"></textarea> aka get_by_placeholder(\"If relevant, provide\")\n\nCall log:\n  - waiting for locator(\"textarea\")\n",
+      "accuracy": 0.0
+    },
+    {
+      "case_name": "Breakthrough Pattern Test 4",
+      "error": "Locator.fill: Error: strict mode violation: locator(\"textarea\") resolved to 3 elements:\n    1) <textarea rows=\"12\" id=\"hpiText\" class=\"form-control\" placeholder=\"Enter patient HPI here...\"></textarea> aka get_by_role(\"textbox\", name=\"Enter patient HPI here...\")\n    2) <textarea rows=\"6\" required=\"\" id=\"issueDescription\" placeholder=\"Please describe the issue in detail:\u21b5\u21b5\u2022 What were you trying to do?\u21b5\u2022 What happened instead?\u21b5\u2022 What did you expect to happen?\u21b5\u2022 Can you reproduce this issue?\u21b5\u2022 Include any error messages if applicable\"></textarea> aka get_by_placeholder(\"Please describe the issue in\")\n    3) <textarea rows=\"3\" id=\"patientCase\" placeholder=\"If relevant, provide anonymized patient details (age, conditions, procedure) that triggered the issue\"></textarea> aka get_by_placeholder(\"If relevant, provide\")\n\nCall log:\n  - waiting for locator(\"textarea\")\n",
+      "accuracy": 0.0
+    }
+  ]
+}
