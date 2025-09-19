@@ -2852,4 +2852,4 @@ if __name__ == '__main__':
     print("[STARTING] Codex v2 Demo...")
     print("[INFO] Open browser to: http://localhost:8084")
 
-    app.run(host='0.0.0.0', port=8084, debug=True)
+    app.run(host='0.0.0.0', port=8084, debug=True)# Force restart for auto-initialization
