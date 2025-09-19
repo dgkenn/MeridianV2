@@ -440,12 +440,11 @@ class RiskEngine:
 
         # First try to get from evidence_based_adjusted_risks table (most specific)
         evidence_based_query = """
-            SELECT adjustment_multiplier, confidence_interval_lower, confidence_interval_upper,
-                   studies_count, evidence_grade, adjustment_type
+            SELECT odds_ratio, ci_low, ci_high,
+                   n_studies, evidence_grade
             FROM evidence_based_adjusted_risks
             WHERE outcome_token = ?
-            AND adjustment_type = ?
-            AND adjustment_category != 'baseline'
+            AND modifier_token = ?
             LIMIT 1
         """
 
@@ -475,17 +474,17 @@ class RiskEngine:
 
         # Fallback: Query risk modifiers table for this outcome-modifier combination
         effect_query = """
-            SELECT effect_estimate, confidence_interval_lower, confidence_interval_upper,
-                   studies_count, evidence_grade
+            SELECT odds_ratio, ci_low, ci_high,
+                   n_studies, evidence_grade
             FROM risk_modifiers
             WHERE outcome_token = ?
-            AND modifier_token = ?
+            AND factor_token = ?
             ORDER BY
                 CASE WHEN evidence_grade = 'A' THEN 1
                      WHEN evidence_grade = 'B' THEN 2
                      WHEN evidence_grade = 'C' THEN 3
                      ELSE 4 END,
-                studies_count DESC
+                n_studies DESC
             LIMIT 1
         """
 

@@ -1,0 +1,48 @@
+{
+  "timestamp": "2025-09-18T23:36:59.490452",
+  "total_cases_tested": 4,
+  "total_issues_found": 5,
+  "overall_status": "ISSUES_FOUND",
+  "detailed_results": [
+    {
+      "case_name": "OSA Patient - Should show elevated intubation risk",
+      "detected_risks": {},
+      "evaluation": {
+        "FAILED_INTUBATION": "NOT DETECTED"
+      },
+      "issues": [
+        "FAILED_INTUBATION expected to be elevated but not found"
+      ]
+    },
+    {
+      "case_name": "Asthmatic Patient - Should show elevated bronchospasm risk",
+      "detected_risks": {},
+      "evaluation": {
+        "BRONCHOSPASM": "NOT DETECTED"
+      },
+      "issues": [
+        "BRONCHOSPASM expected to be elevated but not found"
+      ]
+    },
+    {
+      "case_name": "Heart Failure Patient - Should show multiple elevated risks",
+      "detected_risks": {},
+      "evaluation": {
+        "HYPOTENSION": "NOT DETECTED",
+        "CARDIAC_ARREST": "NOT DETECTED",
+        "VENTRICULAR_ARRHYTHMIA": "NOT DETECTED"
+      },
+      "issues": [
+        "HYPOTENSION expected to be elevated but not found",
+        "CARDIAC_ARREST expected to be elevated but not found",
+        "VENTRICULAR_ARRHYTHMIA expected to be elevated but not found"
+      ]
+    },
+    {
+      "case_name": "Healthy Patient - Should show mostly baseline risks",
+      "detected_risks": {},
+      "evaluation": {},
+      "issues": []
+    }
+  ]
+}
