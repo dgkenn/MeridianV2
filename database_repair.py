@@ -64,8 +64,8 @@ def create_baseline_risks_table(conn):
     initial_count = conn.execute("SELECT COUNT(*) FROM baseline_risks").fetchone()[0]
     logger.info(f"baseline_risks table exists with {initial_count} records")
 
-        # Add essential baseline risks with comprehensive coverage
-        baseline_data = [
+    # Add essential baseline risks with comprehensive coverage
+    baseline_data = [
             # Pediatric dental procedures
             ("baseline_laryngospasm_ped_dental", "LARYNGOSPASM", "pediatric", "pediatric_dental", 0.008, 0.005, 0.012, 8, "B"),
             ("baseline_bronchospasm_ped_dental", "BRONCHOSPASM", "pediatric", "pediatric_dental", 0.005, 0.003, 0.008, 6, "B"),
@@ -103,15 +103,15 @@ def create_baseline_risks_table(conn):
             ("baseline_failed_intubation_mixed", "FAILED_INTUBATION", "mixed", "general", 0.0025, 0.0015, 0.0040, 20, "A"),
             ("baseline_aspiration_mixed", "ASPIRATION", "mixed", "general", 0.0035, 0.0025, 0.0055, 15, "B"),
             ("baseline_ponv_mixed", "PONV", "mixed", "general", 0.22, 0.18, 0.28, 30, "A"),
-        ]
+    ]
 
-        for row in baseline_data:
-            conn.execute("""
-                INSERT OR REPLACE INTO baseline_risks
-                (id, outcome_token, population, context_label, baseline_risk,
-                 confidence_interval_lower, confidence_interval_upper, studies_count, evidence_grade)
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
-            """, row)
+    for row in baseline_data:
+        conn.execute("""
+            INSERT OR REPLACE INTO baseline_risks
+            (id, outcome_token, population, context_label, baseline_risk,
+             confidence_interval_lower, confidence_interval_upper, studies_count, evidence_grade)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+        """, row)
 
     final_count = conn.execute("SELECT COUNT(*) FROM baseline_risks").fetchone()[0]
     logger.info(f"baseline_risks table updated: {initial_count} -> {final_count} records")
