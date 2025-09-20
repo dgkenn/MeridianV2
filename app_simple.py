@@ -4440,10 +4440,10 @@ HTML_TEMPLATE = """
         function formatMarkdownToHtml(markdown) {
             // Simple markdown formatting
             return markdown
-                .replace(/\\*\\*(.*?)\\*\\*/g, '<strong>$1</strong>')
-                .replace(/\\*(.*?)\\*/g, '<em>$1</em>')
-                .replace(/\\n\\n/g, '</p><p>')
-                .replace(/\\n/g, '<br>')
+                .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+                .replace(/\*(.*?)\*/g, '<em>$1</em>')
+                .replace(/\n\n/g, '</p><p>')
+                .replace(/\n/g, '<br>')
                 .replace(/^(.+)$/, '<p>$1</p>');
         }
 
