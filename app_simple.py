@@ -4204,7 +4204,7 @@ HTML_TEMPLATE = """
             }
 
             chipsContainer.innerHTML = chips.map(chip =>
-                `<span class="qa-chip" onclick="insertQuickQuery('${chip.query.replace(/'/g, "\\'")}')">${chip.label}</span>`
+                `<span class="qa-chip" onclick="insertQuickQuery('${chip.query.replace(/'/g, "\\\\'")}')">${chip.label}</span>`
             ).join('');
         }
 
