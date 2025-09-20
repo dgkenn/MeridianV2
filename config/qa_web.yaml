@@ -1,0 +1,78 @@
+# Q+A Web Guidelines Configuration
+# Allowed domains for clinical guideline sourcing
+
+web_guidelines:
+  # Allowed domains for guideline and literature searches
+  allow_domains:
+    # Professional Societies
+    - asahq.org                    # American Society of Anesthesiologists
+    - asra.com                     # American Society of Regional Anesthesia
+    - acc.org                      # American College of Cardiology
+    - aha.org                      # American Heart Association
+    - escardio.org                 # European Society of Cardiology
+    - soap.org                     # Society for Obstetric Anesthesia
+    - snacc.org                    # Society for Neuroscience in Anesthesia
+    - scahq.org                    # Society for Cardiovascular Anesthesia
+    - eras-society.org             # Enhanced Recovery After Surgery
+
+    # Government/Official Sources
+    - cdc.gov                      # Centers for Disease Control
+    - nice.org.uk                  # National Institute for Health
+    - who.int                      # World Health Organization
+    - fda.gov                      # FDA guidance documents
+
+    # Literature Databases
+    - pubmed.ncbi.nlm.nih.gov      # PubMed
+    - ncbi.nlm.nih.gov             # NIH/NCBI resources
+
+    # Major Medical Journals
+    - nejm.org                     # New England Journal of Medicine
+    - jamanetwork.com              # JAMA Network
+    - academic.oup.com             # Oxford Academic (includes BJA)
+    - lww.com                      # Lippincott Williams & Wilkins
+    - springer.com                 # Springer journals
+    - elsevier.com                 # Elsevier journals
+
+    # Specialty Guidelines
+    - ashp.org                     # American Society of Health-System Pharmacists
+    - pharmacist.com               # Pharmacist resources
+    - guidelines.gov               # Clinical practice guidelines
+
+  # Cache settings
+  cache_hours: 36                  # Cache guidelines for 36 hours
+  max_results: 6                   # Maximum results per search
+  recency_days_default: 3650       # Default search recency (10 years)
+
+  # Search preferences
+  prefer_societies: true           # Prioritize society guidelines
+  require_peer_review: true        # Only peer-reviewed sources
+
+  # Topic-specific recency overrides
+  recency_overrides:
+    covid: 365                     # COVID guidelines within 1 year
+    anticoagulation: 1825          # Anticoag guidelines within 5 years
+    airway: 2555                   # Airway guidelines within 7 years
+
+# Quality thresholds
+quality_filters:
+  min_evidence_level: "C"          # Minimum evidence level
+  require_doi: false               # DOI not required for societies
+  max_age_years: 15                # Maximum guideline age
+
+# Safety settings
+safety:
+  phi_detection: true              # Enable PHI detection in queries
+  query_logging: false             # Don't log actual questions
+  metrics_only: true               # Only log anonymized metrics
+
+# Rate limiting
+rate_limits:
+  requests_per_minute: 10          # Max web requests per minute
+  cache_first: true                # Always check cache first
+
+# Response formatting
+response:
+  max_citations: 5                 # Maximum citations per response
+  confidence_display: true         # Show confidence levels
+  calculation_details: true        # Show dose/risk calculations
+  action_buttons: true             # Include action buttons

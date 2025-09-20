@@ -1,0 +1,124 @@
+# Risk Display Configuration for Meridian
+# Patient-centric risk ranking and display thresholds
+
+# Display thresholds
+display_thresholds:
+  min_show_phat: 0.01        # 1% - minimum adjusted risk to show in organ tabs
+  min_show_delta_pp: 1.0     # 1 pp - minimum risk increase to show
+  hide_floor_phat: 0.005     # 0.5% - hide below this adjusted risk
+  hide_floor_delta_pp: 0.5   # 0.5 pp - hide below this risk increase
+  confidence_hide: "D"       # Hide items with this confidence level or lower
+  top_overall: 3             # Number of top risks to show in main strip
+  top_per_organ: 2           # Number of top risks per organ system
+
+# Priority scoring weights (must sum to 1.0)
+priority_weights:
+  w_phat: 0.50      # Weight for adjusted absolute risk (p̂)
+  w_delta: 0.25     # Weight for risk increase (Δpp)
+  w_conf: 0.15      # Weight for confidence score
+  w_mod: 0.05       # Weight for modifiability/mitigation available
+  w_time: 0.03      # Weight for time-critical window (intraop/periop)
+  w_cal: 0.02       # Weight for model calibration
+
+# Confidence score mapping
+confidence_scores:
+  A: 100
+  B: 75
+  C: 50
+  D: 25
+
+# Time-critical windows
+time_critical_windows:
+  - "intraop"
+  - "periop_24h"
+
+# Organ system groupings
+organ_systems:
+  cardiovascular:
+    - "MYOCARDIAL_INFARCTION"
+    - "CARDIAC_ARREST"
+    - "ARRHYTHMIA"
+    - "HYPOTENSION"
+    - "HYPERTENSION"
+
+  respiratory:
+    - "ASPIRATION"
+    - "PNEUMOTHORAX"
+    - "RESPIRATORY_FAILURE"
+    - "BRONCHOSPASM"
+    - "LARYNGOSPASM"
+
+  neurological:
+    - "STROKE"
+    - "SEIZURE"
+    - "AWARENESS"
+    - "DELIRIUM"
+    - "COGNITIVE_DYSFUNCTION"
+
+  renal:
+    - "ACUTE_KIDNEY_INJURY"
+    - "RENAL_FAILURE"
+
+  gastrointestinal:
+    - "NAUSEA_VOMITING"
+    - "ILEUS"
+    - "GI_BLEEDING"
+
+  infectious:
+    - "SEPSIS"
+    - "PNEUMONIA"
+    - "SURGICAL_SITE_INFECTION"
+
+  metabolic:
+    - "HYPOTHERMIA"
+    - "HYPERTHERMIA"
+    - "MALIGNANT_HYPERTHERMIA"
+    - "HYPERGLYCEMIA"
+    - "HYPOGLYCEMIA"
+
+  other:
+    - "ALLERGIC_REACTION"
+    - "ANAPHYLAXIS"
+    - "DENTAL_TRAUMA"
+    - "BLOOD_LOSS"
+
+# A/B testing variants
+ab_variants:
+  A:  # Conservative weighting
+    w_phat: 0.60
+    w_delta: 0.20
+    w_conf: 0.15
+    w_mod: 0.03
+    w_time: 0.01
+    w_cal: 0.01
+
+  B:  # Balanced weighting (default)
+    w_phat: 0.50
+    w_delta: 0.25
+    w_conf: 0.15
+    w_mod: 0.05
+    w_time: 0.03
+    w_cal: 0.02
+
+  C:  # Action-oriented weighting
+    w_phat: 0.40
+    w_delta: 0.25
+    w_conf: 0.15
+    w_mod: 0.15
+    w_time: 0.05
+    w_cal: 0.00
+
+# Feature flags
+features:
+  enable_baseline_banner: true
+  enable_time_critical_promotion: true
+  enable_organ_grouping: true
+  enable_search_hidden: true
+  enable_mitigation_links: true
+  enable_telemetry: true
+
+# Runtime tuning (can be updated without restart)
+runtime_config:
+  variant: "B"  # Current A/B test variant
+  last_updated: "2025-01-15T00:00:00Z"
+  updated_by: "system"
