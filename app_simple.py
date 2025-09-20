@@ -84,6 +84,16 @@ except ImportError as e:
 except Exception as e:
     logger.error(f"Error registering medication API: {e}")
 
+# Register Learning module
+try:
+    from src.learning.routes import learning_bp
+    app.register_blueprint(learning_bp)
+    logger.info("Learning API registered successfully")
+except ImportError as e:
+    logger.warning(f"Could not register learning API: {e}")
+except Exception as e:
+    logger.error(f"Error registering learning API: {e}")
+
 # Database configuration - use fixed path for production deployment
 DB_PATH = "database/production.duckdb"
 
@@ -1857,6 +1867,157 @@ HTML_TEMPLATE = """
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
+
+        /* Learning module styles */
+        .learning-subtabs {
+            display: flex;
+            margin: 1.5rem 0;
+            background: rgba(15, 23, 42, 0.3);
+            border-radius: 8px;
+            padding: 4px;
+            border: 1px solid rgba(37, 99, 235, 0.1);
+        }
+
+        .learning-tab {
+            flex: 1;
+            padding: 10px 14px;
+            text-align: center;
+            background: transparent;
+            border: none;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: #94a3b8;
+        }
+
+        .learning-tab:hover {
+            background: rgba(37, 99, 235, 0.1);
+            color: #e2e8f0;
+        }
+
+        .learning-tab.active {
+            background: linear-gradient(135deg, #1e40af 0%, #7c3aed 100%);
+            color: white;
+            box-shadow: 0 2px 10px rgba(37, 99, 235, 0.3);
+        }
+
+        .learning-section {
+            margin-top: 1rem;
+        }
+
+        .mode-button {
+            flex: 1;
+            padding: 1rem;
+            background: rgba(30, 41, 59, 0.5);
+            border: 2px solid rgba(148, 163, 184, 0.3);
+            border-radius: 12px;
+            color: #e2e8f0;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .mode-button:hover {
+            border-color: rgba(37, 99, 235, 0.5);
+            background: rgba(37, 99, 235, 0.1);
+        }
+
+        .mode-button.selected {
+            border-color: #2563eb;
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.2) 0%, rgba(139, 92, 246, 0.2) 100%);
+            box-shadow: 0 4px 20px rgba(37, 99, 235, 0.3);
+        }
+
+        .quiz-question {
+            background: rgba(15, 23, 42, 0.5);
+            border: 1px solid rgba(37, 99, 235, 0.2);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .quiz-options {
+            margin-top: 1rem;
+        }
+
+        .quiz-option {
+            display: block;
+            width: 100%;
+            padding: 1rem;
+            margin-bottom: 0.5rem;
+            background: rgba(30, 41, 59, 0.3);
+            border: 2px solid rgba(148, 163, 184, 0.2);
+            border-radius: 8px;
+            color: #e2e8f0;
+            text-align: left;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .quiz-option:hover {
+            border-color: rgba(37, 99, 235, 0.4);
+            background: rgba(37, 99, 235, 0.1);
+        }
+
+        .quiz-option.selected {
+            border-color: #2563eb;
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.2) 0%, rgba(139, 92, 246, 0.2) 100%);
+        }
+
+        .quiz-option.correct {
+            border-color: #10b981;
+            background: rgba(16, 185, 129, 0.2);
+        }
+
+        .quiz-option.incorrect {
+            border-color: #ef4444;
+            background: rgba(239, 68, 68, 0.2);
+        }
+
+        .quiz-progress {
+            background: rgba(15, 23, 42, 0.5);
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border: 1px solid rgba(37, 99, 235, 0.2);
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: rgba(30, 41, 59, 0.5);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-top: 0.5rem;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #2563eb 0%, #8b5cf6 100%);
+            transition: width 0.3s ease;
+        }
+
+        .results-summary {
+            background: rgba(15, 23, 42, 0.5);
+            border: 1px solid rgba(37, 99, 235, 0.2);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .score-display {
+            font-size: 2rem;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+
+        .score-excellent { color: #10b981; }
+        .score-good { color: #06b6d4; }
+        .score-fair { color: #f59e0b; }
+        .score-poor { color: #ef4444; }
     </style>
 </head>
 <body>
@@ -1885,6 +2046,7 @@ HTML_TEMPLATE = """
                 <button class="nav-tab" onclick="showSection('risks')">⚠️ Risk Analysis</button>
                 <button class="nav-tab" onclick="showSection('medications')">💊 Medications</button>
                 <button class="nav-tab" onclick="showSection('recommendations')">🎯 Clinical Recommendations</button>
+                <button class="nav-tab" onclick="showSection('learning')">🎓 Learning</button>
                 <button class="nav-tab" onclick="showSection('bugreport')">🐛 Report Issue</button>
             </div>
 
@@ -1927,6 +2089,101 @@ HTML_TEMPLATE = """
                     <h2>Clinical Decision Support</h2>
                     <div id="recommendationContent">
                         <div class="alert alert-info">Complete risk analysis to see evidence-based clinical recommendations.</div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="learning" class="section">
+                <div class="card">
+                    <h2>🎓 Patient-Anchored Learning</h2>
+                    <p style="color: #cbd5e1; margin-bottom: 1.5rem;">
+                        Generate case-based questions from this patient's HPI, risk factors, and medication plan.
+                        All questions are anchored to your current patient case.
+                    </p>
+
+                    <div id="learningContent">
+                        <div class="alert alert-info">
+                            Complete HPI analysis to generate patient-specific learning questions.
+                        </div>
+                    </div>
+
+                    <!-- Learning Sub-tabs -->
+                    <div id="learningTabs" class="learning-subtabs" style="display: none;">
+                        <button class="learning-tab active" onclick="showLearningSection('case-based')">📚 Case-Based Quiz</button>
+                        <button class="learning-tab" onclick="showLearningSection('progress')">📊 Progress</button>
+                        <button class="learning-tab" onclick="showLearningSection('cme')">🏆 CME Certificates</button>
+                        <button class="learning-tab" onclick="showLearningSection('report-problem')">⚠️ Report Problem</button>
+                    </div>
+
+                    <!-- Case-Based Quiz Section -->
+                    <div id="caseBased" class="learning-section">
+                        <div class="learning-mode-selector" style="margin-bottom: 1.5rem;">
+                            <h4 style="color: #e2e8f0; margin-bottom: 1rem;">Choose Learning Mode:</h4>
+                            <div style="display: flex; gap: 1rem; margin-bottom: 1rem;">
+                                <button class="mode-button" onclick="selectLearningMode('basics')" id="basicsMode">
+                                    🌱 BASICS<br><small>Junior Residents</small>
+                                </button>
+                                <button class="mode-button" onclick="selectLearningMode('board')" id="boardMode">
+                                    🎯 BOARD<br><small>Senior/Fellows</small>
+                                </button>
+                            </div>
+                            <div style="margin-bottom: 1rem;">
+                                <label style="color: #e2e8f0; margin-right: 1rem;">Questions: </label>
+                                <input type="number" id="numQuestions" value="6" min="3" max="15" style="width: 60px; padding: 0.25rem; background: rgba(30, 41, 59, 0.5); border: 1px solid rgba(148, 163, 184, 0.3); border-radius: 4px; color: #e2e8f0;">
+                            </div>
+                            <button onclick="generateLearningQuiz()" id="generateQuizBtn" class="btn btn-primary" disabled>
+                                🎓 Generate Patient-Specific Quiz
+                            </button>
+                        </div>
+
+                        <div id="quizContainer" style="display: none;">
+                            <div id="quizHeader"></div>
+                            <div id="quizContent"></div>
+                            <div id="quizControls"></div>
+                        </div>
+
+                        <div id="quizResults" style="display: none;">
+                            <div id="resultsContent"></div>
+                        </div>
+                    </div>
+
+                    <!-- Progress Section -->
+                    <div id="progress" class="learning-section" style="display: none;">
+                        <h4 style="color: #e2e8f0; margin-bottom: 1rem;">Learning Progress</h4>
+                        <div id="progressContent">
+                            <div class="alert alert-info">Complete some quizzes to see your progress.</div>
+                        </div>
+                    </div>
+
+                    <!-- CME Section -->
+                    <div id="cme" class="learning-section" style="display: none;">
+                        <h4 style="color: #e2e8f0; margin-bottom: 1rem;">CME Certificates</h4>
+                        <div id="cmeContent">
+                            <div class="alert alert-info">Complete quizzes with passing scores to earn CME certificates.</div>
+                        </div>
+                    </div>
+
+                    <!-- Report Problem Section -->
+                    <div id="reportProblem" class="learning-section" style="display: none;">
+                        <h4 style="color: #e2e8f0; margin-bottom: 1rem;">Report Learning Module Problem</h4>
+                        <form id="learningReportForm" onsubmit="submitLearningReport(event)">
+                            <div class="form-group" style="margin-bottom: 1rem;">
+                                <label style="display: block; margin-bottom: 0.5rem; color: #e2e8f0;">Problem Category</label>
+                                <select id="learningProblemCategory" required style="width: 100%; padding: 0.75rem; background: rgba(30, 41, 59, 0.5); border: 1px solid rgba(148, 163, 184, 0.3); border-radius: 8px; color: #e2e8f0;">
+                                    <option value="">Select category...</option>
+                                    <option value="incorrect-question">❌ Incorrect Question/Answer</option>
+                                    <option value="technical-error">🔧 Technical Error</option>
+                                    <option value="content-issue">📝 Content Issue</option>
+                                    <option value="ui-problem">🖥️ Interface Problem</option>
+                                    <option value="other">❓ Other</option>
+                                </select>
+                            </div>
+                            <div class="form-group" style="margin-bottom: 1rem;">
+                                <label style="display: block; margin-bottom: 0.5rem; color: #e2e8f0;">Description</label>
+                                <textarea id="learningProblemDescription" required rows="4" placeholder="Describe the problem..." style="width: 100%; padding: 0.75rem; background: rgba(30, 41, 59, 0.5); border: 1px solid rgba(148, 163, 184, 0.3); border-radius: 8px; color: #e2e8f0; resize: vertical;"></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary">📧 Submit Report</button>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -2150,6 +2407,9 @@ HTML_TEMPLATE = """
                 } else {
                     console.warn('No recommendations data found');
                 }
+
+                // Enable learning tab now that we have patient data
+                enableLearningTab();
                 showStatus('Analysis complete!', 'success');
             })
             .catch(err => {
@@ -2547,6 +2807,331 @@ HTML_TEMPLATE = """
             document.getElementById('medicationContent').innerHTML = '<div class="alert alert-info">Complete risk analysis to see medication recommendations.</div>';
             document.getElementById('recommendationContent').innerHTML = '<div class="alert alert-info">Complete risk analysis to see evidence-based clinical recommendations.</div>';
             currentData = null;
+        }
+
+        // Learning module functions
+        let selectedLearningMode = null;
+        let currentQuizSession = null;
+        let currentQuestionIndex = 0;
+        let userResponses = [];
+        let quizStartTime = null;
+
+        function showLearningSection(section) {
+            document.querySelectorAll('.learning-section').forEach(s => s.style.display = 'none');
+            document.querySelectorAll('.learning-tab').forEach(t => t.classList.remove('active'));
+
+            const sectionMap = {
+                'case-based': 'caseBased',
+                'progress': 'progress',
+                'cme': 'cme',
+                'report-problem': 'reportProblem'
+            };
+
+            document.getElementById(sectionMap[section]).style.display = 'block';
+            event.target.classList.add('active');
+        }
+
+        function selectLearningMode(mode) {
+            selectedLearningMode = mode;
+            document.querySelectorAll('.mode-button').forEach(b => b.classList.remove('selected'));
+            document.getElementById(mode + 'Mode').classList.add('selected');
+            document.getElementById('generateQuizBtn').disabled = false;
+        }
+
+        function enableLearningTab() {
+            if (currentData && currentData.parsed && currentData.parsed.extracted_factors) {
+                document.getElementById('learningContent').innerHTML = `
+                    <div class="alert alert-success">
+                        ✅ Patient case loaded! Ready to generate learning questions from this patient's data.
+                    </div>
+                `;
+                document.getElementById('learningTabs').style.display = 'flex';
+            }
+        }
+
+        function generateLearningQuiz() {
+            if (!selectedLearningMode) {
+                alert('Please select a learning mode first.');
+                return;
+            }
+
+            if (!currentData || !currentData.parsed) {
+                alert('Please analyze an HPI first to generate patient-specific questions.');
+                return;
+            }
+
+            const numQuestions = parseInt(document.getElementById('numQuestions').value) || 6;
+
+            document.getElementById('generateQuizBtn').disabled = true;
+            document.getElementById('generateQuizBtn').innerHTML = '🔄 Generating Questions...';
+
+            // Prepare app state for learning API
+            const appState = {
+                parsed_hpi: currentData.parsed,
+                risk_assessments: currentData.risks || [],
+                medication_plan: currentData.medications || {},
+                guidelines: []
+            };
+
+            // Set case data for learning API
+            fetch('/api/learning/dev/set-case-data', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(appState)
+            })
+            .then(() => {
+                // Generate learning session
+                return fetch('/api/learning/generate', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        mode: selectedLearningMode,
+                        n_items: numQuestions,
+                        case_context: true
+                    })
+                });
+            })
+            .then(r => r.json())
+            .then(data => {
+                if (data.error) {
+                    throw new Error(data.error);
+                }
+
+                currentQuizSession = data;
+                currentQuestionIndex = 0;
+                userResponses = [];
+                quizStartTime = Date.now();
+
+                displayQuiz();
+            })
+            .catch(error => {
+                console.error('Error generating quiz:', error);
+                alert('Failed to generate quiz: ' + error.message);
+            })
+            .finally(() => {
+                document.getElementById('generateQuizBtn').disabled = false;
+                document.getElementById('generateQuizBtn').innerHTML = '🎓 Generate Patient-Specific Quiz';
+            });
+        }
+
+        function displayQuiz() {
+            if (!currentQuizSession || !currentQuizSession.items) return;
+
+            const item = currentQuizSession.items[currentQuestionIndex];
+            const progress = ((currentQuestionIndex + 1) / currentQuizSession.items.length) * 100;
+
+            document.getElementById('quizHeader').innerHTML = `
+                <div class="quiz-progress">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <span>Question ${currentQuestionIndex + 1} of ${currentQuizSession.items.length}</span>
+                        <span>${selectedLearningMode.toUpperCase()} Mode</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: ${progress}%"></div>
+                    </div>
+                </div>
+            `;
+
+            document.getElementById('quizContent').innerHTML = `
+                <div class="quiz-question">
+                    <h4 style="color: #e2e8f0; margin-bottom: 1rem;">${item.stem}</h4>
+                    <div class="quiz-options">
+                        ${item.options.map((option, index) => `
+                            <button class="quiz-option" onclick="selectAnswer(${index})" data-index="${index}">
+                                ${String.fromCharCode(65 + index)}. ${option}
+                            </button>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+
+            document.getElementById('quizControls').innerHTML = `
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <button onclick="previousQuestion()" ${currentQuestionIndex === 0 ? 'disabled' : ''} class="btn btn-secondary">
+                        ← Previous
+                    </button>
+                    <div style="color: #94a3b8; font-size: 0.9rem;">
+                        Patient Anchors: ${item.patient_anchors ? item.patient_anchors.join(', ') : 'General'}
+                    </div>
+                    <button onclick="nextQuestion()" id="nextBtn" disabled class="btn btn-primary">
+                        ${currentQuestionIndex === currentQuizSession.items.length - 1 ? 'Finish Quiz' : 'Next →'}
+                    </button>
+                </div>
+            `;
+
+            document.getElementById('quizContainer').style.display = 'block';
+        }
+
+        function selectAnswer(index) {
+            document.querySelectorAll('.quiz-option').forEach(opt => opt.classList.remove('selected'));
+            event.target.classList.add('selected');
+
+            // Store response
+            const responseTime = Date.now() - (quizStartTime + (currentQuestionIndex * 60000)); // Rough timing
+            userResponses[currentQuestionIndex] = {
+                item_id: currentQuizSession.items[currentQuestionIndex].item_id,
+                selected_answers: [index],
+                time_ms: Math.max(1000, responseTime) // Minimum 1 second
+            };
+
+            document.getElementById('nextBtn').disabled = false;
+        }
+
+        function nextQuestion() {
+            if (currentQuestionIndex < currentQuizSession.items.length - 1) {
+                currentQuestionIndex++;
+                displayQuiz();
+            } else {
+                finishQuiz();
+            }
+        }
+
+        function previousQuestion() {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                displayQuiz();
+            }
+        }
+
+        function finishQuiz() {
+            // Submit responses for grading
+            fetch('/api/learning/grade', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    session_id: currentQuizSession.session_id,
+                    responses: userResponses
+                })
+            })
+            .then(r => r.json())
+            .then(data => {
+                displayQuizResults(data);
+            })
+            .catch(error => {
+                console.error('Error grading quiz:', error);
+                alert('Failed to grade quiz: ' + error.message);
+            });
+        }
+
+        function displayQuizResults(results) {
+            document.getElementById('quizContainer').style.display = 'none';
+
+            const scoreClass =
+                results.percentage >= 90 ? 'score-excellent' :
+                results.percentage >= 80 ? 'score-good' :
+                results.percentage >= 70 ? 'score-fair' : 'score-poor';
+
+            document.getElementById('resultsContent').innerHTML = `
+                <div class="results-summary">
+                    <div class="score-display ${scoreClass}">
+                        ${results.percentage}%
+                    </div>
+                    <div style="text-align: center; color: #94a3b8; margin-bottom: 1rem;">
+                        ${results.score} out of ${currentQuizSession.items.length} correct
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
+                        <div>
+                            <strong style="color: #e2e8f0;">Time:</strong><br>
+                            <span style="color: #94a3b8;">${Math.round(results.total_time_sec / 60)} minutes</span>
+                        </div>
+                        <div>
+                            <strong style="color: #e2e8f0;">CME Hours:</strong><br>
+                            <span style="color: #94a3b8;">${results.cme_hours.toFixed(2)} hours</span>
+                        </div>
+                    </div>
+
+                    ${results.strengths.length > 0 ? `
+                        <div style="margin-bottom: 1rem;">
+                            <strong style="color: #10b981;">Strengths:</strong><br>
+                            <span style="color: #94a3b8;">${results.strengths.join(', ')}</span>
+                        </div>
+                    ` : ''}
+
+                    ${results.weaknesses.length > 0 ? `
+                        <div style="margin-bottom: 1rem;">
+                            <strong style="color: #f59e0b;">Areas for Improvement:</strong><br>
+                            <span style="color: #94a3b8;">${results.weaknesses.join(', ')}</span>
+                        </div>
+                    ` : ''}
+
+                    ${results.passes_cme_threshold ? `
+                        <button onclick="generateCMECertificate()" class="btn btn-primary" style="margin-top: 1rem;">
+                            🏆 Generate CME Certificate
+                        </button>
+                    ` : `
+                        <div style="color: #f59e0b; margin-top: 1rem;">
+                            Score below 70% required for CME certificate. Try again!
+                        </div>
+                    `}
+                </div>
+
+                <button onclick="startNewQuiz()" class="btn btn-secondary" style="margin-right: 1rem;">
+                    🔄 New Quiz
+                </button>
+                <button onclick="reviewAnswers()" class="btn btn-outline">
+                    📖 Review Answers
+                </button>
+            `;
+
+            document.getElementById('quizResults').style.display = 'block';
+        }
+
+        function generateCMECertificate() {
+            fetch('/api/learning/cme/certificate', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    session_id: currentQuizSession.session_id,
+                    attestation: true
+                })
+            })
+            .then(r => r.json())
+            .then(data => {
+                alert(`CME Certificate generated! Certificate ID: ${data.certificate_id}`);
+            })
+            .catch(error => {
+                console.error('Error generating certificate:', error);
+                alert('Failed to generate certificate: ' + error.message);
+            });
+        }
+
+        function startNewQuiz() {
+            document.getElementById('quizResults').style.display = 'none';
+            currentQuizSession = null;
+            currentQuestionIndex = 0;
+            userResponses = [];
+        }
+
+        function reviewAnswers() {
+            // Implementation for detailed answer review
+            alert('Answer review feature coming soon!');
+        }
+
+        function submitLearningReport(event) {
+            event.preventDefault();
+
+            const category = document.getElementById('learningProblemCategory').value;
+            const description = document.getElementById('learningProblemDescription').value;
+
+            fetch('/api/learning/report', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    route: '/learning',
+                    message: `Category: ${category}\\n\\nDescription: ${description}`,
+                    include_console: false
+                })
+            })
+            .then(r => r.json())
+            .then(data => {
+                alert('Thank you! Your report has been submitted.');
+                document.getElementById('learningReportForm').reset();
+            })
+            .catch(error => {
+                console.error('Error submitting report:', error);
+                alert('Failed to submit report. Please try again.');
+            });
         }
 
         // Initialize
