@@ -117,6 +117,18 @@ def create_baseline_risks_table(conn):
             ("baseline_failed_intubation_mixed", "FAILED_INTUBATION", "mixed", "general", 0.0025, 0.0015, 0.0040, 20, "A"),
             ("baseline_aspiration_mixed", "ASPIRATION", "mixed", "general", 0.0035, 0.0025, 0.0055, 15, "B"),
             ("baseline_ponv_mixed", "PONV", "mixed", "general", 0.22, 0.18, 0.28, 30, "A"),
+
+            # Adult with adult_general context (exact match for what system requests)
+            ("baseline_ponv_adult_general", "PONV", "adult", "adult_general", 0.20, 0.15, 0.25, 25, "A"),
+            ("baseline_mortality_24h_adult_general", "MORTALITY_24H", "adult", "adult_general", 0.0001, 0.00005, 0.0002, 15, "A"),
+            ("baseline_mortality_30d_adult_general", "MORTALITY_30D", "adult", "adult_general", 0.0008, 0.0005, 0.0012, 20, "A"),
+            ("baseline_mortality_inhospital_adult_general", "MORTALITY_INHOSPITAL", "adult", "adult_general", 0.0005, 0.0003, 0.0008, 18, "A"),
+            ("baseline_failed_intubation_adult_general", "FAILED_INTUBATION", "adult", "adult_general", 0.002, 0.001, 0.004, 12, "A"),
+            ("baseline_laryngospasm_adult_general", "LARYNGOSPASM", "adult", "adult_general", 0.005, 0.003, 0.008, 10, "B"),
+            ("baseline_bronchospasm_adult_general", "BRONCHOSPASM", "adult", "adult_general", 0.006, 0.004, 0.009, 8, "B"),
+            ("baseline_difficult_intubation_adult_general", "DIFFICULT_INTUBATION", "adult", "adult_general", 0.08, 0.06, 0.11, 15, "A"),
+            ("baseline_aspiration_adult_general", "ASPIRATION", "adult", "adult_general", 0.003, 0.002, 0.005, 8, "B"),
+            ("baseline_hypotension_adult_general", "INTRAOP_HYPOTENSION", "adult", "adult_general", 0.15, 0.12, 0.18, 20, "B"),
     ]
 
     for row in baseline_data:
