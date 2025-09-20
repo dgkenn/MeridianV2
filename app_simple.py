@@ -2115,9 +2115,27 @@ HTML_TEMPLATE = """
             .then(r => r.json())
             .then(data => {
                 currentData = data;
-                // Add error handling and use correct data structure
+
+                // Handle both full success and partial success responses
+                let extractedFactors = null;
                 if (data.parsed && data.parsed.extracted_factors) {
-                    displayFactors(data.parsed.extracted_factors);
+                    // Full success response format
+                    extractedFactors = data.parsed.extracted_factors;
+                } else if (data.extracted_factors) {
+                    // Partial success response format (new resilient handling)
+                    extractedFactors = data.extracted_factors;
+                }
+
+                if (extractedFactors) {
+                    displayFactors(extractedFactors);
+
+                    // Show warnings if this is a partial success
+                    if (data.status === 'partial_success' && data.warnings) {
+                        let warningMsg = 'HPI parsing successful with warnings:\n' + data.warnings.join('\n');
+                        showStatus(warningMsg, 'warning');
+                    } else {
+                        showStatus('HPI parsing completed successfully', 'success');
+                    }
                 } else {
                     console.error('Missing extracted_factors in response:', data);
                     showStatus('Error: Unable to parse HPI factors', 'error');
