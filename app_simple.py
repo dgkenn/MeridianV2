@@ -3264,7 +3264,7 @@ HTML_TEMPLATE = """
 
             const config = riskConfig[level] || riskConfig['minimal'];
             const hasSpecificOutcomes = originalRisk && originalRisk.specific_outcomes && originalRisk.specific_outcomes.length > 0;
-            const riskId = `risk-${outcome.outcome.replace(/[^a-zA-Z0-9]/g, '')}`;
+            const riskId = `risk-${outcome.outcome.replace(new RegExp('[^a-zA-Z0-9]', 'g'), '')}`;
 
             let html = `
                 <div class="risk-item ${level}" onclick="${hasSpecificOutcomes ? `toggleRiskDetails('${riskId}')` : ''}"
@@ -3303,12 +3303,12 @@ HTML_TEMPLATE = """
                 html += `
                     <div id="${riskId}" class="risk-details" style="display: none;">
                         ${originalRisk.specific_outcomes.map(specificOutcome => `
-                            <div class="outcome-item" onclick="toggleOutcomeDetails('${specificOutcome.name.replace(/[^a-zA-Z0-9]/g, '')}')">
+                            <div class="outcome-item" onclick="toggleOutcomeDetails('${specificOutcome.name.replace(new RegExp('[^a-zA-Z0-9]', 'g'), '')}')">
                                 <div class="outcome-header">
                                     <strong>${specificOutcome.name}</strong>: ${(specificOutcome.risk * 100).toFixed(1)}%
                                     <span style="font-size: 0.8rem; opacity: 0.7;">▼ Click for explanation</span>
                                 </div>
-                                <div id="outcome-${specificOutcome.name.replace(/[^a-zA-Z0-9]/g, '')}" class="outcome-explanation" style="display: none;">
+                                <div id="outcome-${specificOutcome.name.replace(new RegExp('[^a-zA-Z0-9]', 'g'), '')}" class="outcome-explanation" style="display: none;">
                                     <div style="margin: 1rem 0; padding: 1rem; background: rgba(255,255,255,0.03); border-radius: 8px;">
                                         <p><strong>Explanation:</strong> ${specificOutcome.explanation}</p>
                                         <p style="margin-top: 0.5rem;"><strong>Management:</strong> ${specificOutcome.management}</p>
@@ -4440,11 +4440,11 @@ HTML_TEMPLATE = """
         function formatMarkdownToHtml(markdown) {
             // Simple markdown formatting
             return markdown
-                .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-                .replace(/\*(.*?)\*/g, '<em>$1</em>')
-                .replace(/\n\n/g, '</p><p>')
-                .replace(/\n/g, '<br>')
-                .replace(/^(.+)$/, '<p>$1</p>');
+                .replace(new RegExp('\\\\*\\\\*(.*?)\\\\*\\\\*', 'g'), '<strong>$1</strong>')
+                .replace(new RegExp('\\\\*(.*?)\\\\*', 'g'), '<em>$1</em>')
+                .replace(new RegExp('\\\\n\\\\n', 'g'), '</p><p>')
+                .replace(new RegExp('\\\\n', 'g'), '<br>')
+                .replace(new RegExp('^(.+)$'), '<p>$1</p>');
         }
 
         function clearQAHistory() {
