@@ -3121,7 +3121,7 @@ HTML_TEMPLATE = """
             try {
                 // Convert risks to expected format for risk display service
                 const riskOutcomes = data.risks.map(risk => ({
-                    outcome: risk.outcome || risk.outcome_label.toUpperCase().replace(/\s+/g, '_'),
+                    outcome: risk.outcome || risk.outcome_label.toUpperCase().replace(/\\s+/g, '_'),
                     outcome_label: risk.outcome_label,
                     window: risk.window || 'periop',
                     baseline_risk: risk.baseline_risk,
@@ -4182,7 +4182,7 @@ HTML_TEMPLATE = """
             };
 
             features.forEach(feature => {
-                const key = feature.toLowerCase().replace(/\s+/g, '_');
+                const key = feature.toLowerCase().replace(/\\s+/g, '_');
                 if (chipMap[key]) {
                     chips.push({
                         label: chipMap[key],
@@ -4440,10 +4440,10 @@ HTML_TEMPLATE = """
         function formatMarkdownToHtml(markdown) {
             // Simple markdown formatting
             return markdown
-                .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-                .replace(/\*(.*?)\*/g, '<em>$1</em>')
-                .replace(/\n\n/g, '</p><p>')
-                .replace(/\n/g, '<br>')
+                .replace(/\\*\\*(.*?)\\*\\*/g, '<strong>$1</strong>')
+                .replace(/\\*(.*?)\\*/g, '<em>$1</em>')
+                .replace(/\\n\\n/g, '</p><p>')
+                .replace(/\\n/g, '<br>')
                 .replace(/^(.+)$/, '<p>$1</p>');
         }
 
