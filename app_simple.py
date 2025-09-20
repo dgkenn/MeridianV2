@@ -3055,7 +3055,7 @@ HTML_TEMPLATE = """
 
                     // Show warnings if this is a partial success
                     if (data.status === 'partial_success' && data.warnings) {
-                        let warningMsg = 'HPI parsing successful with warnings:\\n' + data.warnings.join('\\n');
+                        let warningMsg = 'HPI parsing successful with warnings:\n' + data.warnings.join('\n');
                         showStatus(warningMsg, 'warning');
                     } else {
                         showStatus('HPI parsing completed successfully', 'success');
@@ -4108,7 +4108,7 @@ HTML_TEMPLATE = """
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     route: '/learning',
-                    message: `Category: ${category}\\n\\nDescription: ${description}`,
+                    message: `Category: ${category}\n\nDescription: ${description}`,
                     include_console: false
                 })
             })
