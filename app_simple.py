@@ -2681,47 +2681,26 @@ def analyze():
             'status': 'error'
         }), 504
     except Exception as e:
-        # Handle specific error types with detailed codes
-        if "No risk estimates available" in str(e):
+        # Handle specific error types with detailed codes - but return parsed data when possible
+        if "No risk estimates available" in str(e) or "max() arg is an empty sequence" in str(e):
+            # Even if risk calculation fails, return the parsed factors and demographics
+            logger.warning(f"Risk calculation failed but returning parsed data: {str(e)}")
+
             return jsonify({
-                'error': 'Risk calculation temporarily unavailable - missing baseline data',
-                'error_code': 'MISSING_BASELINE',
-                'status': 'error',
+                'extracted_factors': parsed.get('extracted_factors', []),
+                'demographics': parsed.get('demographics', {}),
+                'risks': [],  # Empty risks due to missing baseline data
+                'medications': [],  # Empty meds since risk calc failed
+                'recommendations': [],  # Empty recommendations since risk calc failed
+                'status': 'partial_success',
+                'warnings': [
+                    'Risk calculations unavailable - missing baseline risk data',
+                    'Medications and recommendations unavailable due to risk calculation failure',
+                    'HPI parsing and factor extraction completed successfully'
+                ],
+                'error_code': 'MISSING_BASELINE_DATA',
                 'fallback_available': True
-            }), 500
-        elif "max() arg is an empty sequence" in str(e):
-            # Determine population from demographics
-            population = "mixed"  # Default
-            if parsed.get('demographics', {}).get('age_category'):
-                age_cat = parsed['demographics']['age_category']
-                if age_cat in ["AGE_INFANT", "AGE_TODDLER", "AGE_CHILD", "AGE_ADOLESCENT"]:
-                    population = "pediatric"
-                elif age_cat in ["AGE_ADULT_YOUNG", "AGE_ADULT_MIDDLE", "AGE_ELDERLY", "AGE_VERY_ELDERLY"]:
-                    population = "adult"
-
-            # CRITICAL FIX: Extract the actual medical outcome instead of hardcoding "unknown"
-            # Look for the key airway outcomes that OSA should map to
-            extracted_outcomes = []
-            for factor in parsed.get('extracted_factors', []):
-                if factor.get('token') == 'OSA':
-                    # OSA should trigger failed intubation risk calculations
-                    extracted_outcomes.extend(['FAILED_INTUBATION', 'DIFFICULT_INTUBATION', 'DIFFICULT_MASK_VENTILATION'])
-                    break
-
-            # Use the first extracted outcome or fallback to a general airway outcome
-            outcome_token = extracted_outcomes[0] if extracted_outcomes else "FAILED_INTUBATION"
-
-            codex_error = handle_risk_empty_sequence_error(
-                outcome_token=outcome_token,
-                population=population
-            )
-            error_logger.log_error(codex_error)
-            return jsonify({
-                "error_code": codex_error.error_code.value,
-                "error": codex_error.message,
-                "details": codex_error.details,
-                "trace_id": codex_error.trace_id
-            }), 500
+            }), 200  # Return 200 since parsing succeeded, just risk calc failed
         elif "parse" in str(e).lower():
             codex_error = handle_hpi_parse_error(hpi_text, e)
             error_logger.log_error(codex_error)
