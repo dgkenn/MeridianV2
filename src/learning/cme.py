@@ -163,7 +163,7 @@ class CMEManager:
         """
         # This would use a PDF generation library like reportlab
         # For now, return placeholder
-        certificate_text = f\"\"\"
+        certificate_text = f"""
 CERTIFICATE OF COMPLETION
 
 {self.provider}
@@ -187,7 +187,7 @@ This activity has been planned and implemented in accordance with the
 accreditation requirements and policies of the {self.accreditor}.
 
 Certificate expires: {certificate.expires_at.strftime('%B %d, %Y')}
-\"\"\"
+"""
 
         # In production, would generate actual PDF
         logger.info(f"Generated PDF certificate for {certificate.certificate_id}")
