@@ -2141,16 +2141,10 @@ HTML_TEMPLATE = """
                     showStatus('Error: Unable to parse HPI factors', 'error');
                     return;
                 }
-                if (data.risks) {
-                    displayRisks(data.risks);
-                } else {
-                    console.warn('No risks data found');
-                }
-                if (data.medications) {
-                    displayMedications(data.medications);
-                } else {
-                    console.warn('No medications data found');
-                }
+                // Always call display functions to show proper "no data" messages
+                displayRisks(data.risks || data);
+                displayMedications(data.medications);
+
                 if (data.recommendations_html) {
                     displayRecommendations(data.recommendations_html);
                 } else {
@@ -2165,7 +2159,7 @@ HTML_TEMPLATE = """
 
         function displayFactors(factors) {
             const panel = document.getElementById('factorsPanel');
-            if (factors.length === 0) {
+            if (!factors || !Array.isArray(factors) || factors.length === 0) {
                 panel.innerHTML = '<p class="text-muted small">No risk factors detected</p>';
                 return;
             }
@@ -2179,7 +2173,7 @@ HTML_TEMPLATE = """
 
         function displayRisks(data) {
             const content = document.getElementById('riskContent');
-            if (data.risks.length === 0) {
+            if (!data || !data.risks || !Array.isArray(data.risks) || data.risks.length === 0) {
                 content.innerHTML = '<div class="alert alert-info">No significant risks identified</div>';
                 return;
             }
@@ -2293,6 +2287,13 @@ HTML_TEMPLATE = """
 
         function displayMedications(data) {
             const content = document.getElementById('medicationContent');
+
+            // Handle empty or undefined medication data
+            if (!data) {
+                content.innerHTML = '<div class="alert alert-info">No medication recommendations available</div>';
+                return;
+            }
+
             let html = '';
 
             // CONTRAINDICATED (highest priority - top)
