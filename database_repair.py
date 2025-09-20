@@ -46,6 +46,16 @@ def repair_database(db_path="database/production.duckdb"):
 
 def create_baseline_risks_table(conn):
     """Create baseline_risks table if it doesn't exist and add/update baseline data"""
+    # Check if table exists and has correct schema
+    try:
+        # Try to query the table with expected schema
+        conn.execute("SELECT id FROM baseline_risks LIMIT 1")
+        logger.info("baseline_risks table exists with correct schema")
+    except Exception as e:
+        logger.info(f"Recreating baseline_risks table due to schema issue: {e}")
+        # Drop and recreate table with correct schema
+        conn.execute("DROP TABLE IF EXISTS baseline_risks")
+
     conn.execute("""
         CREATE TABLE IF NOT EXISTS baseline_risks (
             id TEXT PRIMARY KEY,
