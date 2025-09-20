@@ -85,7 +85,7 @@ except Exception as e:
     logger.error(f"Error registering medication API: {e}")
 
 # Database configuration - use fixed path for production deployment
-DB_PATH = "evidence_base.db"
+DB_PATH = "database/production.duckdb"
 
 def initialize_database():
     """Initialize database with complete evidence data on startup if it doesn't exist or is empty"""
