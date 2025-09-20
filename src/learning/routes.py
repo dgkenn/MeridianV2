@@ -343,7 +343,7 @@ def _send_problem_report_email(report: Dict[str, Any]) -> bool:
         msg['To'] = recipient_email
         msg['Subject'] = f"Meridian Learning Module Problem Report - {report['route']}"
 
-        body = f\"\"\"
+        body = f"""
 Problem Report from Meridian Learning Module
 
 Route: {report['route']}
@@ -355,7 +355,7 @@ Message:
 {report['message']}
 
 Include Console Logs: {report['include_console']}
-\"\"\"
+"""
 
         msg.attach(MIMEText(body, 'plain'))
 

@@ -23,4 +23,5 @@ python-dotenv==1.0.0
 pytest==7.4.3
 black==23.12.1
 isort==5.13.2
-gunicorn==21.2.0# POPULATION CLASSIFICATION FIX 1758303876
+gunicorn==21.2.0
+PyYAML==6.0.1
